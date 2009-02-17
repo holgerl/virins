@@ -1,0 +1,124 @@
+\documentclass[12pt]{report}
+\pagestyle{headings}
+\usepackage{rotating}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage[tt]{titlepic}
+\usepackage{verbatim}
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.1in}
+\setcounter{secnumdepth}{1}
+\setcounter{tocdepth}{1}
+
+\addtolength{\textheight}{2cm}
+%\addtolength{\footskip}{2cm}
+
+\newcommand\placeholder[2]{
+	\noindent
+	{\setlength{\fboxsep}{0pt}
+		\makebox[#1]{
+			\parbox{0pt}{\rule{0pt}{#2}}
+			\parbox{#1}{\centering
+				\includegraphics[width=0.50\textwidth]{logo.ps}
+			}
+		}
+	}
+}
+
+\author{Holger Ludvigsen,\\Vegar Neshaug,\\Jon Skarpetveit,\\Rahele Zarabi,\\Christoffer Etellerannet}
+\title{{\small Eksperter i Team\\TPG4850 VR-Landsbyen}\\\textbf{Team 4 (V.I)}}
+\date{{\small \today}}
+\titlepic{\placeholder{\textwidth}{0.5\textwidth}}
+
+\begin{document}
+\maketitle
+
+\pagenumbering{roman}
+
+\begin{verbatim}
+
+\chapter*{Summary of report}
+	\input{summary.tex}
+	\pagebreak
+	
+\setlength{\parskip}{0.0in}
+\tableofcontents
+\listoftables
+\listoffigures
+\input{list_of_acronyms.tex}
+\pagebreak
+\setlength{\parskip}{0.1in}
+
+\pagenumbering{arabic}
+\setcounter{page}{1} % start normal page counting here
+
+\input{intro.tex}
+
+\part{Project plan}
+
+	\input{project_plan_introduction.tex}
+	
+	\input{organization.tex}
+	
+	\input{project_context.tex}
+	
+		\input{risk_text.tex}
+		
+	\input{time_plan.tex}
+	
+	\input{project_plan_summary.tex}
+	
+\part{Preliminary Study}
+
+	\input{pre_study_introduction.tex}
+	
+	\input{pre_study.tex}
+	
+	\input{pre_study_summary.tex}
+	
+\part{Requirement Engineering}
+
+	\input{req_eng_introduction.tex}
+
+	\input{req_eng.tex}
+	
+	\input{req_eng_summary.tex}
+	
+\part{Testing}
+
+	\input{testing_introduction.tex}
+
+	\input{testing.tex}
+	
+	\input{testing_summary.tex}
+	
+\part{Aftermath}
+
+	\input{aftermath_introduction.tex}
+		
+	\chapter{The results}
+		
+	\chapter{Further work}
+	
+	\chapter{Evaluation}
+	
+	\input{aftermath_summary.tex}
+
+\appendix
+
+	
+
+\pagestyle{plain}
+\pagebreak
+\pagenumbering{roman}
+\setcounter{page}{1} % end normal page counting here
+
+\input{glossary.tex}
+
+\nocite {a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20,a21}
+\bibliographystyle{plain}	
+\bibliography{literature}
+	
+\end{verbatim}
+
+\end{document}
