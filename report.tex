@@ -18,14 +18,15 @@
 	{\setlength{\fboxsep}{0pt}
 		\makebox[#1]{
 			\parbox{0pt}{\rule{0pt}{#2}}
-			\parbox{#1}{\centering
+			\parbox{#1}{
+				\centering
 				\includegraphics[width=0.50\textwidth]{logo.ps}
 			}
 		}
 	}
 }
 
-\author{Holger Ludvigsen,\\Vegar Neshaug,\\Jon Skarpetveit,\\Rahele Zarabi,\\Christoffer Etellerannet}
+\author{Holger Ludvigsen,\\Vegar Neshaug,\\Jon Skarpetveit,\\Rahele Zarabi,\\Kristoffer Selboe}
 \title{{\small Eksperter i Team\\TPG4850 VR-Landsbyen}\\\textbf{Team 4 (V.I)}}
 \date{{\small \today}}
 \titlepic{\placeholder{\textwidth}{0.5\textwidth}}
@@ -35,15 +36,15 @@
 
 \pagenumbering{roman}
 
-\begin{verbatim}
-
-\chapter*{Summary of report}
-	\input{summary.tex}
-	\pagebreak
+\input{summary.tex}
+\pagebreak
 	
 \setlength{\parskip}{0.0in}
+\renewcommand*\contentsname{Innhold}
 \tableofcontents
+\renewcommand*\listtablename{Tabell-liste}
 \listoftables
+\renewcommand*\listfigurename{Figurliste}
 \listoffigures
 \input{list_of_acronyms.tex}
 \pagebreak
@@ -54,7 +55,9 @@
 
 \input{intro.tex}
 
-\part{Project plan}
+\part{Prosjektplan}
+
+\begin{verbatim}
 
 	\input{project_plan_introduction.tex}
 	
