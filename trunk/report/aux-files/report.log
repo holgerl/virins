@@ -1,0 +1,155 @@
+This is pdfTeX, Version 3.1415926-1.40.8-beta-20080627 (MiKTeX 2.7) (preloaded format=latex 2008.9.4)  18 FEB 2009 11:28
+entering extended mode
+**report.tex
+(report.tex
+LaTeX2e <2005/12/01>
+Babel <v3.8j> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman, ngerman, german-x-2008-06-18, ngerman-x-2008-06-18, french, loaded.
+("C:\Program Files\MiKTeX\tex\latex\base\report.cls"
+Document Class: report 2005/09/16 v1.4f Standard LaTeX document class
+("C:\Program Files\MiKTeX\tex\latex\base\size12.clo"
+File: size12.clo 2005/09/16 v1.4f Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+) (rotating.sty
+Package: rotating 1995/08/22 2.10 Rotation package
+
+("C:\Program Files\MiKTeX\tex\latex\graphics\graphicx.sty"
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX\tex\latex\graphics\keyval.sty"
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+("C:\Program Files\MiKTeX\tex\latex\graphics\graphics.sty"
+Package: graphics 2006/02/20 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX\tex\latex\graphics\trig.sty"
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+("C:\Program Files\MiKTeX\tex\latex\00miktex\graphics.cfg"
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: dvips.def on input line 90.
+
+("C:\Program Files\MiKTeX\tex\latex\graphics\dvips.def"
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+("C:\Program Files\MiKTeX\tex\latex\base\ifthen.sty"
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\r@tfl@t=\count88
+\rot@float@box=\box26
+)
+("C:\Program Files\MiKTeX\tex\latex\tools\longtable.sty"
+Package: longtable 2004/02/01 v4.11 Multi-page Table package (DPC)
+\LTleft=\skip43
+\LTright=\skip44
+\LTpre=\skip45
+\LTpost=\skip46
+\LTchunksize=\count89
+\LTcapwidth=\dimen105
+\LT@head=\box27
+\LT@firsthead=\box28
+\LT@foot=\box29
+\LT@lastfoot=\box30
+\LT@cols=\count90
+\LT@rows=\count91
+\c@LT@tables=\count92
+\c@LT@chunks=\count93
+\LT@p@ftn=\toks15
+) (titlepic.sty
+Package: titlepic 2008/08/03 1.0 Package to display a picture on the title page
+
+)
+("C:\Program Files\MiKTeX\tex\latex\tools\verbatim.sty"
+Package: verbatim 2003/08/22 v1.5q LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks16
+\verbatim@line=\toks17
+\verbatim@in@stream=\read1
+)
+("D:\My Documents\EIT\repository\aux-files\report.aux")
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 34.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 34.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 34.
+File: logo.ps Graphic file (type eps)
+ <logo.ps>
+Overfull \hbox (2.61108pt too wide) in paragraph at lines 34--34
+  [] 
+ []
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 34.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 34.
+[1
+
+] (summary.tex) [1
+
+] ("D:\My Documents\EIT\repository\aux-files\report.toc")
+\tf@toc=\write3
+
+[2
+
+] ("D:\My Documents\EIT\repository\aux-files\report.lot")
+\tf@lot=\write4
+ [3
+
+]
+("D:\My Documents\EIT\repository\aux-files\report.lof")
+\tf@lof=\write5
+ (list_of_acronyms.tex
+[4
+
+]) [5
+
+] (intro.tex) [1
+
+] [2
+
+] [3]
+Overfull \hbox (128.70026pt too wide) in paragraph at lines 120--120
+[]\OT1/cmtt/m/n/12 \nocite {a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,
+a16,a17,a18,a19,a20,a21}[] 
+ []
+
+[4] ("D:\My Documents\EIT\repository\aux-files\report.aux") ) 
+Here is how much of TeX's memory you used:
+ 808 strings out of 95306
+ 9141 string characters out of 1183210
+ 57400 words of memory out of 1500000
+ 4031 multiletter control sequences out of 110000
+ 9629 words of font info for 34 fonts, out of 1200000 for 2000
+ 14 hyphenation exceptions out of 8191
+ 32i,6n,28p,228b,276s stack positions out of 5000i,500n,10000p,200000b,5000s
+
+Output written on report.dvi (10 pages, 2980 bytes).
