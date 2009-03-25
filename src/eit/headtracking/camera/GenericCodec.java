@@ -1,4 +1,4 @@
-package eit.point;
+package eit.headtracking.camera;
 import javax.media.Buffer;
 import javax.media.Codec;
 import javax.media.Format;

@@ -1,4 +1,4 @@
-package eit;
+package eit.headtracking;
 
 import javax.media.opengl.GLCanvas;
 import java.awt.Frame;

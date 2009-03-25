@@ -1,40 +1,32 @@
-package eit;
+package eit.headtracking;
 
-import com.sun.opengl.util.texture.Texture;
-import com.sun.opengl.util.texture.TextureIO;
 import javax.media.opengl.GL;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.glu.GLU;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.File;
 
-public class ImageRenderer
+public class JavaRenderer
         implements GLEventListener, KeyListener {
 
     private float rotateT = 0.0f;
     private static final GLU glu = new GLU();
-    private Texture texture;
-    public ImageRenderer() {
-        System.out.println("HUH?=");
-    }
 
     public void display(GLAutoDrawable gLDrawable) {
-        System.out.println("WATF=");
         final GL gl = gLDrawable.getGL();
         gl.glClear(GL.GL_COLOR_BUFFER_BIT);
         gl.glClear(GL.GL_DEPTH_BUFFER_BIT);
         gl.glLoadIdentity();
-        
         gl.glTranslatef(0.0f, 0.0f, -5.0f);
 
         gl.glRotatef(rotateT, 1.0f, 0.0f, 0.0f);
         gl.glRotatef(rotateT, 0.0f, 1.0f, 0.0f);
         gl.glRotatef(rotateT, 0.0f, 0.0f, 1.0f);
         gl.glRotatef(rotateT, 0.0f, 1.0f, 0.0f);
-        texture.bind();
+
         gl.glBegin(GL.GL_TRIANGLES);
+
         // Front
         gl.glColor3f(0.0f, 1.0f, 1.0f);
         gl.glVertex3f(0.0f, 1.0f, 0.0f);
@@ -86,8 +78,6 @@ public class ImageRenderer
         gl.glHint(GL.GL_PERSPECTIVE_CORRECTION_HINT,
                 GL.GL_NICEST);
         gLDrawable.addKeyListener(this);
-        texture = load("resources/stad_2.png");
-        texture.enable();
     }
 
     public void reshape(GLAutoDrawable gLDrawable, int x,
@@ -116,19 +106,5 @@ public class ImageRenderer
     }
 
     public void keyTyped(KeyEvent e) {
-    }
-
-    public static Texture load(String fileName) {
-        System.out.println("LOADING");
-        Texture text = null;
-        try {
-            text = TextureIO.newTexture(new File(fileName), false);
-            text.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_NEAREST);
-            text.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("Error loading texture " + fileName);
-        }
-        return text;
     }
 }

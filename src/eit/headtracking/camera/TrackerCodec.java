@@ -1,4 +1,4 @@
-package eit.point;
+package eit.headtracking.camera;
 import java.util.ArrayList;
 
 import javax.media.Buffer;
@@ -7,8 +7,8 @@ import javax.media.format.RGBFormat;
 
 public class TrackerCodec extends GenericCodec {
 	private int counter = 0;
-	private int dimX = 640; // TODO: Hard coded video dimensions
-	private int dimY = 480;
+	private int dimX = 320; // TODO: Hard coded video dimensions
+	private int dimY = 240;
 	private ArrayList<TrackedPoint> points = new ArrayList<TrackedPoint>();
 	private short[] datashit;
 	
@@ -55,6 +55,20 @@ public class TrackerCodec extends GenericCodec {
 		counter++;
 
 		String type = frame.getData().getClass().getSimpleName();
+		if (frame.getData() instanceof byte[]) {
+			//bytedatashit = (byte[]) frame.getData();
+			
+			// Printout
+			if (true && counter % 7 == 0) {
+				type = "byte[]";
+				String format = frame.getFormat().toString();
+				String[] dimstrings = format.split(",")[1].trim().split("x");
+				int dims[] = {Integer.parseInt(dimstrings[0]), Integer.parseInt(dimstrings[1])};
+				if (points.size() > 0) System.out.printf("Coords: %f,%f\n", points.get(0).normX, points.get(0).normY);
+				System.out.printf("Type: %s, length: %d, dims: %d,%d\n", type, frame.getLength(), dimX, dimY);
+				System.out.printf("Format: %s\n", format);
+			}
+		}
 		
 		if (frame.getData() instanceof short[]) {
 			datashit = (short[]) frame.getData();
@@ -116,16 +130,6 @@ public class TrackerCodec extends GenericCodec {
 					}
 					offsetX+=7;
 				}
-			}
-		} else {
-			// Printout
-			if (true && counter % 7 == 0) {
-				type = frame.getData().getClass().getSimpleName();
-				String format = frame.getFormat().toString();
-				String[] dimstrings = format.split(",")[1].trim().split("x");
-				int dims[] = {Integer.parseInt(dimstrings[0]), Integer.parseInt(dimstrings[1])};
-				System.out.printf("Type: %s, length: %d, dims: %d,%d\n", type, frame.getLength(), dims[0], dims[1]);
-				System.out.printf("Format: %s\n", format);
 			}
 		}
 	}
