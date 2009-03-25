@@ -1,4 +1,4 @@
-package PointTracking;
+package eit.point;
 /*
  * @(#)FrameAccess.java	1.5 01/03/13
  *

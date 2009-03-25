@@ -1,4 +1,4 @@
-package PointTracking;
+package eit.point;
 import javax.media.Buffer;
 import javax.media.Codec;
 import javax.media.Format;
