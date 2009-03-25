@@ -10,19 +10,16 @@ package eit.headtracking;
  * @author vegar
  */
 public interface HeadTracker {
-    public void start();
-    public void stop();
-    public void calibrate();
-    // Right and left( Between -1 and 1 )
-    public float getHeadX();
-    // Up and down( Between -1 and 1 )
-    public float getHeadY();
-    // In and out ( Between 0 and 2pi)
-    public float getHeadZ();
-    // Rotation about X-axis ( Between 0 and 2pi )
-    public float getRotX();
-    // Rotation about Y-axis ( Between 0 and 2pi )
-    public float getRotY();
-    // Rotation about Z-axis ( Between 0 and 2pi )
-    public float getRotZ();
+
+    public abstract float getHeadX();
+
+    public abstract float getHeadY();
+
+    public abstract float getHeadZ();
+
+    public abstract float getRotX();
+
+    public abstract float getRotY();
+
+    public abstract float getRotZ();
 }
