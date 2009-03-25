@@ -1,4 +1,4 @@
-package PointTracking;
+package eit.point;
 import java.util.ArrayList;
 
 import javax.media.Buffer;
@@ -11,7 +11,6 @@ public class TrackerCodec extends GenericCodec {
 	private int dimY = 240;
 	private ArrayList<TrackedPoint> points = new ArrayList<TrackedPoint>();
 	private short[] datashit;
-	private byte[] bytedatashit;
 	
 	private short bit001 = Short.parseShort("00000000011111", 2);
 	private short red = Short.parseShort("111110000000000", 2);
@@ -57,7 +56,7 @@ public class TrackerCodec extends GenericCodec {
 
 		String type = frame.getData().getClass().getSimpleName();
 		if (frame.getData() instanceof byte[]) {
-			bytedatashit = (byte[]) frame.getData();
+			//bytedatashit = (byte[]) frame.getData();
 			
 			// Printout
 			if (true && counter % 7 == 0) {

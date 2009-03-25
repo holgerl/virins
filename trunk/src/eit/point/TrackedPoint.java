@@ -1,4 +1,4 @@
-package PointTracking;
+package eit.point;
 
 public class TrackedPoint {
 	public int id;
