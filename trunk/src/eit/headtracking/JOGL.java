@@ -108,7 +108,7 @@ public class JOGL implements GLEventListener, KeyListener {
         // Clear the drawing area
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
         // Reset the current matrix to the "iden
-        head.headZ += .1f;
+        //head.headZ += .1f;
         gl.glLoadIdentity();
         
         glu.gluLookAt(head.getHeadX(), head.getHeadY(), head.getHeadZ(), head.getHeadX(), head.getHeadY(), .0f, .0f, 1.0f, .0f);
