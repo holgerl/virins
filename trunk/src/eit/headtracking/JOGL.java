@@ -1,5 +1,6 @@
-package eit;
+package eit.headtracking;
 
+import eit.headtracking.wiimote.DualWiimoteHeadTracker;
 import com.sun.opengl.util.Animator;
 import com.sun.opengl.util.GLUT;
 import com.sun.opengl.util.texture.Texture;
@@ -29,7 +30,7 @@ public class JOGL implements GLEventListener, KeyListener {
         frame.add(canvas);
         frame.addKeyListener(jogl);
 
-        frame.setSize(1360, 768);
+        frame.setSize(640, 480);
         final Animator animator = new Animator(canvas);
         frame.addWindowListener(new WindowAdapter() {
 
@@ -57,6 +58,7 @@ public class JOGL implements GLEventListener, KeyListener {
     private Texture texture;
     private DualWiimoteHeadTracker head;
     private Test test;
+    float screenAspect = 1.33f;
 
     public JOGL() {
         this.head = new DualWiimoteHeadTracker();
@@ -106,11 +108,12 @@ public class JOGL implements GLEventListener, KeyListener {
         // Clear the drawing area
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
         // Reset the current matrix to the "iden
+        head.headZ += .1f;
         gl.glLoadIdentity();
         
         glu.gluLookAt(head.getHeadX(), head.getHeadY(), head.getHeadZ(), head.getHeadX(), head.getHeadY(), .0f, .0f, 1.0f, .0f);
         float nearPlane = .05f;
-        float screenAspect = 1.77f;
+        
         
         gl.glFrustum(nearPlane * (-.5f * screenAspect + head.getHeadX()) / head.getHeadZ(),
                 nearPlane * (.5f * screenAspect + head.getHeadX()) / head.getHeadZ(),
@@ -119,10 +122,12 @@ public class JOGL implements GLEventListener, KeyListener {
                 nearPlane, 100
         );
          
-        drawGrid(gl, 0.0f);
         
-        drawTargets(gl, .2f, .2f, -2.9f);
-        drawTargets(gl, -.01f, -.02f, -1.0f);
+        drawGrid(gl, 0.0f);
+        drawTargets(gl, -.0005f, -.0002f, -.005f);
+        drawTargets(gl, .005f, .0002f, -.001f);
+        
+        
 
         gl.glFlush();
     }
@@ -130,10 +135,17 @@ public class JOGL implements GLEventListener, KeyListener {
     void drawTargets(GL gl, float x, float y, float z) {
         GLUT glut = new GLUT();
         //gl.glClear(gl.GL_COLOR_BUFFER_BIT);
+        float width = 0.002f;
         gl.glColor3f(1.0f, 0.0f, 0.0f);
-        gl.glTranslatef(x, y, z);
-        glut.glutSolidSphere(0.1f, 100, 100);
-        gl.glTranslatef(-x, -y, -z);
+        gl.glBegin(GL.GL_QUADS);
+        gl.glVertex3f(x-width, y-width, z);
+        gl.glVertex3f(x+width, y-width, z);
+        gl.glVertex3f(x+width, y+width, z);
+        gl.glVertex3f(x-width, y+width, z);
+        gl.glEnd();
+        //gl.glTranslatef(x, y, z);
+        //glut.glutSolidSphere(0.001f, 100, 100);
+        //gl.glTranslatef(-x, -y, -z);
         /*
         gl.glBegin(gl.GL_LINES);
         gl.glVertex3f(x, y, z);
@@ -144,6 +156,7 @@ public class JOGL implements GLEventListener, KeyListener {
 
     void drawGrid(GL gl, float depth) {
         gl.glColor3f(1.0f, 1.0f, 1.0f);
+        gl.glScalef(screenAspect, 1.0f, 1.0f);
         gl.glBegin(gl.GL_LINES);
         float step = 1.0f;
         int numLines = 5;

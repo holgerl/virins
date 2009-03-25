@@ -1,4 +1,4 @@
-package eit.point;
+package eit.headtracking.camera;
 
 public class TrackedPoint {
 	public int id;

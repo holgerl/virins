@@ -1,4 +1,4 @@
-package eit.point;
+package eit.headtracking.camera;
 /*
  * @(#)FrameAccess.java	1.5 01/03/13
  *
@@ -216,7 +216,8 @@ public class VideoGrabber extends Frame implements ControllerListener, KeyListen
 	 */
 	public static void main(String[] args) {
 
-		String url = "vfw:Microsoft WDM Image Capture (Win32):0";
+		//String url = "vfw:Microsoft WDM Image Capture (Win32):0";
+        String url = "/dev/video0";
 
 		MediaLocator ml;
 
@@ -233,6 +234,10 @@ public class VideoGrabber extends Frame implements ControllerListener, KeyListen
 			System.exit(0);
 	}
 
+	static void prUsage() {
+		System.err.println("Usage: java FrameAccess <url>");
+	}
+
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		if (arg0.getKeyChar() == ' ');
@@ -240,10 +245,16 @@ public class VideoGrabber extends Frame implements ControllerListener, KeyListen
 	}
 
 	@Override
-	public void keyReleased(KeyEvent arg0) {}
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
-	public void keyTyped(KeyEvent arg0) {}
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	
 }
