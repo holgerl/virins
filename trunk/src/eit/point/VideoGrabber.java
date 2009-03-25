@@ -233,10 +233,6 @@ public class VideoGrabber extends Frame implements ControllerListener, KeyListen
 			System.exit(0);
 	}
 
-	static void prUsage() {
-		System.err.println("Usage: java FrameAccess <url>");
-	}
-
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		if (arg0.getKeyChar() == ' ');
@@ -244,16 +240,10 @@ public class VideoGrabber extends Frame implements ControllerListener, KeyListen
 	}
 
 	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyReleased(KeyEvent arg0) {}
 
 	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyTyped(KeyEvent arg0) {}
 
 	
 }
