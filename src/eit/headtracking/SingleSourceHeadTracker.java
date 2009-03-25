@@ -22,7 +22,7 @@ public abstract class SingleSourceHeadTracker implements HeadTracker {
     protected double cameraVerticalAngle;
     protected double headX,  headY,  headZ;
     protected double rotX,  rotY,  rotZ;
-    protected Point[] point;
+    protected Point[] point = new Point[3];
 
     public abstract void start();
 
