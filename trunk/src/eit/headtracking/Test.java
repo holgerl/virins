@@ -33,22 +33,7 @@ import javax.swing.event.ChangeListener;
  */
 public class Test extends JPanel implements ActionListener, KeyListener, ChangeListener, Runnable {
 
-    public static void main(String args[]) {
-        JFrame f = new JFrame();
-        DualWiimoteHeadTracker head = new DualWiimoteHeadTracker();
-        Test test = new Test(head);
-        f.setContentPane(test);
-        
-       
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setSize(1024, 480);
-        f.setVisible(true);
-        head.start();
-        while(true) {
-            test.run();
-        }
-    }
-    DualWiimoteHeadTracker head;
+    HeadTracker head;
     BufferedImage image;
     boolean isRendering = false;
     private JFrame f;
@@ -57,8 +42,15 @@ public class Test extends JPanel implements ActionListener, KeyListener, ChangeL
     private JSlider ySlider = new JSlider(JSlider.VERTICAL, -1000, 1000, 0);
     private JSlider zSlider = new JSlider(JSlider.VERTICAL, -1000, 1000, 0);
     private JButton calibrateButton = new JButton("Calibrate");
-    public Test(DualWiimoteHeadTracker head) {
-        this.head = head;
+
+    public Test(HeadTracker h) {
+        this.head = h;
+        f = new JFrame();
+        f.setContentPane(this);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setSize(1024, 480);
+        f.setVisible(true);
+
         this.setLayout(new BorderLayout());
         this.buttonPanel.setLayout(new GridLayout());
         xSlider.addChangeListener(this);
@@ -71,6 +63,8 @@ public class Test extends JPanel implements ActionListener, KeyListener, ChangeL
         this.buttonPanel.add(zSlider);
 
         this.add(buttonPanel, BorderLayout.EAST);
+
+        head.start();
     }
 
     public void paintComponent(Graphics g) {
@@ -85,9 +79,9 @@ public class Test extends JPanel implements ActionListener, KeyListener, ChangeL
         g.setFont(new Font("TRUETYPE", Font.PLAIN, 32));
         g.drawString("Pos(xyz): (" + head.getHeadX() + ", " + head.getHeadY() + ", " + head.getHeadZ() + ")", 0, 100);
         g.drawString("Rot(xyz): (" + head.getRotX() + ", " + head.getRotY() + ", " + head.getRotZ() + ")", 0, 200);
-        g.drawString("Left angle: " + head.leftAngle() * 180.0 / Math.PI, 0, 300);
+        // g.drawString("Left angle: " + head.leftAngle() * 180.0 / Math.PI, 0, 300);
         //g.drawString("Offset left: " + head.leftOffsetRadians * 180.0 / Math.PI, 0, 400);
-        g.drawString("Right angle: " + head.rightAngle() * 180.0 / Math.PI, 0, 500);
+        // g.drawString("Right angle: " + head.rightAngle() * 180.0 / Math.PI, 0, 500);
         //g.drawString("Offset right: " + head.rightOffsetRadians * 180.0 / Math.PI, 0, 600);
 
         g.fillOval((int) (head.getHeadX() * (double) getWidth()), (int) (head.getHeadY() * (double) getHeight()), 5, 5);
@@ -96,7 +90,7 @@ public class Test extends JPanel implements ActionListener, KeyListener, ChangeL
 
     public void keyTyped(KeyEvent arg0) {
         System.out.println("Faen");
-        //throw new UnsupportedOperationException("Not supported yet.");
+    //throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public void keyPressed(KeyEvent arg0) {
@@ -114,12 +108,13 @@ public class Test extends JPanel implements ActionListener, KeyListener, ChangeL
     public void stateChanged(ChangeEvent arg0) {
         /*
         if (arg0.getSource() == zSlider) {
-            head.headZ = zSlider.getValue() / 50.0;
+        head.headZ = zSlider.getValue() / 50.0;
         } else if (arg0.getSource() == xSlider) {
-            head.headX = xSlider.getValue() / 50.0;
+        head.headX = xSlider.getValue() / 50.0;
         } else if (arg0.getSource() == ySlider) {
-            head.headY = ySlider.getValue() / 50.0;
-        }*/
+        head.headY = ySlider.getValue() / 50.0;
+        }
+         */
     }
 
     public void run() {
