@@ -216,8 +216,8 @@ public class VideoGrabber extends Frame implements ControllerListener, KeyListen
 	 */
 	public static void main(String[] args) {
 
-		//String url = "vfw:Microsoft WDM Image Capture (Win32):0";
-        String url = "/dev/video0";
+		String url = "vfw:Microsoft WDM Image Capture (Win32):0";
+        //String url = "/dev/video0";
 
 		MediaLocator ml;
 
