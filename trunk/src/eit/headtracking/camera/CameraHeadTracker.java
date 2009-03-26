@@ -59,7 +59,6 @@ public class CameraHeadTracker extends SingleSourceHeadTracker {
 
 		if (ml == null) throw new Error("Cannot build media locator from: " + url);
 
-		
 		DataSource src;
 		try {
 			src = Manager.createDataSource(ml);
