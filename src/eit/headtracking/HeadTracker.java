@@ -10,7 +10,9 @@ package eit.headtracking;
  * @author vegar
  */
 public interface HeadTracker {
-
+    public abstract void start();
+    public abstract void stop();
+    public abstract void calibrate();
     public abstract float getHeadX();
 
     public abstract float getHeadY();

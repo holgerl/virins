@@ -6,12 +6,19 @@
 package eit.headtracking.camera;
 
 import eit.headtracking.SingleSourceHeadTracker;
+import eit.headtracking.Test;
 
 /**
  *
  * @author Holgiboy
  */
 public class CameraHeadTracker extends SingleSourceHeadTracker {
+
+    public static void main(String args[]) {
+        CameraHeadTracker t = new CameraHeadTracker();
+        Test test = new Test(t); // Test kaller headtracker start.
+        new Thread(test).start();
+    }
 
     public CameraHeadTracker() {
         this.XMAX = 1024;
