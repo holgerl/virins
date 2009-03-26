@@ -9,7 +9,8 @@ package eit.headtracking;
  * @author vegar
  */
 public abstract class SingleSourceHeadTracker implements HeadTracker {
-
+    protected double XMAX = 1024.0;
+    protected double YMAX = 768.0;
     protected static final int LEFT = 0;
     protected static final int CENTER = 1;
     protected static final int RIGHT = 2;
@@ -65,8 +66,8 @@ public abstract class SingleSourceHeadTracker implements HeadTracker {
         double avgY = (point[LEFT].x + point[LEFT + 1].y) / 2.0f;
         //should  calaculate based on distance
 
-        headX = movementScaling * Math.sin(radiansPerPixel * (avgX - 512) * headZ);
-        relativeVerticalAngle = (avgY - 384) * radiansPerPixel;//relative angle to camera axis
+        headX = movementScaling * Math.sin(radiansPerPixel * (avgX - XMAX/2) * headZ);
+        relativeVerticalAngle = (avgY - YMAX/2) * radiansPerPixel;//relative angle to camera axis
         //headY = movementScaling * Math.sin(relativeVerticalAngle) * headZ;
 
         if (cameraIsAboveScreen) {
