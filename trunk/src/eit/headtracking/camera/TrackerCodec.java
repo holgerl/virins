@@ -5,15 +5,18 @@ import javax.media.Buffer;
 import javax.media.Format;
 import javax.media.format.RGBFormat;
 
-public class TrackerCodec extends GenericCodec {
+import eit.headtracking.camera.dataholders.TrackedPoint;
+
+public class TrackerCodec extends GenericAccessCodec {
 	private int counter = 0;
-	private int dimX = 640; // TODO: Hard coded video dimensions
+	private int dimX = 640; // TODO: Hard coded video dimensions = bad
 	private int dimY = 480;
-	private ArrayList<TrackedPoint> points = new ArrayList<TrackedPoint>();
+	public ArrayList<TrackedPoint> points = new ArrayList<TrackedPoint>();
 	private short[] datashit;
 	
 	private short bit001 = Short.parseShort("00000000011111", 2);
 	private short red = Short.parseShort("111110000000000", 2);
+	private CameraHeadTracker foo;
 	
 	float[][] getCoords() {
 		return null;
@@ -44,7 +47,7 @@ public class TrackerCodec extends GenericCodec {
 								notFound = false;
 					if (notFound) points.add(new TrackedPoint(points.size(), dimX, dimY, x, y));
 				}
-				if (points.size() >= 3) break outer;
+				if (points.size() >= 2) break outer;
 			}
 	}
 
@@ -53,6 +56,7 @@ public class TrackerCodec extends GenericCodec {
 	 */
 	void accessFrame(Buffer frame) {
 		counter++;
+		foo.updatePoints();
 
 		String type = frame.getData().getClass().getSimpleName();
 		
@@ -73,17 +77,19 @@ public class TrackerCodec extends GenericCodec {
 			int pos;
 			
 			// Point updates
-			for (TrackedPoint point : points) {
-				for (int y = point.coordY-20+point.dy; y < point.coordY+20+point.dy; y++)
-					for (int x = point.coordX-20+point.dx; x < point.coordX+20+point.dx; x++) {
-						pos = x + y * dimX;
-						if (pos >= 0 && pos < frame.getLength()) {
-							if (intensity(datashit[pos]) < 30)
-								point.update(x, y);
-							datashit[pos] &= 15328; // Discolor area where point is looked for
+			//synchronized (points) {
+				for (TrackedPoint point : points) {
+					for (int y = point.coordY-20+point.dy; y < point.coordY+20+point.dy; y++)
+						for (int x = point.coordX-20+point.dx; x < point.coordX+20+point.dx; x++) {
+							pos = x + y * dimX;
+							if (pos >= 0 && pos < frame.getLength()) {
+								if (intensity(datashit[pos]) < 30)
+									point.update(x, y);
+								datashit[pos] &= 15328; // Discolor area where point is looked for
+							}
 						}
-					}
-			}
+				}
+			//}
 			
 			// Draw boxes
 			for (TrackedPoint point : points) {
@@ -133,5 +139,9 @@ public class TrackerCodec extends GenericCodec {
 
 	public String getName() {
 		return "Tracker Codec";
+	}
+
+	public void addListener(CameraHeadTracker cameraHeadTracker) {
+		this.foo = cameraHeadTracker;
 	}
 }

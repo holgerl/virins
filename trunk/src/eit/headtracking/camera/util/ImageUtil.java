@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package eit.headtracking.camera;
+package eit.headtracking.camera.util;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -24,7 +24,7 @@ import java.awt.image.WritableRaster;
 /**
  * @author Heinz Doerr
  */
-public class ImageUtils {
+public class ImageUtil {
 
 
 	static public String imageTypeName(BufferedImage img) {
