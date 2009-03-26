@@ -44,6 +44,7 @@ public class CameraHeadTracker extends SingleSourceHeadTracker {
         //this.point[LEFT].y = kamerapunkt1.y;
         //this.point[LEFT+1].x = kamerapunkt2.x;
         //this.point[LEFT+1].y = kamerapunkt2.y;
+        calculate(); // Beregner virtuelle koordinater fra pixelkoordinater
     }
 
 }
