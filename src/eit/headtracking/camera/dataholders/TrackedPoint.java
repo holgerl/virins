@@ -1,4 +1,4 @@
-package eit.headtracking.camera;
+package eit.headtracking.camera.dataholders;
 
 public class TrackedPoint {
 	public int id;
@@ -30,6 +30,6 @@ public class TrackedPoint {
 	}
 	
 	public void update(float normX, float normY) {
-		throw (new Error("Is this method really neccessary?"));
+		throw new Error("Is this method really neccessary?");
 	}
 }
