@@ -16,7 +16,7 @@ public abstract class SingleSourceHeadTracker implements HeadTracker {
     protected static final int RIGHT = 2;
     protected double dotDistanceInMM = 8.5f * 25.4f;//width of the wii sensor bar
     protected double screenHeightinMM = 600.0f; // 7.5f * 25.4f; //Laptopskjermen min
-    protected double radiansPerPixel = (float) (Math.PI / 4) / 1024.0f; //45 degree field of view with a 1024x768 camera
+    protected double radiansPerPixel = (float) (Math.PI / 4) / XMAX; //45 degree field of view with a 1024x768 camera
     protected double movementScaling = 1.0f;
     protected boolean cameraIsAboveScreen = true;
     protected double relativeVerticalAngle;
