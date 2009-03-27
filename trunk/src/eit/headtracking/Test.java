@@ -44,7 +44,7 @@ public class Test extends JPanel implements ActionListener, KeyListener, ChangeL
     private JButton calibrateButton = new JButton("Calibrate");
 
     public Test(HeadTracker h) {
-        this.head = h;
+        this.head =  h;
         f = new JFrame();
         f.setContentPane(this);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,9 +79,9 @@ public class Test extends JPanel implements ActionListener, KeyListener, ChangeL
         g.setFont(new Font("TRUETYPE", Font.PLAIN, 32));
         g.drawString("Pos(xyz): (" + head.getHeadX() + ", " + head.getHeadY() + ", " + head.getHeadZ() + ")", 0, 100);
         g.drawString("Rot(xyz): (" + head.getRotX() + ", " + head.getRotY() + ", " + head.getRotZ() + ")", 0, 200);
-        // g.drawString("Left angle: " + head.leftAngle() * 180.0 / Math.PI, 0, 300);
+        //g.drawString("Left angle: " + head.leftAngle() * 180.0 / Math.PI, 0, 300);
         //g.drawString("Offset left: " + head.leftOffsetRadians * 180.0 / Math.PI, 0, 400);
-        // g.drawString("Right angle: " + head.rightAngle() * 180.0 / Math.PI, 0, 500);
+         //g.drawString("Right angle: " + head.rightAngle() * 180.0 / Math.PI, 0, 500);
         //g.drawString("Offset right: " + head.rightOffsetRadians * 180.0 / Math.PI, 0, 600);
 
         g.fillOval((int) (head.getHeadX() * (double) getWidth()), (int) (head.getHeadY() * (double) getHeight()), 5, 5);
