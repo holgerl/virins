@@ -58,7 +58,7 @@ public class JOGL implements GLEventListener, KeyListener {
     private Texture texture;
     private DualWiimoteHeadTracker head;
     private Test test;
-    float screenAspect = 1.33f;
+    float screenAspect = 1.6f;
 
     public JOGL() {
         this.head = new DualWiimoteHeadTracker();
@@ -81,6 +81,8 @@ public class JOGL implements GLEventListener, KeyListener {
         gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         gl.glShadeModel(GL.GL_SMOOTH); // try setting this to GL_FLAT and see what happens.
         gl.glEnable(GL.GL_TEXTURE_2D);
+        //texture = load("/home/vegar/Bilder/startsv7.jpg");
+
     }
 
     public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
@@ -93,12 +95,12 @@ public class JOGL implements GLEventListener, KeyListener {
         }
         final float h = (float) width / (float) height;
         gl.glHint(GL.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
-        gl.glViewport(0, 0, width, height);
-        gl.glMatrixMode(GL.GL_PROJECTION);
-        gl.glLoadIdentity();
-        glu.gluPerspective(45.0f, h, 0.0, 20.0);
-        gl.glMatrixMode(GL.GL_MODELVIEW);
-        gl.glLoadIdentity();
+    gl.glViewport(0, 0, width, height);
+    gl.glMatrixMode(GL.GL_PROJECTION);
+    gl.glLoadIdentity();
+    glu.gluPerspective(45.0f, h, 0.0, 20.0);
+    gl.glMatrixMode(GL.GL_MODELVIEW);
+    gl.glLoadIdentity();
     }
 
     public void display(GLAutoDrawable drawable) {
@@ -108,53 +110,58 @@ public class JOGL implements GLEventListener, KeyListener {
         // Clear the drawing area
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
         // Reset the current matrix to the "iden
-        //head.headZ += .1f;
+        //head.headZ += .01f;
+        gl.glMatrixMode(GL.GL_PROJECTION);
         gl.glLoadIdentity();
-        
-        glu.gluLookAt(head.getHeadX(), head.getHeadY(), head.getHeadZ(), head.getHeadX(), head.getHeadY(), .0f, .0f, 1.0f, .0f);
         float nearPlane = .05f;
         
-        
-        gl.glFrustum(nearPlane * (-.5f * screenAspect + head.getHeadX()) / head.getHeadZ(),
-                nearPlane * (.5f * screenAspect + head.getHeadX()) / head.getHeadZ(),
+        gl.glFrustum(nearPlane * (-.5f * screenAspect - head.getHeadX()) / head.getHeadZ(),
+                nearPlane * (.5f * screenAspect - head.getHeadX()) / head.getHeadZ(),
                 nearPlane * (-.5f - head.getHeadY()) / head.getHeadZ(),
                 nearPlane * (.5f - head.getHeadY()) / head.getHeadZ(),
-                nearPlane, 100
-        );
-         
+                nearPlane, 100); 
         
+        gl.glMatrixMode(GL.GL_MODELVIEW);
+        gl.glLoadIdentity();
+        glu.gluLookAt(head.getHeadX(), head.getHeadY(), head.getHeadZ(), head.getHeadX(), head.getHeadY(), .0f, .0f, 1.0f, .0f);
+
         drawGrid(gl, 0.0f);
-        drawTargets(gl, -.0005f, -.0002f, -.005f);
-        drawTargets(gl, .005f, .0002f, -.001f);
-        
-        
+        drawTargets(gl, .01f, .02f, .5f);
+        drawTargets(gl, .05f, .02f, 8f);
+        drawTargets(gl, -.05f, -.02f, 6f);
+        drawTargets(gl, -.005f, -.002f, 4f);
 
         gl.glFlush();
     }
 
     void drawTargets(GL gl, float x, float y, float z) {
         GLUT glut = new GLUT();
+
         //gl.glClear(gl.GL_COLOR_BUFFER_BIT);
+        /*
         float width = 0.002f;
-        gl.glColor3f(1.0f, 0.0f, 0.0f);
+        
         gl.glBegin(GL.GL_QUADS);
         gl.glVertex3f(x-width, y-width, z);
         gl.glVertex3f(x+width, y-width, z);
         gl.glVertex3f(x+width, y+width, z);
         gl.glVertex3f(x-width, y+width, z);
         gl.glEnd();
-        //gl.glTranslatef(x, y, z);
-        //glut.glutSolidSphere(0.001f, 100, 100);
-        //gl.glTranslatef(-x, -y, -z);
-        /*
+         */
+        gl.glColor3f(0.0f, 1.0f, 0.0f);
         gl.glBegin(gl.GL_LINES);
         gl.glVertex3f(x, y, z);
-        gl.glVertex3f(.0f, 0.0f, -.5f);
+        gl.glVertex3f(.0f, 0.0f, -5.0f);
         gl.glEnd();
-         */
+
+        gl.glColor3f(1.0f, 0.0f, 0.0f);
+        gl.glTranslatef(x, y, z);
+        glut.glutSolidSphere(0.01f, 100, 100);
+        gl.glTranslatef(-x, -y, -z);
     }
 
     void drawGrid(GL gl, float depth) {
+        gl.glPushMatrix();
         gl.glColor3f(1.0f, 1.0f, 1.0f);
         gl.glScalef(screenAspect, 1.0f, 1.0f);
         gl.glBegin(gl.GL_LINES);
@@ -162,60 +169,60 @@ public class JOGL implements GLEventListener, KeyListener {
         int numLines = 5;
         for (int i = 0; i <= numLines; i++) {
             // Left
-            gl.glVertex3f(-.5f, -.5f, depth -i * step);
-            gl.glVertex3f(-.5f, .5f, depth -i * step);
+            gl.glVertex3f(-.5f, -.5f, depth - i * step);
+            gl.glVertex3f(-.5f, .5f, depth - i * step);
             // Right
-            gl.glVertex3f(.5f, -.5f, depth-i * step);
-            gl.glVertex3f(.5f, .5f, depth-i * step);
+            gl.glVertex3f(.5f, -.5f, depth - i * step);
+            gl.glVertex3f(.5f, .5f, depth - i * step);
             // Floor
-            gl.glVertex3f(-.5f, -.5f, depth-i * step);
-            gl.glVertex3f(.5f, -.5f, depth-i * step);
+            gl.glVertex3f(-.5f, -.5f, depth - i * step);
+            gl.glVertex3f(.5f, -.5f, depth - i * step);
             // Roof
-            gl.glVertex3f(-.5f, .5f, depth-i * step);
-            gl.glVertex3f(.5f, .5f, depth-i * step);
+            gl.glVertex3f(-.5f, .5f, depth - i * step);
+            gl.glVertex3f(.5f, .5f, depth - i * step);
 
             // Left depth lines
             gl.glVertex3f(-.5f, -.5f + i * step / numLines, depth);
-            gl.glVertex3f(-.5f, -.5f + i * step / numLines, depth-numLines * step);
+            gl.glVertex3f(-.5f, -.5f + i * step / numLines, depth - numLines * step);
 
             // Right depth lines
             gl.glVertex3f(.5f, -.5f + i * step / numLines, depth);
-            gl.glVertex3f(.5f, -.5f + i * step / numLines, depth-numLines * step);
+            gl.glVertex3f(.5f, -.5f + i * step / numLines, depth - numLines * step);
 
             // Roof depth lines
             gl.glVertex3f(-.5f + i * step / numLines, .5f, depth);
-            gl.glVertex3f(-.5f + i * step / numLines, .5f, depth-numLines * step);
+            gl.glVertex3f(-.5f + i * step / numLines, .5f, depth - numLines * step);
 
             // Floor depth lines
             gl.glVertex3f(-.5f + i * step / numLines, -.5f, depth);
-            gl.glVertex3f(-.5f + i * step / numLines, -.5f, depth-numLines * step);
+            gl.glVertex3f(-.5f + i * step / numLines, -.5f, depth - numLines * step);
 
             // Background grid
-            gl.glVertex3f(-.5f, -.5f + i * step / numLines, depth-step*numLines);
-            gl.glVertex3f(.5f, -.5f + i * step / numLines, depth-step*numLines);
+            gl.glVertex3f(-.5f, -.5f + i * step / numLines, depth - step * numLines);
+            gl.glVertex3f(.5f, -.5f + i * step / numLines, depth - step * numLines);
 
-            gl.glVertex3f(-.5f + i * step / numLines, .5f, depth-step*numLines);
-            gl.glVertex3f(-.5f + i * step / numLines, -.5f, depth-step*numLines);
+            gl.glVertex3f(-.5f + i * step / numLines, .5f, depth - step * numLines);
+            gl.glVertex3f(-.5f + i * step / numLines, -.5f, depth - step * numLines);
         }
         gl.glEnd();
+        gl.glPopMatrix();
 
     }
 
     void drawImage(GL gl) {
+        gl.glRotatef(180.0f, 0.0f, 0.0f, 1.0f);
+        gl.glScalef(-screenAspect*texture.getAspectRatio(), 1.0f, 1.0f);
+        gl.glScalef(8.0f, 8.0f, 1.0f);
         gl.glBegin(GL.GL_QUADS);
         texture.bind();
-
         gl.glTexCoord2f(0.0f, 0.0f);
-        gl.glVertex3f(-1.0f, -1.0f, 0.0f);	// Bottom Left Of The Texture and Quad
+        gl.glVertex3f(-1.0f, -1.0f, -10f);	// Bottom Left Of The Texture and Quad
         gl.glTexCoord2f(1.0f, 0.0f);
-        gl.glVertex3f(1.0f, -1.0f, 0.0f);	// Bottom Right Of The Texture and Quad
+        gl.glVertex3f(1.0f, -1.0f, -10f);	// Bottom Right Of The Texture and Quad
         gl.glTexCoord2f(1.0f, 1.0f);
-        gl.glVertex3f(1.0f, 1.0f, 0.0f);	// Top Right Of The Texture and Quad
+        gl.glVertex3f(1.0f, 1.0f, -10f);	// Top Right Of The Texture and Quad
         gl.glTexCoord2f(0.0f, 1.0f);
-        gl.glVertex3f(-1.0f, 1.0f, 0.0f);	// Top Left Of The Texture and Quad
-
-
-
+        gl.glVertex3f(-1.0f, 1.0f, -10f);	// Top Left Of The Texture and Quad
         gl.glEnd();
     }
 
