@@ -74,7 +74,7 @@ public class TrackingUtil {
 				for (int y = point.coordY-20+point.dy; y < point.coordY+20+point.dy; y++)
 					for (int x = point.coordX-20+point.dx; x < point.coordX+20+point.dx; x++) {
 						int pos = x + y * frameWidth;
-						if (pos >= 0 && pos < frame.getLength()) {
+						if (pos >= 0 && pos < frame.getLength()-3) {
 							if (intensity(datashit, pos) < 30)
 								point.update(x, y);
 							datashit[pos+3] = 0; // Discolor area where point is looked for
@@ -109,7 +109,7 @@ public class TrackingUtil {
 				int foo = (y==dotY||y==dotY+20) ? 1 : 20;
 				for (int x = dotX; x <= dotX+20; x+=foo) {
 					int pos = x + y * frameWidth;
-					if (pos >= 0 && pos < frame.getLength()) {
+					if (pos >= 0 && pos < frame.getLength()-3) {
 						datashit[pos] = (byte) 255;
 						datashit[pos+1] = 0;
 						datashit[pos+2] = 0;
@@ -144,7 +144,7 @@ public class TrackingUtil {
 				for (int y = locY; y < locY+5; y++) {
 					for (int x = locX; x < locX+5; x++) {
 						int pos = x + y * frameWidth;
-						if (pos >= 0 && pos < frame.getLength()) {
+						if (pos >= 0 && pos < frame.getLength()-3) {
 							datashit[pos] = (byte) 255;
 							datashit[pos+1] = 0;
 							datashit[pos+2] = 0;
