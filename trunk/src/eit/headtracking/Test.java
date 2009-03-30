@@ -14,6 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -31,7 +33,7 @@ import javax.swing.event.ChangeListener;
  *
  * @author vegar
  */
-public class Test extends JPanel implements ActionListener, KeyListener, ChangeListener, Runnable {
+public class Test extends JPanel implements WindowListener, ActionListener, KeyListener, ChangeListener, Runnable {
 
     HeadTracker head;
     BufferedImage image;
@@ -47,7 +49,8 @@ public class Test extends JPanel implements ActionListener, KeyListener, ChangeL
         this.head =  h;
         f = new JFrame();
         f.setContentPane(this);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.addWindowListener(this);
+        //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setSize(1024, 480);
         f.setVisible(true);
 
@@ -64,6 +67,7 @@ public class Test extends JPanel implements ActionListener, KeyListener, ChangeL
 
         this.add(buttonPanel, BorderLayout.EAST);
 
+        System.out.println("Starting head tracker");
         head.start();
     }
 
@@ -130,5 +134,30 @@ public class Test extends JPanel implements ActionListener, KeyListener, ChangeL
 
     public void actionPerformed(ActionEvent arg0) {
         head.calibrate();
+    }
+
+    public void windowOpened(WindowEvent e) {
+    }
+
+    public void windowClosing(WindowEvent e) {
+        System.out.println("Stopping head tracker");
+        head.stop();
+    }
+
+    public void windowClosed(WindowEvent e) {
+        System.out.println("Exiting");
+        System.exit(0);
+    }
+
+    public void windowIconified(WindowEvent e) {
+    }
+
+    public void windowDeiconified(WindowEvent e) {
+    }
+
+    public void windowActivated(WindowEvent e) {
+    }
+
+    public void windowDeactivated(WindowEvent e) {
     }
 }
