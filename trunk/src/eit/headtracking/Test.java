@@ -79,10 +79,10 @@ public class Test extends JPanel implements ActionListener, KeyListener, ChangeL
         g.setFont(new Font("TRUETYPE", Font.PLAIN, 32));
         g.drawString("Pos(xyz): (" + head.getHeadX() + ", " + head.getHeadY() + ", " + head.getHeadZ() + ")", 0, 100);
         g.drawString("Rot(xyz): (" + head.getRotX() + ", " + head.getRotY() + ", " + head.getRotZ() + ")", 0, 200);
-        //g.drawString("Left angle: " + head.leftAngle() * 180.0 / Math.PI, 0, 300);
-        //g.drawString("Offset left: " + head.leftOffsetRadians * 180.0 / Math.PI, 0, 400);
-         //g.drawString("Right angle: " + head.rightAngle() * 180.0 / Math.PI, 0, 500);
-        //g.drawString("Offset right: " + head.rightOffsetRadians * 180.0 / Math.PI, 0, 600);
+//        g.drawString("Left angle: " + head.leftAngle() * 180.0 / Math.PI, 0, 300);
+//        g.drawString("Offset left: " + head.leftOffsetRadians * 180.0 / Math.PI, 0, 400);
+//         g.drawString("Right angle: " + head.rightAngle() * 180.0 / Math.PI, 0, 500);
+//        g.drawString("Offset right: " + head.rightOffsetRadians * 180.0 / Math.PI, 0, 600);
 
         g.fillOval((int) (head.getHeadX() * (double) getWidth()), (int) (head.getHeadY() * (double) getHeight()), 5, 5);
         isRendering = false;
@@ -106,15 +106,15 @@ public class Test extends JPanel implements ActionListener, KeyListener, ChangeL
     }
 
     public void stateChanged(ChangeEvent arg0) {
-        /*
-        if (arg0.getSource() == zSlider) {
-        head.headZ = zSlider.getValue() / 50.0;
-        } else if (arg0.getSource() == xSlider) {
-        head.headX = xSlider.getValue() / 50.0;
-        } else if (arg0.getSource() == ySlider) {
-        head.headY = ySlider.getValue() / 50.0;
-        }
-         */
+//
+//        if (arg0.getSource() == zSlider) {
+//        head.headZ = zSlider.getValue() / 50.0;
+//        } else if (arg0.getSource() == xSlider) {
+//        head.headX = xSlider.getValue() / 50.0;
+//        } else if (arg0.getSource() == ySlider) {
+//        head.headY = ySlider.getValue() / 50.0;
+//        }
+         
     }
 
     public void run() {

@@ -12,14 +12,14 @@ public abstract class DualSourceHeadTracker implements HeadTracker {
 
     protected double leftOffsetRadians = Math.PI / 2.0;
     protected double rightOffsetRadians = Math.PI / 2.0;
-    protected double sourceDistanceInMM = 850.0;
-    protected double screenHeightInMM = 495;
+    protected double sourceDistanceInMM = 2000.0;
+    protected double screenHeightInMM = 600;
     protected double calibrationDistanceInMM = 2000.0;
     protected double radiansPerPixel = (Math.PI / 4.0) / 1024.0;
     protected double headX, headY, headZ;
     protected double relativeVerticalAngle;
-    protected Point leftPoint;
-    protected Point rightPoint;
+    protected Point leftPoint = new Point();
+    protected Point rightPoint = new Point();
 
     public float getHeadX() {
         return (float) headX;
@@ -60,7 +60,7 @@ public abstract class DualSourceHeadTracker implements HeadTracker {
         double avgY = (leftPoint.y + rightPoint.y) / 2.0;
         relativeVerticalAngle = (avgY - 384) * radiansPerPixel;
         headY = Math.sin(relativeVerticalAngle) * headZ;
-        headX = sourceDistanceInMM / (2.0 * screenHeightInMM) - headZ / Math.tan(leftAngle() + leftOffsetRadians);
+        headX = -(sourceDistanceInMM / (2.0 * screenHeightInMM) - headZ / Math.tan(leftAngle() + leftOffsetRadians));
     }
 
     public double leftAngle() {

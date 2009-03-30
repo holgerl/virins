@@ -24,9 +24,12 @@ public class WiimoteHeadTracker extends SingleSourceHeadTracker implements Wiimo
     private WiimoteDiscoverer discoverer;
     private boolean calibrating = true;
 
-    private WiiIREvent[] event = new WiiIREvent[3];
+    private WiiIREvent[] event = new WiiIREvent[2];
 
     public WiimoteHeadTracker() {
+        this.point[0] = new Point();
+        this.point[1] = new Point();
+        this.point[2] = new Point();
     }
 
     public void start() {
@@ -86,7 +89,7 @@ public class WiimoteHeadTracker extends SingleSourceHeadTracker implements Wiimo
                 cameraVerticalAngle = (float) ((angle - relativeVerticalAngle));//absolute camera angle
             }
         } else {
-            for (int i = 0; i < point.length; i++) {
+            for (int i = 0; i < event.length; i++) {
                 if (light.getLightSource() == event[i].getLightSource()) {
                     point[i].x = light.getX();
                     point[i].y = light.getY();

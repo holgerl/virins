@@ -6,6 +6,7 @@ import com.sun.opengl.util.GLUT;
 import com.sun.opengl.util.texture.Texture;
 import com.sun.opengl.util.texture.TextureCoords;
 import com.sun.opengl.util.texture.TextureIO;
+import eit.headtracking.wiimote.WiimoteHeadTracker;
 import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -59,6 +60,7 @@ public class JOGL implements GLEventListener, KeyListener {
     private DualWiimoteHeadTracker head;
     private Test test;
     float screenAspect = 1.6f;
+    private boolean imageMode = false;
 
     public JOGL() {
         this.head = new DualWiimoteHeadTracker();
@@ -81,7 +83,9 @@ public class JOGL implements GLEventListener, KeyListener {
         gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         gl.glShadeModel(GL.GL_SMOOTH); // try setting this to GL_FLAT and see what happens.
         gl.glEnable(GL.GL_TEXTURE_2D);
-        //texture = load("/home/vegar/Bilder/startsv7.jpg");
+        if (imageMode) {
+            texture = load("/home/vegar/Bilder/startsv7.jpg");
+        }
 
     }
 
@@ -95,12 +99,12 @@ public class JOGL implements GLEventListener, KeyListener {
         }
         final float h = (float) width / (float) height;
         gl.glHint(GL.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
-    gl.glViewport(0, 0, width, height);
-    gl.glMatrixMode(GL.GL_PROJECTION);
-    gl.glLoadIdentity();
-    glu.gluPerspective(45.0f, h, 0.0, 20.0);
-    gl.glMatrixMode(GL.GL_MODELVIEW);
-    gl.glLoadIdentity();
+        gl.glViewport(0, 0, width, height);
+        gl.glMatrixMode(GL.GL_PROJECTION);
+        gl.glLoadIdentity();
+        glu.gluPerspective(45.0f, h, 0.0, 20.0);
+        gl.glMatrixMode(GL.GL_MODELVIEW);
+        gl.glLoadIdentity();
     }
 
     public void display(GLAutoDrawable drawable) {
@@ -112,6 +116,7 @@ public class JOGL implements GLEventListener, KeyListener {
         // Reset the current matrix to the "iden
         //head.headZ += .01f;
         gl.glMatrixMode(GL.GL_PROJECTION);
+        
         gl.glLoadIdentity();
         float nearPlane = .05f;
         
@@ -119,17 +124,21 @@ public class JOGL implements GLEventListener, KeyListener {
                 nearPlane * (.5f * screenAspect - head.getHeadX()) / head.getHeadZ(),
                 nearPlane * (-.5f - head.getHeadY()) / head.getHeadZ(),
                 nearPlane * (.5f - head.getHeadY()) / head.getHeadZ(),
-                nearPlane, 100); 
-        
+                nearPlane, 100);
+                
         gl.glMatrixMode(GL.GL_MODELVIEW);
         gl.glLoadIdentity();
         glu.gluLookAt(head.getHeadX(), head.getHeadY(), head.getHeadZ(), head.getHeadX(), head.getHeadY(), .0f, .0f, 1.0f, .0f);
-
-        drawGrid(gl, 0.0f);
-        drawTargets(gl, .01f, .02f, .5f);
-        drawTargets(gl, .05f, .02f, 8f);
-        drawTargets(gl, -.05f, -.02f, 6f);
-        drawTargets(gl, -.005f, -.002f, 4f);
+        if (!imageMode) {
+            drawGrid(gl, 0.0f);
+            drawTargets(gl, .01f, .02f, .5f);
+            drawTargets(gl, .05f, .02f, 8f);
+            drawTargets(gl, -.05f, -.02f, 6f);
+            drawTargets(gl, -.005f, -.002f, 4f);
+            drawTargets(gl, -.01f, .01f, 4.5f);
+        } else {
+            drawImage(gl);
+        }
 
         gl.glFlush();
     }
@@ -211,18 +220,18 @@ public class JOGL implements GLEventListener, KeyListener {
 
     void drawImage(GL gl) {
         gl.glRotatef(180.0f, 0.0f, 0.0f, 1.0f);
-        gl.glScalef(-screenAspect*texture.getAspectRatio(), 1.0f, 1.0f);
-        gl.glScalef(8.0f, 8.0f, 1.0f);
+        gl.glScalef(-screenAspect * texture.getAspectRatio(), 1.0f, 1.0f);
+        //gl.glScalef(8.0f, 8.0f, 1.0f);
         gl.glBegin(GL.GL_QUADS);
         texture.bind();
         gl.glTexCoord2f(0.0f, 0.0f);
-        gl.glVertex3f(-1.0f, -1.0f, -10f);	// Bottom Left Of The Texture and Quad
+        gl.glVertex3f(-1.0f, -1.0f, -0.5f);	// Bottom Left Of The Texture and Quad
         gl.glTexCoord2f(1.0f, 0.0f);
-        gl.glVertex3f(1.0f, -1.0f, -10f);	// Bottom Right Of The Texture and Quad
+        gl.glVertex3f(1.0f, -1.0f, -0.5f);	// Bottom Right Of The Texture and Quad
         gl.glTexCoord2f(1.0f, 1.0f);
-        gl.glVertex3f(1.0f, 1.0f, -10f);	// Top Right Of The Texture and Quad
+        gl.glVertex3f(1.0f, 1.0f, -0.5f);	// Top Right Of The Texture and Quad
         gl.glTexCoord2f(0.0f, 1.0f);
-        gl.glVertex3f(-1.0f, 1.0f, -10f);	// Top Left Of The Texture and Quad
+        gl.glVertex3f(-1.0f, 1.0f, -0.5f);	// Top Left Of The Texture and Quad
         gl.glEnd();
     }
 
