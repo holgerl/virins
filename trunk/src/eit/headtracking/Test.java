@@ -142,11 +142,12 @@ public class Test extends JPanel implements WindowListener, ActionListener, KeyL
     public void windowClosing(WindowEvent e) {
         System.out.println("Stopping head tracker");
         head.stop();
+        System.out.println("Exiting");
+        System.exit(0);
     }
 
     public void windowClosed(WindowEvent e) {
-        System.out.println("Exiting");
-        System.exit(0);
+
     }
 
     public void windowIconified(WindowEvent e) {
