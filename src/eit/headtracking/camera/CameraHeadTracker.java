@@ -43,8 +43,8 @@ public class CameraHeadTracker extends SingleSourceHeadTracker {
     }
 
     public CameraHeadTracker() {
-        this.XMAX = 640; // TODO: Hard coded = bad
-        this.YMAX = 480;
+        this.XMAX = 320; // TODO: Hard coded = bad
+        this.YMAX = 240;
         this.screenHeightinMM = 150;
         this.point[LEFT] = new Point();
         this.point[LEFT+1] = new Point();
@@ -119,6 +119,7 @@ public class CameraHeadTracker extends SingleSourceHeadTracker {
     @Override
     public void stop() {
     	frame.setVisible(false);
+        processor.stop();
     }
 
     @Override
