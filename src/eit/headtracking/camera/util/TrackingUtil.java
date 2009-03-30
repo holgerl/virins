@@ -34,6 +34,20 @@ public class TrackingUtil {
 					}
 					if (points.size() >= count) break outer;
 				}
+		} else if (frame.getData() instanceof byte[]) {
+			byte[] datashit = (byte[]) frame.getData();
+			outer: for (int y = 0; y < frameHeight; y++)
+				for (int x = 0; x < frameWidth; x++) {
+					if (intensity(datashit, x + y * frameWidth) < 10) {
+						boolean notAlreadyFound = true;
+						for (TrackedPoint point : points)
+							if (x > point.coordX-20 && x < point.coordX+20)
+								if (y > point.coordY-20 && y < point.coordY+20)
+									notAlreadyFound = false;
+						if (notAlreadyFound) points.add(new TrackedPoint(points.size(), frameWidth, frameHeight, x, y));
+					}
+					if (points.size() >= count) break outer;
+				}
 		} else {
 			throw new Error("findPoints does not support "+frame.getData().getClass().getSimpleName());
 		}
@@ -44,13 +58,26 @@ public class TrackingUtil {
 		if (frame.getData() instanceof short[]) {
 			short[] datashit = (short[]) frame.getData();
 			for (TrackedPoint point : points) {
-				for (int y = point.coordY-20+point.dy; y < point.coordY+20+point.dy; y++)
-					for (int x = point.coordX-20+point.dx; x < point.coordX+20+point.dx; x++) {
+				for (int y = point.coordY-30+point.dy; y < point.coordY+30+point.dy; y++)
+					for (int x = point.coordX-30+point.dx; x < point.coordX+30+point.dx; x++) {
 						int pos = x + y * frameWidth;
 						if (pos >= 0 && pos < frame.getLength()) {
 							if (intensity(datashit[pos]) < 30)
 								point.update(x, y);
 							datashit[pos] &= 15328; // Discolor area where point is looked for
+						}
+					}
+			}
+		} else if (frame.getData() instanceof byte[]) {
+			byte[] datashit = (byte[]) frame.getData();
+			for (TrackedPoint point : points) {
+				for (int y = point.coordY-20+point.dy; y < point.coordY+20+point.dy; y++)
+					for (int x = point.coordX-20+point.dx; x < point.coordX+20+point.dx; x++) {
+						int pos = x + y * frameWidth;
+						if (pos >= 0 && pos < frame.getLength()) {
+							if (intensity(datashit, pos) < 30)
+								point.update(x, y);
+							datashit[pos+3] = 0; // Discolor area where point is looked for
 						}
 					}
 			}
@@ -74,6 +101,21 @@ public class TrackingUtil {
 						datashit[pos] = red;
 				}
 			}
+		} else if (frame.getData() instanceof byte[]) {
+			byte[] datashit = (byte[]) frame.getData();
+			dotX -= 10;
+			dotY -= 10;
+			for (int y = dotY; y <= dotY+20; y++) {
+				int foo = (y==dotY||y==dotY+20) ? 1 : 20;
+				for (int x = dotX; x <= dotX+20; x+=foo) {
+					int pos = x + y * frameWidth;
+					if (pos >= 0 && pos < frame.getLength()) {
+						datashit[pos] = (byte) 255;
+						datashit[pos+1] = 0;
+						datashit[pos+2] = 0;
+					}
+				}
+			}
 		} else {
 			throw new Error("DrawBox does not support "+frame.getData().getClass().getSimpleName());
 		}
@@ -90,6 +132,23 @@ public class TrackingUtil {
 						int pos = x + y * frameWidth;
 						if (pos >= 0 && pos < frame.getLength())
 							datashit[pos] = red;
+					}
+				}
+				offsetX+=7;
+			}
+		} else if (frame.getData() instanceof byte[]) {
+			byte[] datashit = (byte[]) frame.getData();
+			int offsetX = 0;
+			for (int i = 0; i < id+1; i++) {
+				locX += offsetX;
+				for (int y = locY; y < locY+5; y++) {
+					for (int x = locX; x < locX+5; x++) {
+						int pos = x + y * frameWidth;
+						if (pos >= 0 && pos < frame.getLength()) {
+							datashit[pos] = (byte) 255;
+							datashit[pos+1] = 0;
+							datashit[pos+2] = 0;
+						}
 					}
 				}
 				offsetX+=7;

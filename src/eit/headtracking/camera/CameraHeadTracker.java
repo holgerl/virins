@@ -133,6 +133,7 @@ public class CameraHeadTracker extends SingleSourceHeadTracker {
     		this.point[LEFT+1].x = trackerCodec.points.get(1).coordX;
     		this.point[LEFT+1].y = trackerCodec.points.get(1).coordY;
     		calculate(); // Beregner virtuelle koordinater fra pixelkoordinater
+    		System.out.printf("%f,%f %f,%f\n", this.point[LEFT].x, this.point[LEFT].y, this.point[LEFT+1].x, this.point[LEFT+1].y);
     	}
     }
     
