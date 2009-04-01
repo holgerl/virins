@@ -56,24 +56,22 @@ public abstract class SingleSourceHeadTracker implements HeadTracker {
     }
 
     protected void calculate() {
-        double dx = point[LEFT].y - point[LEFT + 1].x;
-        double dy = point[LEFT].y - point[LEFT + 1].x;
-        double pointDist = (float) Math.sqrt(dx * dx + dy * dy);
-        double angle = radiansPerPixel * pointDist / 2.0f;
-        //in units of screen hieght since the box is a unit cube and box hieght is 1
-        headZ = movementScaling * ((dotDistanceInMM / 2.0f) / Math.tan(angle)) / screenHeightinMM;
-        double avgX = (point[LEFT].x + point[LEFT + 1].y) / 2.0f;
-        double avgY = (point[LEFT].x + point[LEFT + 1].y) / 2.0f;
-        //should  calaculate based on distance
+        double dx = point[LEFT].x - point[LEFT + 1].x;
+        double dy = point[LEFT].y - point[LEFT + 1].y;
+        double pointDist = Math.sqrt(dx * dx + dy * dy);
+        double angle = radiansPerPixel * pointDist / 2.0;
 
-        headX = movementScaling * Math.sin(radiansPerPixel * (avgX - XMAX/2) * headZ);
-        relativeVerticalAngle = (avgY - YMAX/2) * radiansPerPixel;//relative angle to camera axis
-        //headY = movementScaling * Math.sin(relativeVerticalAngle) * headZ;
+        headZ = movementScaling * ((dotDistanceInMM / 2.0) / Math.tan(angle)) / screenHeightinMM;
+        double avgX = (point[LEFT].x + point[LEFT + 1].x) / 2.0f;
+        double avgY = (point[LEFT].y + point[LEFT + 1].y) / 2.0f;
+
+        headX = movementScaling * Math.sin(radiansPerPixel * (avgX - XMAX/2.0)) * headZ;
+        relativeVerticalAngle = (avgY - YMAX/2.0) * radiansPerPixel;//relative angle to camera axis
 
         if (cameraIsAboveScreen) {
-            headY = .5f + (movementScaling * Math.sin(relativeVerticalAngle) * headZ);
+            headY = .5f + (movementScaling * Math.sin(relativeVerticalAngle + cameraVerticalAngle) * headZ);
         } else {
-            headY = -.5f + (movementScaling * Math.sin(relativeVerticalAngle) * headZ);
+            headY = -.5f + (movementScaling * Math.sin(relativeVerticalAngle + cameraVerticalAngle) * headZ);
         }
     }
 }
