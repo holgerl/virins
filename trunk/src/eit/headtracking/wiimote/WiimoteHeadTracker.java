@@ -19,17 +19,15 @@ import java.util.HashMap;
  * @author vegar
  */
 public class WiimoteHeadTracker extends SingleSourceHeadTracker implements WiimoteDiscoveryListener, WiimoteListener {
+
     private Wiimote wiimote;
-
     private WiimoteDiscoverer discoverer;
-    private boolean calibrating = true;
-
     private WiiIREvent[] event = new WiiIREvent[2];
 
     public WiimoteHeadTracker() {
         this.point[0] = new Point();
         this.point[1] = new Point();
-        this.point[2] = new Point();
+    //this.point[2] = new Point();
     }
 
     public void start() {
@@ -51,52 +49,26 @@ public class WiimoteHeadTracker extends SingleSourceHeadTracker implements Wiimo
     }
 
     public void calibrate() {
-        for (int i = 0; i < event.length; i++) {
-            event[i] = null;
+        System.out.println("Calibrating");
+        double angle = Math.acos(.5 / headZ) - Math.PI / 2;//angle of head to screen
+        if (!cameraIsAboveScreen) {
+            angle = -angle;
         }
-        this.calibrating = true;
-    }
-    // Returns true when all points calibrated
-
-    private boolean calibratePoint(WiiIREvent light) {
-        WiiIREvent temp = null;
-        for (int i = 0; i < event.length; i++) { // Start from the left
-            if (event[i] == null) {
-                event[i] = light;
-                return i == event.length - 1; // If we're done i == 2
-            } else {
-                if (event[i].getLightSource() == light.getLightSource()) { // Point already assigned
-                    event[i] = light;
-                } else if (light.getX() < event[i].getX()) { // Assigned but wrong, must interchange
-                    temp = light;
-                    light = event[i];
-                    event[i] = temp;
-                }
-            }
-        }
-        return true;
+        cameraVerticalAngle = (float) ((angle - relativeVerticalAngle));//absolute camera angle
+        System.out.println("Done calibrating");
     }
 
     public void wiiIRInput(WiiIREvent light) {
-        if (calibrating) {
-            boolean doneCalibrating = calibratePoint(light);
-            calibrating = !doneCalibrating;
-            if (doneCalibrating) {
-                double angle = Math.acos(.5 / headZ) - Math.PI / 2;//angle of head to screen
-                if (!cameraIsAboveScreen) {
-                    angle = -angle;
-                }
-                cameraVerticalAngle = (float) ((angle - relativeVerticalAngle));//absolute camera angle
-            }
+        if (event[0] == null || event[0].getLightSource() == light.getLightSource()) {
+            event[0] = light;
+            point[0].x = event[0].getX();
+            point[0].y = event[0].getY();
         } else {
-            for (int i = 0; i < event.length; i++) {
-                if (light.getLightSource() == event[i].getLightSource()) {
-                    point[i].x = light.getX();
-                    point[i].y = light.getY();
-                }
-            }
-            calculate();
+            event[1] = light;
+            point[1].x = event[1].getX();
+            point[1].y = event[1].getY();
         }
+        calculate();
     }
 
     public void wiiAccelInput(WiiAccelEvent arg0) {

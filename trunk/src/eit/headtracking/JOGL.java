@@ -57,13 +57,15 @@ public class JOGL implements GLEventListener, KeyListener {
         animator.start();
     }
     private Texture texture;
-    private DualWiimoteHeadTracker head;
+    private HeadTracker head;
     private Test test;
     float screenAspect = 1.6f;
     private boolean imageMode = false;
+    float ballDepth[] = { 1.0f, 3.0f, 5.0f, 7.0f, 9.0f };
+    //FloatBuffer light = new
 
     public JOGL() {
-        this.head = new DualWiimoteHeadTracker();
+        this.head = new WiimoteHeadTracker();
         this.head.start();
         this.test = new Test(head);
     }
@@ -72,7 +74,6 @@ public class JOGL implements GLEventListener, KeyListener {
         System.out.println("WTF=");
         // Use debug pipeline
         // drawable.setGL(new DebugGL(drawable.getGL()));
-
         GL gl = drawable.getGL();
         System.err.println("INIT GL IS: " + gl.getClass().getName());
 
@@ -86,7 +87,6 @@ public class JOGL implements GLEventListener, KeyListener {
         if (imageMode) {
             texture = load("/home/vegar/Bilder/startsv7.jpg");
         }
-
     }
 
     public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
@@ -105,6 +105,7 @@ public class JOGL implements GLEventListener, KeyListener {
         glu.gluPerspective(45.0f, h, 0.0, 20.0);
         gl.glMatrixMode(GL.GL_MODELVIEW);
         gl.glLoadIdentity();
+        //gl.glLightfv
     }
 
     public void display(GLAutoDrawable drawable) {
@@ -113,31 +114,35 @@ public class JOGL implements GLEventListener, KeyListener {
         GLU glu = new GLU();
         // Clear the drawing area
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
-        // Reset the current matrix to the "iden
-        //head.headZ += .01f;
         gl.glMatrixMode(GL.GL_PROJECTION);
-        
         gl.glLoadIdentity();
         float nearPlane = .05f;
+        //gl.glFrustum(-.5f, .5f, -.5f, .5f, 0.0f, 50.0f);
         
         gl.glFrustum(nearPlane * (-.5f * screenAspect - head.getHeadX()) / head.getHeadZ(),
                 nearPlane * (.5f * screenAspect - head.getHeadX()) / head.getHeadZ(),
                 nearPlane * (-.5f - head.getHeadY()) / head.getHeadZ(),
                 nearPlane * (.5f - head.getHeadY()) / head.getHeadZ(),
-                nearPlane, 100);
+                nearPlane, 50);
                 
         gl.glMatrixMode(GL.GL_MODELVIEW);
         gl.glLoadIdentity();
-        glu.gluLookAt(head.getHeadX(), head.getHeadY(), head.getHeadZ(), head.getHeadX(), head.getHeadY(), .0f, .0f, 1.0f, .0f);
+        glu.gluLookAt(head.getHeadX(), head.getHeadY(), head.getHeadZ(), head.getHeadX(), head.getHeadY(), -5f, .0f, 1.0f, .0f);
         if (!imageMode) {
             drawGrid(gl, 0.0f);
-            drawTargets(gl, .01f, .02f, .5f);
-            drawTargets(gl, .05f, .02f, 8f);
-            drawTargets(gl, -.05f, -.02f, 6f);
-            drawTargets(gl, -.005f, -.002f, 4f);
-            drawTargets(gl, -.01f, .01f, 4.5f);
+            drawTargets(gl, .01f, .02f, ballDepth[0]);
+            drawTargets(gl, .05f, .02f, ballDepth[1]);
+            drawTargets(gl, -.05f, -.02f, ballDepth[2]);
+            drawTargets(gl, -.005f, -.002f, ballDepth[3]);
+            drawTargets(gl, -.01f, .01f, ballDepth[4]);
         } else {
             drawImage(gl);
+        }
+        for(int i = 0; i < ballDepth.length; i++) {
+            ballDepth[i] += 0.1f;
+            if(ballDepth[i] > 15.0) {
+                ballDepth[i] = -5f;
+            }
         }
 
         gl.glFlush();
@@ -158,14 +163,16 @@ public class JOGL implements GLEventListener, KeyListener {
         gl.glEnd();
          */
         gl.glColor3f(0.0f, 1.0f, 0.0f);
+        /*
         gl.glBegin(gl.GL_LINES);
         gl.glVertex3f(x, y, z);
         gl.glVertex3f(.0f, 0.0f, -5.0f);
         gl.glEnd();
+         */
 
         gl.glColor3f(1.0f, 0.0f, 0.0f);
         gl.glTranslatef(x, y, z);
-        glut.glutSolidSphere(0.01f, 100, 100);
+        glut.glutSolidSphere(0.05f, 100, 100);
         gl.glTranslatef(-x, -y, -z);
     }
 

@@ -12,8 +12,8 @@ public abstract class DualSourceHeadTracker implements HeadTracker {
 
     protected double leftOffsetRadians = Math.PI / 2.0;
     protected double rightOffsetRadians = Math.PI / 2.0;
-    protected double sourceDistanceInMM = 2000.0;
-    protected double screenHeightInMM = 600;
+    protected double sourceDistanceInMM = 800.0;
+    protected double screenHeightInMM = 495;
     protected double calibrationDistanceInMM = 2000.0;
     protected double radiansPerPixel = (Math.PI / 4.0) / 1024.0;
     protected double headX, headY, headZ;

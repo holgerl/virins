@@ -5,6 +5,7 @@
 package eit.headtracking;
 
 import eit.headtracking.wiimote.DualWiimoteHeadTracker;
+import eit.headtracking.wiimote.WiimoteHeadTracker;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -46,7 +47,7 @@ public class Test extends JPanel implements WindowListener, ActionListener, KeyL
     private JButton calibrateButton = new JButton("Calibrate");
 
     public Test(HeadTracker h) {
-        this.head =  h;
+        this.head = h;
         f = new JFrame();
         f.setContentPane(this);
         f.addWindowListener(this);
@@ -110,15 +111,15 @@ public class Test extends JPanel implements WindowListener, ActionListener, KeyL
     }
 
     public void stateChanged(ChangeEvent arg0) {
-//
-//        if (arg0.getSource() == zSlider) {
-//        head.headZ = zSlider.getValue() / 50.0;
-//        } else if (arg0.getSource() == xSlider) {
-//        head.headX = xSlider.getValue() / 50.0;
-//        } else if (arg0.getSource() == ySlider) {
-//        head.headY = ySlider.getValue() / 50.0;
-//        }
-         
+        /*
+        if (arg0.getSource() == zSlider) {
+        head.headZ = zSlider.getValue() / 50.0;
+        } else if (arg0.getSource() == xSlider) {
+        head.headX = xSlider.getValue() / 50.0;
+        } else if (arg0.getSource() == ySlider) {
+        head.headY = ySlider.getValue() / 50.0;
+        }
+        */
     }
 
     public void run() {
