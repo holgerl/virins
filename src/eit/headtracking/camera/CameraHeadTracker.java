@@ -2,7 +2,9 @@ package eit.headtracking.camera;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 
+import javax.media.Buffer;
 import javax.media.Codec;
 import javax.media.ConfigureCompleteEvent;
 import javax.media.ControllerEvent;
@@ -18,6 +20,13 @@ import javax.media.UnsupportedPlugInException;
 import javax.media.control.TrackControl;
 import javax.media.format.VideoFormat;
 import javax.media.protocol.DataSource;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+import de.humatic.dsj.DSCapture;
+import de.humatic.dsj.DSFilterInfo;
+import de.humatic.dsj.DSFiltergraph;
 
 import eit.headtracking.HeadTracker;
 import eit.headtracking.Point;
@@ -27,11 +36,13 @@ import eit.headtracking.camera.gui.CalibrateKeyListener;
 import eit.headtracking.camera.gui.ProcessorGUI;
 
 
-public class CameraHeadTracker extends SingleSourceHeadTracker {
+public class CameraHeadTracker extends SingleSourceHeadTracker implements java.beans.PropertyChangeListener {
 
 	static Processor processor;
 	static Object waitSync = new Object();
 	static boolean stateTransitionOK = true;
+	
+	private static DSCapture graph;
 	
 	TrackerCodec trackerCodec;
 	ProcessorGUI frame;
@@ -43,15 +54,69 @@ public class CameraHeadTracker extends SingleSourceHeadTracker {
     }
 
     public CameraHeadTracker() {
-        this.XMAX = 320; // TODO: Hard coded = bad
-        this.YMAX = 240;
+        this.XMAX = 1280; // TODO: Hard coded = bad
+        this.YMAX = 1080;
         this.screenHeightinMM = 150;
         this.point[LEFT] = new Point();
         this.point[LEFT+1] = new Point();
         this.point[LEFT+2] = new Point();
     }
+    
+	public void propertyChange(java.beans.PropertyChangeEvent pe) {
+		System.out.println("Received event or callback from "+pe.getPropagationId());
+	}
+    
     @Override
     public void start() {
+    	if (true)
+    		startDS();
+    	else
+    		startJMF();
+    }
+    
+    private void startDS() {
+    	DSFilterInfo[][] dsi = DSCapture.queryDevices();
+		graph = new DSCapture(DSFiltergraph.RENDER_NATIVE, dsi[0][0], false, DSFilterInfo.doNotRender(), this);
+		
+		JFrame f = new JFrame();
+		f.setSize(1920/4, 1080/4);
+		JLabel label = new JLabel();
+		f.setContentPane(label);
+		f.setVisible(true);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.addKeyListener(new CalibrateKeyListener(this));
+		
+		trackerCodec = new TrackerCodec();
+		trackerCodec.addListener(this);
+		
+	    class LocalThread extends Thread {
+	    	JLabel label;
+	    	JFrame f;
+	    	public LocalThread(JLabel label, JFrame f) {
+	    		super();
+	    		this.label = label;
+	    		this.f = f;
+	    	}
+	        public void run() {
+	        	while (true) {
+	        		try {
+	    				if (graph != null && graph.getData() != null) {
+	    					BufferedImage img = graph.getImage();
+	    					//label.setIcon(new ImageIcon(img.getScaledInstance(f.getWidth(), f.getHeight(), BufferedImage.SCALE_FAST)));
+	    					Buffer b = new Buffer();
+	    					b.setData(graph.getData());
+	    					b.setLength(graph.getDataSize());
+	    					trackerCodec.accessFrame(b);
+	    				}
+	        		} catch (Throwable t) {}
+	    		}
+	        }
+	    }
+	    Thread thread = new LocalThread(label, f);
+	    thread.start();
+    }
+    
+    private void startJMF() {
     	String url = "vfw:Microsoft WDM Image Capture (Win32):0";
         //String url = "/dev/video0";
 
@@ -134,7 +199,7 @@ public class CameraHeadTracker extends SingleSourceHeadTracker {
     		this.point[LEFT+1].x = trackerCodec.points.get(1).coordX;
     		this.point[LEFT+1].y = trackerCodec.points.get(1).coordY;
     		calculate(); // Beregner virtuelle koordinater fra pixelkoordinater
-    		System.out.printf("%f,%f %f,%f\n", this.point[LEFT].x, this.point[LEFT].y, this.point[LEFT+1].x, this.point[LEFT+1].y);
+    		//System.out.printf("(%3.0f,%3.1f) (%3.0f,%3.0f)\n", this.point[LEFT].x, this.point[LEFT].y, this.point[LEFT+1].x, this.point[LEFT+1].y);
     	}
     }
     

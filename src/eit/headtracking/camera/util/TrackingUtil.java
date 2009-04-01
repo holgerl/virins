@@ -35,16 +35,19 @@ public class TrackingUtil {
 					if (points.size() >= count) break outer;
 				}
 		} else if (frame.getData() instanceof byte[]) {
+			System.out.println("TrackingUtil.calibrate");
 			byte[] datashit = (byte[]) frame.getData();
 			outer: for (int y = 0; y < frameHeight; y++)
 				for (int x = 0; x < frameWidth; x++) {
-					if (intensity(datashit, x + y * frameWidth) < 10) {
+					if (intensity(datashit, x*3 + y * frameWidth*3) > 200) System.out.println(intensity(datashit, x*3 + y * frameWidth*3));
+					if (intensity(datashit, x*3 + y * frameWidth*3) > 200) {
+						System.out.println("found point at " + x/3 + "," + y);
 						boolean notAlreadyFound = true;
 						for (TrackedPoint point : points)
 							if (x > point.coordX-20 && x < point.coordX+20)
 								if (y > point.coordY-20 && y < point.coordY+20)
 									notAlreadyFound = false;
-						if (notAlreadyFound) points.add(new TrackedPoint(points.size(), frameWidth, frameHeight, x, y));
+						if (notAlreadyFound) points.add(new TrackedPoint(points.size(), frameWidth, frameHeight, x*3, y));
 					}
 					if (points.size() >= count) break outer;
 				}
@@ -72,10 +75,10 @@ public class TrackingUtil {
 			byte[] datashit = (byte[]) frame.getData();
 			for (TrackedPoint point : points) {
 				for (int y = point.coordY-20+point.dy; y < point.coordY+20+point.dy; y++)
-					for (int x = point.coordX-20+point.dx; x < point.coordX+20+point.dx; x++) {
+					for (int x = point.coordX-20+point.dx; x < point.coordX+20*3+point.dx; x++) {
 						int pos = x + y * frameWidth;
 						if (pos >= 0 && pos < frame.getLength()-3) {
-							if (intensity(datashit, pos) < 30)
+							if (intensity(datashit, pos) > 200)
 								point.update(x, y);
 							datashit[pos+3] = 0; // Discolor area where point is looked for
 						}

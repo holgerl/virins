@@ -12,15 +12,12 @@ public class CalibrateKeyListener implements KeyListener {
 		this.tracker = tracker;
 	}
 	
-	@Override
 	public void keyPressed(KeyEvent arg0) {
 		if (arg0.getKeyChar() == ' ');
 		tracker.calibrate();
 	}
 
-	@Override
 	public void keyReleased(KeyEvent arg0) {}
 
-	@Override
-	public void keyTyped(KeyEvent arg0) {}		
+	public void keyTyped(KeyEvent arg0) {}
 }
