@@ -10,6 +10,7 @@ import javax.media.ConfigureCompleteEvent;
 import javax.media.ControllerEvent;
 import javax.media.ControllerListener;
 import javax.media.EndOfMediaEvent;
+import javax.media.Format;
 import javax.media.Manager;
 import javax.media.MediaLocator;
 import javax.media.PrefetchCompleteEvent;
@@ -69,7 +70,7 @@ public class CameraHeadTracker extends SingleSourceHeadTracker implements java.b
     @Override
     public void start() {
     	if (true)
-    		startDS();
+    		try {startDS();} catch (Throwable t) {}
     	else
     		startJMF();
     }
@@ -78,13 +79,13 @@ public class CameraHeadTracker extends SingleSourceHeadTracker implements java.b
     	DSFilterInfo[][] dsi = DSCapture.queryDevices();
 		graph = new DSCapture(DSFiltergraph.RENDER_NATIVE, dsi[0][0], false, DSFilterInfo.doNotRender(), this);
 		
-		JFrame f = new JFrame();
-		f.setSize(1920/4, 1080/4);
+		JFrame frame = new JFrame();
+		frame.setSize(1920/4, 1080/4);
 		JLabel label = new JLabel();
-		f.setContentPane(label);
-		f.setVisible(true);
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.addKeyListener(new CalibrateKeyListener(this));
+		frame.setContentPane(label);
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.addKeyListener(new CalibrateKeyListener(this));
 		
 		trackerCodec = new TrackerCodec();
 		trackerCodec.addListener(this);
@@ -102,17 +103,19 @@ public class CameraHeadTracker extends SingleSourceHeadTracker implements java.b
 	        		try {
 	    				if (graph != null && graph.getData() != null) {
 	    					BufferedImage img = graph.getImage();
+	    					
 	    					//label.setIcon(new ImageIcon(img.getScaledInstance(f.getWidth(), f.getHeight(), BufferedImage.SCALE_FAST)));
 	    					Buffer b = new Buffer();
 	    					b.setData(graph.getData());
 	    					b.setLength(graph.getDataSize());
+	    					b.setFormat(new Format("," + img.getWidth() + "x" + img.getHeight()));
 	    					trackerCodec.accessFrame(b);
 	    				}
 	        		} catch (Throwable t) {}
 	    		}
 	        }
 	    }
-	    Thread thread = new LocalThread(label, f);
+	    Thread thread = new LocalThread(label, frame);
 	    thread.start();
     }
     
@@ -183,8 +186,8 @@ public class CameraHeadTracker extends SingleSourceHeadTracker implements java.b
 
     @Override
     public void stop() {
-    	frame.setVisible(false);
-        processor.stop();
+    	//frame.setVisible(false);
+        //processor.stop();
     }
 
     @Override

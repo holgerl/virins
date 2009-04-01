@@ -21,7 +21,7 @@ public abstract class SingleSourceHeadTracker implements HeadTracker {
     protected boolean cameraIsAboveScreen = true;
     protected double relativeVerticalAngle;
     protected double cameraVerticalAngle;
-    protected double headX,  headY,  headZ;
+    protected double headX,  headY,  headZ = 8.0;
     protected double rotX,  rotY,  rotZ;
     protected Point[] point = new Point[3];
 

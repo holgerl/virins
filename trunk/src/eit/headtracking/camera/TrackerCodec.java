@@ -56,7 +56,7 @@ public class TrackerCodec extends GenericAccessCodec {
 				for (int x = 0; x < frameWidth; x++) {
 					if (frame.getData() instanceof byte[]) {
 						byte[] data = (byte[]) frame.getData();
-						System.out.println(TrackingUtil.intensity(data, x*3+y*frameWidth*3));
+						//System.out.println(TrackingUtil.intensity(data, x*3+y*frameWidth*3));
 					}
 				}
 			}

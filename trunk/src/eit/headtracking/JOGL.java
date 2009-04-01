@@ -1,5 +1,6 @@
 package eit.headtracking;
 
+import eit.headtracking.camera.CameraHeadTracker;
 import eit.headtracking.wiimote.DualWiimoteHeadTracker;
 import com.sun.opengl.util.Animator;
 import com.sun.opengl.util.GLUT;
@@ -65,7 +66,7 @@ public class JOGL implements GLEventListener, KeyListener {
     //FloatBuffer light = new
 
     public JOGL() {
-        this.head = new WiimoteHeadTracker();
+        this.head = new CameraHeadTracker();
         this.head.start();
         this.test = new Test(head);
     }
