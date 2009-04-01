@@ -9,7 +9,6 @@ import javax.media.RealizeCompleteEvent;
 import javax.media.ResourceUnavailableEvent;
 
 class CtrlListener implements ControllerListener {
-	@Override
 	public void controllerUpdate(ControllerEvent evt) {
 		if (evt instanceof ConfigureCompleteEvent
 				|| evt instanceof RealizeCompleteEvent
