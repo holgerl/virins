@@ -9,8 +9,8 @@ package eit.headtracking;
  * @author vegar
  */
 public abstract class SingleSourceHeadTracker implements HeadTracker {
-    protected double XMAX = 1024.0;
-    protected double YMAX = 768.0;
+    public double XMAX = 1024.0;
+    public double YMAX = 768.0;
     protected static final int LEFT = 0;
     protected static final int CENTER = 1;
     protected static final int RIGHT = 2;
@@ -23,7 +23,7 @@ public abstract class SingleSourceHeadTracker implements HeadTracker {
     protected double cameraVerticalAngle;
     protected double headX,  headY,  headZ = 8.0;
     protected double rotX,  rotY,  rotZ;
-    protected Point[] point = new Point[3];
+    public Point[] point = new Point[3];
 
     public abstract void start();
 

@@ -1,6 +1,6 @@
 package eit.headtracking;
 
-import eit.headtracking.camera.CameraHeadTracker;
+import eit.headtracking.dscamera.CameraHeadTracker;
 import eit.headtracking.wiimote.DualWiimoteHeadTracker;
 import com.sun.opengl.util.Animator;
 import com.sun.opengl.util.GLUT;
