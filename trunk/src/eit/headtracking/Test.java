@@ -67,9 +67,10 @@ public class Test extends JPanel implements WindowListener, ActionListener, KeyL
         this.buttonPanel.add(zSlider);
 
         this.add(buttonPanel, BorderLayout.EAST);
-
+        
         System.out.println("Starting head tracker");
         head.start();
+        
     }
 
     public void paintComponent(Graphics g) {
