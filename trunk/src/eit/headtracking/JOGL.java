@@ -104,8 +104,8 @@ public class JOGL implements GLEventListener, KeyListener {
             ballDepth[i][1] = .5f - random.nextFloat();
             ballDepth[i][2] = 5.0f - random.nextFloat() * 10.0f;
             if (ballDepth[i][2] > 0.0f) {
-                ballDepth[i][0] /= 5.0f;
-                ballDepth[i][1] /= 5.0f;
+                ballDepth[i][0] /= 3.0f;
+                ballDepth[i][1] /= 3.0f;
             }
         }
     }
