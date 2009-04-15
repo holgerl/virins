@@ -30,6 +30,8 @@ public class DualWiimoteHeadTracker extends DualSourceHeadTracker implements Wii
     }
 
     public void stop() {
+        leftWiimote.cleanup();
+        rightWiimote.cleanup();
     }
 
 

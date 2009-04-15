@@ -16,7 +16,7 @@ public abstract class SingleSourceHeadTracker implements HeadTracker {
     protected static final int RIGHT = 2;
     protected double dotDistanceInMM = 8.5f * 25.4f;//width of the wii sensor bar
     protected double screenHeightinMM = 600.0f; // 7.5f * 25.4f; //Laptopskjermen min
-    protected double radiansPerPixel = (float) (Math.PI / 4) / XMAX; //45 degree field of view with a 1024x768 camera
+    protected double radiansPerPixel = (float) (Math.PI / 4.0) / XMAX; //45 degree field of view with a 1024x768 camera
     protected double movementScaling = 1.0f;
     protected boolean cameraIsAboveScreen = true;
     protected double relativeVerticalAngle;
@@ -25,11 +25,24 @@ public abstract class SingleSourceHeadTracker implements HeadTracker {
     protected double rotX,  rotY,  rotZ;
     public Point[] point = new Point[3];
 
+    public SingleSourceHeadTracker() {
+        this.screenHeightinMM = Double.parseDouble(System.getProperty("eit.headtracking.screenheightmm"));
+        this.dotDistanceInMM = Double.parseDouble(System.getProperty("eit.headtracking.singlesourceheadtracker.pointdistancemm"));
+    }
+
     public abstract void start();
 
     public abstract void stop();
 
-    public abstract void calibrate();
+    public void calibrate() {
+        System.out.println("Calibrating");
+        double angle = Math.acos(.5 / headZ) - Math.PI / 2;//angle of head to screen
+        if (!cameraIsAboveScreen) {
+            angle = -angle;
+        }
+        cameraVerticalAngle = (float) ((angle - relativeVerticalAngle));//absolute camera angle
+        System.out.println("Done calibrating");
+    }
 
     public float getHeadX() {
         return (float) headX;
