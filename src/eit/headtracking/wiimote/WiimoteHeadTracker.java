@@ -48,16 +48,6 @@ public class WiimoteHeadTracker extends SingleSourceHeadTracker implements Wiimo
         this.wiimote.vibrate(200);
     }
 
-    public void calibrate() {
-        System.out.println("Calibrating");
-        double angle = Math.acos(.5 / headZ) - Math.PI / 2;//angle of head to screen
-        if (!cameraIsAboveScreen) {
-            angle = -angle;
-        }
-        cameraVerticalAngle = (float) ((angle - relativeVerticalAngle));//absolute camera angle
-        System.out.println("Done calibrating");
-    }
-
     public void wiiIRInput(WiiIREvent light) {
         if (event[0] == null || event[0].getLightSource() == light.getLightSource()) {
             event[0] = light;

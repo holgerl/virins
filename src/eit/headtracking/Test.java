@@ -112,15 +112,18 @@ public class Test extends JPanel implements WindowListener, ActionListener, KeyL
     }
 
     public void stateChanged(ChangeEvent arg0) {
-        /*
-        if (arg0.getSource() == zSlider) {
-        head.headZ = zSlider.getValue() / 50.0;
-        } else if (arg0.getSource() == xSlider) {
-        head.headX = xSlider.getValue() / 50.0;
-        } else if (arg0.getSource() == ySlider) {
-        head.headY = ySlider.getValue() / 50.0;
+        if (head instanceof DualWiimoteHeadTracker) {
+            DualWiimoteHeadTracker h = (DualWiimoteHeadTracker) head;
+            if (arg0.getSource() == zSlider) {
+                h.headZ = zSlider.getValue() / 50.0;
+            } else if (arg0.getSource() == xSlider) {
+                h.headX = xSlider.getValue() / 50.0;
+            } else if (arg0.getSource() == ySlider) {
+                h.headY = ySlider.getValue() / 50.0;
+            }
         }
-        */
+
+
     }
 
     public void run() {
@@ -147,7 +150,6 @@ public class Test extends JPanel implements WindowListener, ActionListener, KeyL
     }
 
     public void windowClosed(WindowEvent e) {
-
     }
 
     public void windowIconified(WindowEvent e) {

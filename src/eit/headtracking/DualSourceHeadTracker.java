@@ -12,14 +12,20 @@ public abstract class DualSourceHeadTracker implements HeadTracker {
 
     protected double leftOffsetRadians = Math.PI / 2.0;
     protected double rightOffsetRadians = Math.PI / 2.0;
-    protected double sourceDistanceInMM = 800.0;
-    protected double screenHeightInMM = 495;
+    protected double sourceDistanceInMM = 850;// 1930.0;
+    protected double screenHeightInMM = 500; // 600;
     protected double calibrationDistanceInMM = 2000.0;
     protected double radiansPerPixel = (Math.PI / 4.0) / 1024.0;
     protected double headX, headY, headZ;
     protected double relativeVerticalAngle;
     protected Point leftPoint = new Point();
     protected Point rightPoint = new Point();
+
+    public DualSourceHeadTracker() {
+        this.screenHeightInMM = Double.parseDouble(System.getProperty("eit.headtracking.screenheightmm"));
+        this.sourceDistanceInMM = Double.parseDouble(System.getProperty("eit.headtracking.dualsourceheadtracker.sourcedistancemm"));
+        this.calibrationDistanceInMM = Double.parseDouble(System.getProperty("eit.headtracking.dualsourceheadtracker.calibrationdistancemm"));
+    }
 
     public float getHeadX() {
         return (float) headX;
@@ -48,8 +54,8 @@ public abstract class DualSourceHeadTracker implements HeadTracker {
     public void calibrate() {
         System.out.println("Calibrating");
         double angle = Math.atan2(calibrationDistanceInMM, sourceDistanceInMM / 2.0);
-        leftOffsetRadians = angle - radiansPerPixel* (double)(leftPoint.x);
-        rightOffsetRadians = angle - radiansPerPixel * (double)(1024 - rightPoint.y);
+        leftOffsetRadians = angle - leftAngle();
+        rightOffsetRadians = angle - rightAngle();
     }
 
     protected void calculate() {
@@ -65,7 +71,6 @@ public abstract class DualSourceHeadTracker implements HeadTracker {
 
     public double leftAngle() {
         return radiansPerPixel * (double) (leftPoint.x);
-
     }
 
     public double rightAngle() {
