@@ -9,7 +9,8 @@ package eit.headtracking;
  * @author vegar
  */
 public abstract class DualSourceHeadTracker implements HeadTracker {
-
+    protected double XMAX = 1024;
+    protected double YMAX = 768;
     protected double leftOffsetRadians = Math.PI / 2.0;
     protected double rightOffsetRadians = Math.PI / 2.0;
     protected double sourceDistanceInMM = 850;// 1930.0;
@@ -54,26 +55,26 @@ public abstract class DualSourceHeadTracker implements HeadTracker {
     public void calibrate() {
         System.out.println("Calibrating");
         double angle = Math.atan2(calibrationDistanceInMM, sourceDistanceInMM / 2.0);
-        leftOffsetRadians = angle - leftAngle();
-        rightOffsetRadians = angle - rightAngle();
+        leftOffsetRadians = angle - radiansPerPixel * (double) (leftPoint.x);
+        rightOffsetRadians = angle - radiansPerPixel * (double) (1024 - rightPoint.x);
     }
 
     protected void calculate() {
         if (leftPoint == null || rightPoint == null) {
             return;
         }
-        headZ = (sourceDistanceInMM / (1.0 / Math.tan(leftAngle() + leftOffsetRadians) + 1.0 / Math.tan(rightAngle() + rightOffsetRadians))) / screenHeightInMM;
+        headZ = (sourceDistanceInMM / (1.0 / Math.tan(leftAngle()) + 1.0 / Math.tan(rightAngle()))) / screenHeightInMM;
         double avgY = (leftPoint.y + rightPoint.y) / 2.0;
-        relativeVerticalAngle = (avgY - 384) * radiansPerPixel;
+        relativeVerticalAngle = (avgY - YMAX/2) * radiansPerPixel;
         headY = Math.sin(relativeVerticalAngle) * headZ;
-        headX = -(sourceDistanceInMM / (2.0 * screenHeightInMM) - headZ / Math.tan(leftAngle() + leftOffsetRadians));
+        headX = -(sourceDistanceInMM / (2.0 * screenHeightInMM) - headZ / Math.tan(leftAngle()));
     }
 
     public double leftAngle() {
-        return radiansPerPixel * (double) (leftPoint.x);
+        return leftOffsetRadians + radiansPerPixel * (double) (leftPoint.x);
     }
 
     public double rightAngle() {
-        return radiansPerPixel * (double) (1024 - rightPoint.x);
+        return rightOffsetRadians + radiansPerPixel * (double) (XMAX - rightPoint.x);
     }
 }
