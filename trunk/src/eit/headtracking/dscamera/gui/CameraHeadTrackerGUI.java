@@ -45,6 +45,7 @@ public class CameraHeadTrackerGUI extends JFrame {
 	private CameraHeadTracker cht;
 	
 	public CameraHeadTrackerGUI(CameraHeadTracker cht) {
+		super();
 		this.cht = cht;
 		this.addKeyListener(new CalibrateKeyListener(cht));
 		label = new JLabel();
@@ -54,18 +55,29 @@ public class CameraHeadTrackerGUI extends JFrame {
 		this.setSize((int) cht.XMAX, (int) cht.YMAX);
 		this.addKeyListener(new ShowCamKeyListener(this));
 		new PaintThread(this).start();
+		//this.setSize(this.getWidth()/4, this.getHeight()/4);
 	}
 	
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
 		Graphics2D ga = (Graphics2D)g;
+		
+		int rectRadius = TrackingUtil.dotRadius;
 		ga.setPaint(Color.red);
-		if (cht.point[0] != null) ga.draw(new Rectangle2D.Double(cht.point[0].x, cht.point[0].y, 20, 20));
+		if (cht.point[0] != null) ga.draw(new Rectangle2D.Double(cht.point[0].x-rectRadius/2, cht.point[0].y-rectRadius/2, rectRadius, rectRadius));
 		ga.setPaint(Color.green);
-		if (cht.point[1] != null) ga.draw(new Rectangle2D.Double(cht.point[1].x, cht.point[1].y, 20, 20));
+		if (cht.point[1] != null) ga.draw(new Rectangle2D.Double(cht.point[1].x-rectRadius/2, cht.point[1].y-rectRadius/2, rectRadius, rectRadius));
 		ga.setPaint(Color.blue);
-		if (cht.point[2] != null) ga.draw(new Rectangle2D.Double(cht.point[2].x, cht.point[2].y, 20, 20));
+		if (cht.point[2] != null) ga.draw(new Rectangle2D.Double(cht.point[2].x-rectRadius/2, cht.point[2].y-rectRadius/2, rectRadius, rectRadius));
+		
+		rectRadius = TrackingUtil.searchRadius;
+		ga.setPaint(Color.red);
+		if (cht.point[0] != null) ga.draw(new Rectangle2D.Double(cht.point[0].x-rectRadius/2, cht.point[0].y-rectRadius/2, rectRadius, rectRadius));
+		ga.setPaint(Color.green);
+		if (cht.point[1] != null) ga.draw(new Rectangle2D.Double(cht.point[1].x-rectRadius/2, cht.point[1].y-rectRadius/2, rectRadius, rectRadius));
+		ga.setPaint(Color.blue);
+		if (cht.point[2] != null) ga.draw(new Rectangle2D.Double(cht.point[2].x-rectRadius/2, cht.point[2].y-rectRadius/2, rectRadius, rectRadius));
 	}
 
 	public void setShowingCam(boolean b) {
