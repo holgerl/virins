@@ -47,17 +47,25 @@ public class TrackingUtil {
 		return ((color>>16 & 255)+(color>>8 & 255)+(color & 255)) / 77;
 	}
 	
+	public static final int dotRadius = 100;
+	
 	public static Point[] findPoints(BufferedImage buffer) {
 		Point[] points = new Point[3];
 		int nofFoundPoints = 0;
+		int counter = 0;
 		outer: for (int y = 0; y < buffer.getHeight(); y++)
 			for (int x = 0; x < buffer.getWidth(); x++) {
-				if (intensity(buffer.getRGB(x, y)) < 2) {
+				if (intensity(buffer.getRGB(x, y)) >= 9)
+					counter++;
+				else
+					counter = Math.max(0, counter-1);
+				if (counter > dotRadius/2) {
+					counter = 0;
 					boolean alreadyFound = false;
 					for (Point point : points)
 						if (point != null)
-							if (x > point.x-20 && x < point.x+20)
-								if (y > point.y-20 && y < point.y+20)
+							if (x > point.x-dotRadius && x < point.x+dotRadius)
+								if (y > point.y-dotRadius && y < point.y+dotRadius)
 									alreadyFound = true;
 					if (alreadyFound == false)
 						points[nofFoundPoints++] = new Point(x, y);
@@ -68,22 +76,28 @@ public class TrackingUtil {
 		return points;
 	}
 	
+	public static final int searchRadius = 200;
+	
 	public static void updatePoints(Point[] points, BufferedImage buffer) {
+		int counter = 0;
 		for (Point point : points) {
 			if (point == null) continue;
-			int searchStartX = (int) point.x-30;
-			int searchStartY = (int) point.y-30;
-			int searchEndX = (int) point.x+30;
-			int searchEndY = (int) point.y+30;
+			int searchStartX = Math.max(0, (int) point.x-searchRadius);
+			int searchStartY = Math.max(0, (int) point.y-searchRadius);
+			int searchEndX = Math.min(buffer.getWidth()-1, (int) point.x+searchRadius);
+			int searchEndY = Math.min(buffer.getHeight()-1, (int) point.y+searchRadius);
 			outer: for (int y = searchStartY; y < searchEndY; y++) {
 				for (int x = searchStartX; x < searchEndX; x++) {
-					try {
-						if (intensity(buffer.getRGB(x, y)) < 2) {
-							point.x = x;
-							point.y = y;
-							break outer;
-						}
-					} catch (ArrayIndexOutOfBoundsException e) {}
+					if (intensity(buffer.getRGB(x, y)) >= 9)
+						counter++;
+					else
+						counter = Math.max(0, counter-1);
+					if (counter > dotRadius/2) {
+						counter = 0;
+						point.x = x;
+						point.y = y;
+						break outer;
+					}
 				}
 			}
 		}

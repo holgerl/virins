@@ -23,7 +23,7 @@ java.beans.PropertyChangeListener {
 	
 	class CallbackThread extends Thread {
 		private CameraHeadTracker cht;
-		public int fps = 15;
+		public int fps = 60;
 		public boolean running = true;
 
 		public CallbackThread(CameraHeadTracker cht) {
@@ -75,7 +75,7 @@ java.beans.PropertyChangeListener {
 		this.point[CENTER] = new Point();
 		this.point[RIGHT] = new Point();
 		
-		DSFilterInfo dsi = DSCapture.queryDevices()[0][1];
+		DSFilterInfo dsi = DSCapture.queryDevices()[0][0];
 		System.out.println("Using device: "+dsi);
 		graph = new DSCapture(DSFiltergraph.RENDER_NATIVE, dsi, false,
 				DSFilterInfo.doNotRender(), this);
@@ -84,7 +84,7 @@ java.beans.PropertyChangeListener {
 		this.YMAX = graph.getMediaDimension().height;
 		
 		new CallbackThread(this).start();
-		//new PrintThread(this.graph).start();
+		new PrintThread(this.graph).start();
 		
 		gui = new CameraHeadTrackerGUI(this);
 	}
