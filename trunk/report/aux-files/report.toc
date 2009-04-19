@@ -2,13 +2,17 @@
 \contentsline {chapter}{\numberline {2}Forstudie}{2}
 \contentsline {section}{\numberline {2.1}Matematikken bak trackingen}{2}
 \contentsline {section}{\numberline {2.2}Tilkobling av kamera til PC}{2}
-\contentsline {section}{\numberline {2.3}\r Aspore punkter i et bilde}{2}
+\contentsline {section}{\numberline {2.3}\r A spore punkter i et bilde}{2}
 \contentsline {chapter}{\numberline {3}Kravspesifikasjon}{3}
 \contentsline {section}{\numberline {3.1}Funksjonelle krav}{3}
 \contentsline {section}{\numberline {3.2}Ikke-funksjonelle krav}{3}
 \contentsline {section}{\numberline {3.3}Use case scenarioer}{3}
 \contentsline {chapter}{\numberline {4}Design og implementasjon}{4}
 \contentsline {section}{\numberline {4.1}Design av l\o sningen}{4}
+\contentsline {subsection}{Overordnet design}{4}
+\contentsline {subsection}{Design av led-tingen}{4}
+\contentsline {subsection}{Design av punktfinne-tingen}{4}
+\contentsline {subsection}{Design av hodetracke- og 3D-tingen}{4}
 \contentsline {section}{\numberline {4.2}Implementasjon av l\o sningen}{4}
 \contentsline {chapter}{\numberline {5}Resultat og evaluering}{5}
 \contentsline {section}{\numberline {5.1}Resultatet av prosjektet}{5}
