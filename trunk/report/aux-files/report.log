@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.8-beta-20080627 (MiKTeX 2.7) (preloaded format=latex 2008.9.4)  18 FEB 2009 11:28
+This is pdfTeX, Version 3.1415926-1.40.8-beta-20080627 (MiKTeX 2.7) (preloaded format=pdflatex 2008.10.1)  19 APR 2009 16:20
 entering extended mode
 **report.tex
 (report.tex
@@ -82,74 +82,112 @@ Package: verbatim 2003/08/22 v1.5q LaTeX2e package for verbatim enhancements
 \verbatim@line=\toks17
 \verbatim@in@stream=\read1
 )
-("D:\My Documents\EIT\repository\aux-files\report.aux")
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
+("D:\My Documents\EIT\rep\report\aux-files\report.aux")
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 34.
+(Font)              <12> on input line 35.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 34.
+(Font)              <8> on input line 35.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 34.
+(Font)              <6> on input line 35.
 File: logo.ps Graphic file (type eps)
  <logo.ps>
-Overfull \hbox (2.61108pt too wide) in paragraph at lines 34--34
+Overfull \hbox (2.61108pt too wide) in paragraph at lines 35--35
   [] 
  []
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 34.
+(Font)              <14.4> on input line 35.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 34.
+(Font)              <7> on input line 35.
 [1
 
-] (summary.tex) [1
 
-] ("D:\My Documents\EIT\repository\aux-files\report.toc")
+Non-PDF special ignored!{C:/Documents and Settings/All Users/Application Data/M
+iKTeX/2.7/pdftex/config/pdftex.map}] (summary.tex) [1
+
+]
+("D:\My Documents\EIT\rep\report\aux-files\report.toc")
 \tf@toc=\write3
+ [2
 
-[2
-
-] ("D:\My Documents\EIT\repository\aux-files\report.lot")
+]
+("D:\My Documents\EIT\rep\report\aux-files\report.lot")
 \tf@lot=\write4
  [3
 
 ]
-("D:\My Documents\EIT\repository\aux-files\report.lof")
+("D:\My Documents\EIT\rep\report\aux-files\report.lof")
 \tf@lof=\write5
  (list_of_acronyms.tex
 [4
 
 ]) [5
 
-] (intro.tex) [1
+]
+Kapittel 1.
+(intro.tex) [1
 
-] [2
+]
+Kapittel 2.
+(prestudy.tex) [2
 
-] [3]
-Overfull \hbox (128.70026pt too wide) in paragraph at lines 120--120
-[]\OT1/cmtt/m/n/12 \nocite {a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,
-a16,a17,a18,a19,a20,a21}[] 
- []
+]
+Kapittel 3.
+(reqspec.tex) [3
 
-[4] ("D:\My Documents\EIT\repository\aux-files\report.aux") ) 
+]
+Kapittel 4.
+(design_impl.tex) [4
+
+]
+Kapittel 5.
+(result_eval.tex) [5
+
+]
+Kapittel 6.
+(conclusion.tex) [6
+
+]
+Appendix A.
+[7
+
+]
+Appendix B.
+(glossary.tex) ("D:\My Documents\EIT\rep\report\aux-files\report.bbl" [1
+
+]
+
+LaTeX Warning: Empty `thebibliography' environment on input line 3.
+
+) [2
+
+] ("D:\My Documents\EIT\rep\report\aux-files\report.aux") ) 
 Here is how much of TeX's memory you used:
- 808 strings out of 95306
- 9141 string characters out of 1183210
- 57400 words of memory out of 1500000
+ 827 strings out of 95305
+ 9412 string characters out of 1183182
+ 58400 words of memory out of 1500000
  4031 multiletter control sequences out of 110000
- 9629 words of font info for 34 fonts, out of 1200000 for 2000
+ 9714 words of font info for 34 fonts, out of 1200000 for 2000
  14 hyphenation exceptions out of 8191
- 32i,6n,28p,228b,276s stack positions out of 5000i,500n,10000p,200000b,5000s
+ 32i,6n,28p,228b,240s stack positions out of 5000i,500n,10000p,200000b,5000s
+<C:/Program Files/Mi
+KTeX/fonts/type1/bluesky/cm/cmbx12.pfb><C:/Program Files/MiKTeX/fonts/type1/blu
+esky/cm/cmr10.pfb><C:/Program Files/MiKTeX/fonts/type1/bluesky/cm/cmr12.pfb>
+Output written on report.pdf (15 pages, 39999 bytes).
+PDF statistics:
+ 63 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 131072)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
-Output written on report.dvi (10 pages, 2980 bytes).

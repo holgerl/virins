@@ -3,10 +3,8 @@ rem USAGE: Set the texfile and aux-dir parameters below to the name of the tex f
 set texfile=report
 set aux-dir=aux-files
 
-latex %texfile%.tex -aux-directory=%aux-dir%
+pdflatex %texfile%.tex -aux-directory=%aux-dir%
 bibtex %aux-dir%/%texfile%
-latex %texfile%.tex -aux-directory=%aux-dir% > aux-files/latex_printout.log
-latex %texfile%.tex -aux-directory=%aux-dir% > aux-files/latex_printout.log
-dvipdfm %texfile%.dvi
-del %texfile%.dvi
+pdflatex %texfile%.tex -aux-directory=%aux-dir% > aux-files/latex_printout.log
+pdflatex %texfile%.tex -aux-directory=%aux-dir% > aux-files/latex_printout.log
 %texfile%.pdf
