@@ -1,10 +1,7 @@
 \documentclass[12pt]{report}
 \pagestyle{headings}
-\usepackage{rotating}
-\usepackage{graphicx}
-\usepackage{longtable}
+\usepackage[pdftex]{graphicx}
 \usepackage[tt]{titlepic}
-\usepackage{verbatim}
 \setlength{\parindent}{0.0in}
 \setlength{\parskip}{0.1in}
 %\setcounter{secnumdepth}{1}
@@ -13,6 +10,14 @@
 %\addtolength{\textheight}{2cm}
 %\addtolength{\footskip}{2cm}
 
+\renewcommand*\contentsname{Innhold}
+\renewcommand*\listtablename{Tabell-liste}
+\renewcommand*\listfigurename{Figurliste}
+\renewcommand*\chaptername{Kapittel}
+\renewcommand*\partname{Del}
+\renewcommand*\figurename{Figur}
+\renewcommand*\tablename{Tabell}
+
 \newcommand\placeholder[2]{
 	\noindent
 	{\setlength{\fboxsep}{0pt}
@@ -20,16 +25,16 @@
 			\parbox{0pt}{\rule{0pt}{#2}}
 			\parbox{#1}{
 				\centering
-				\includegraphics[width=0.50\textwidth]{logo.ps}
+				\includegraphics[width=0.50\textwidth]{graphics/logo.png}
 			}
 		}
 	}
 }
 
-\author{Holger Ludvigsen,\\Vegar Neshaug,\\Jon Skarpetveit,\\Rahele Zarabi,\\Kristoffer Selboe}
-\title{{\small Eksperter i Team\\TPG4850 VR-Landsbyen}\\\textbf{Team 4 (V.I)}}
-\date{{\small \today}}
 \titlepic{\placeholder{\textwidth}{0.5\textwidth}}
+\title{{\Large Eksperter i Team\\TPG4850 VR-Landsbyen\\{\bf Virtual Insanity (Team 4)\\Fagrapport}}}
+\author{Holger Ludvigsen,\\Vegar Neshaug,\\Jon Skarpetveit,\\Rahele Zarabi,\\Kristoffer Selboe}
+\date{{\small \today}}
 
 \begin{document}
 \maketitle
@@ -40,18 +45,12 @@
 \pagebreak
 	
 \setlength{\parskip}{0.0in}
-\renewcommand*\contentsname{Innhold}
 \tableofcontents
-\renewcommand*\listtablename{Tabell-liste}
 \listoftables
-\renewcommand*\listfigurename{Figurliste}
 \listoffigures
 \input{list_of_acronyms.tex}
 \pagebreak
 \setlength{\parskip}{0.1in}
-
-\renewcommand*\chaptername{Kapittel}
-\renewcommand*\partname{Del}
 
 \pagenumbering{arabic}
 \setcounter{page}{1} % start normal page counting here
