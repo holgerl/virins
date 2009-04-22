@@ -3,8 +3,18 @@ rem USAGE: Set the texfile and aux-dir parameters below to the name of the tex f
 set texfile=report
 set aux-dir=aux-files
 
-pdflatex %texfile%.tex -aux-directory=%aux-dir%
+if not exist %aux-dir% goto createAuxDir
+goto make
+
+:createAuxDir
+md %aux-dir%
+goto make
+
+:make
+
+pdflatex %texfile% -aux-directory=%aux-dir%
 bibtex %aux-dir%/%texfile%
 pdflatex %texfile%.tex -aux-directory=%aux-dir% > aux-files/latex_printout.log
 pdflatex %texfile%.tex -aux-directory=%aux-dir% > aux-files/latex_printout.log
+
 %texfile%.pdf
