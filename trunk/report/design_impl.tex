@@ -13,13 +13,17 @@
 	
 	\subsection{Design av LED-headset (Jon)}
 	
-Planen for headsettet er at det skal inneholde tre dioder plassert så langt unna hverandre som mulig slik at det blir enklest mulig å skille lyspunktene fra hverandre. Vi vil ha en løsning som er grei å ha på hodet, som er portabel og lett. Vi ønsker å koble oss direkte til batteriet for å få strøm til diodene. Her trengs det en bryter for å ikke kortslutte batteriet. Diodene kobles så i parallell over batteriet i serie med hver sin motstand for å begrense strømmen.
+		Planen for headsettet er at det skal inneholde tre dioder plassert s\aa \space langt unna hverandre som mulig slik at det blir enklest mulig \aa \space skille lyspunktene fra hverandre. Vi vil ha en l\o sning som er grei \aa \space ha p\aa \space hodet, som er portabel og lett. Vi \o nsker \aa \space koble oss direkte til batteriet for \aa \space f\aa \space str\o m til diodene. Her trengs det en bryter for \aa \space ikke kortslutte batteriet. Diodene kobles s\aa \space i parallell over batteriet i serie med hver sin motstand for \aa \space begrense str\o mmen.
 
-<figur kretstegning>
+		\begin{figure}[h]
+		\centering
+		%includegraphics[width=\textwidth]{graphics/circuit.png}
+		\caption{Kretskjema for LED-headset}
+		\label{fig:circuit}
+		\end{figure}
 
-Vi ønsker at to av diodene står vannrett på hverandre, med en tredje diode over eller under. Vi ønsker også å kunne bytte mellom og ha en og tre dioder på om gangen for å kunne sammenligne ulike tilnærminger til problemet. Ved bare en diode på må den være synlig fra størst mulig vinkel. For at diodene skal være synlige fra størst mulig vinkel uten at hodet til brukeren kommer i veien er det ønskelig at diodene monteres langt fram på headsettet, og at den tredje dioden monteres ved mikrofonen på headsettet. 
+		Vi \o nsker at to av diodene st\aa r vannrett p\aa \space hverandre, med en tredje diode over eller under. Vi \o nsker ogs\aa \space \aa \space kunne bytte mellom og ha en og tre dioder p\aa \space om gangen for \aa \space kunne sammenligne ulike tiln\ae rminger til problemet. Ved bare en diode p\aa \space m\aa \space den v\ae re synlig fra st\o rst mulig vinkel. For at diodene skal v\ae re synlige fra st\o rst mulig vinkel uten at hodet til brukeren kommer i veien er det \o nskelig at diodene monteres langt fram p\aa \space headsettet, og at den tredje dioden monteres ved mikrofonen p\aa \space headsettet. 
 		
-	
 	\subsection{Design av punktfinneren (Holger)}
 	
 		Punktfinnerens oppgave er \aa \space lese bildet fra kameraet og finne koordinatene til lyspunktene til LED-ene i dette bildet. Punktfinnerens oppf\o rsel er illustrert i figur \ref{fig:pointfinder_sequence}. Sekvensen er et eksempel p\aa \space typisk oppf\o rsel. Det starter med at finneren s\o ker gjennom hele bildet etter punktenes koordinater (kalt kalibrering). Deretter oppdateres disse koordinatene ved \aa \space kun s\o ke i omr\aa det rundt der punktet var sist. Slik inneholder punktfinneren alltid oppdaterte punktkoordinater. Om punktene ikke finnes kan man kalibrere om igjen.
@@ -49,7 +53,7 @@ Vi ønsker at to av diodene står vannrett på hverandre, med en tredje diode over 
 			\item For hvert punkt {\it point}:
 				\begin{enumerate}
 					\item S\o k i linje etter linje i et omr\aa de med radius {\it search\_radius} rundt punktet etter {\it count\_limit} etterf\o lgende bildepunkter hvis lysintensitet er h\o yere enn minstem\aa l {\it intensity\_cutoff}
-					\item Om dette blir funnet, så er {\it point} = siste av de etterf\o lgende bildepunktene
+					\item Om dette blir funnet, s\aa \space er {\it point} = siste av de etterf\o lgende bildepunktene
 				\end{enumerate}
 		\end{enumerate}
 	
@@ -70,7 +74,6 @@ Vi ønsker at to av diodene står vannrett på hverandre, med en tredje diode over 
 			\item Manuell fokus
 			\item Pris
 		\end{itemize}
-		
 		 
 		For \aa \space f\aa \space en fornuftig pris p\aa \space kameraet unders\o kte vi vanlige full hd (high definition) kamera. Vi s\aa \space etter et kamera som fulgte standarden 1080P. Dette er en oppl\o sning p\aa \space 1920 linjer horisontalt, 1080 linjer vertikalt, og gir h\o y n\o yaktighet p\aa \space avstand. P st\aa r for progressive. Det betyr at kameraet tar et fullt bilde i motsetning til interlaced, hvor det bare tar annenhver linje. Vi \o nsker progressive for \aa \space f\aa \space mindre bildebehandling enn ved interlaced. For \aa \space f\aa \space live feed fra kameraet er vi avhengig av \aa \space overf\o re store datamenger fra kameraet til datamaskinen. Analog overf\o ring er ikke aktuelt p\aa \space grunn av kvalitetstapet i bildet. Hver kanal gir ut 1byte per piksel, og det er 3 kanaler for r\o d, gr\o nn og bl\aa . Kameraet gir ut 25 bilder i sekundet, som gir 150 USB 2.0 kan overf\o re opp til 480 megabit, og dette er for lite til \aa \space \o verf\o re en ukomprimert live feed i full oppl\o sning. Derfor er vi avhengige av HDMI output p\aa \space kameraet. En stor del av kameraene tar i bruk en 3CCD bildesensor. CCD brikkene fanger opp en del av det infrar\o de spekteret i tillegg til synlig lys, derfor settes det p\aa \space et infrar\o dt filter foran sensoren. Vi tar utgangspunkt i at vi fjerner dette filteret. Dette vil f\o re til at autofokusen ikke vil fungere lenger, og vi er derfor avhengig av manuell fokus. CMOS bildebrikker er et annet alternativ da disse ogs\aa \space fanger opp infrar\o dt lys.
 
@@ -87,20 +90,29 @@ Vi ønsker at to av diodene står vannrett på hverandre, med en tredje diode over 
 			\item H\o y intensitet p\aa lyset
 		\end{itemize}
 
-				M\aa let var \aa \space finne en l\o sning som ikke er i veien for brukeren. Optimalt sett s\aa trenger ikke 
-brukeren ta p\aa \space seg noe ekstra utstyr. For \aa \space kunne tracke brukeren trengs det minimum to lyskilder og 1 kamera, 
-eller to kamera og en lyskilde. Vi bestemte oss for \aa \space bruke et tr\aa dl\o st headset, da dette ikke er spesielt 
-tungvindt \aa \space ha p\aa. Dette har ogs\aa et innebygd batteri som vi kan koble lyskilder p\aa . For \aa \space kunne skille 
-rotasjon fra avstand trengs det en tredje diode. Denne kan festes p\aa \space mikrofonen.
+		M\aa let var \aa \space finne en l\o sning som ikke er i veien for brukeren. Optimalt sett s\aa trenger ikke brukeren ta p\aa \space seg noe ekstra utstyr. For \aa \space kunne tracke brukeren trengs det minimum to lyskilder og 1 kamera, eller to kamera og en lyskilde. Vi bestemte oss for \aa \space bruke et tr\aa dl\o st headset, da dette ikke er spesielt tungvindt \aa \space ha p\aa. Dette har ogs\aa et innebygd batteri som vi kan koble lyskilder p\aa . For \aa \space kunne skille rotasjon fra avstand trengs det en tredje diode. Denne kan festes p\aa \space mikrofonen.
 
-		Vi gikk til innkj\o p av et Logitech Clearchat tr\aa dl\o st headset, og 3 IR dioder [SFH 415] med h\o y 
-intensitet. IR diodene var spesifisert til \aa \space t\aa le opp mot 1 Ampere. Batteriet p\aa headsettet gir ut 3,7V. M\aa let 
-var \aa \space f\aa \space mest mulig intensitet ut, slik at lyset er synlig lengst mulig bort, og slik at dioden ikke trenger 
-peke direkte p\aa kameraet for \aa \space kunne registreres. Diodene vil fungere som en kortslutning om de festes rett p\aa 
-batteriet, s\aa for \aa \space begrense str\o mmen gjennom dem trengs det motstand i serie. Vi dimensjonerte oppsettet, med en 
-motstand p\aa 47? foran dioden, slik at det g\aa r under 100mA gjennom hver diode. Det er også koblet opp en bryter med tre 
-innstillinger for å kunne bytte mellom at 2 dioder lyser, og 1 diode. Vi har bestemt oss for å bruke en diode for tracking med 
-wii-remotes, og to dioder ved bruk av hd kamera istedenfor tre.
+		Vi gikk til innkj\o p av et Logitech Clearchat tr\aa dl\o st headset, og 3 IR dioder \(SFH 415\) med h\o y intensitet. IR diodene var spesifisert til \aa \space t\aa le opp mot 1 Ampere. Batteriet p\aa headsettet gir ut 3,7V. M\aa let var \aa \space f\aa \space mest mulig intensitet ut, slik at lyset er synlig lengst mulig bort, og slik at dioden ikke trenger peke direkte p\aa kameraet for \aa \space kunne registreres. Diodene vil fungere som en kortslutning om de festes rett p\aa batteriet, s\aa for \aa \space begrense str\o mmen gjennom dem trengs det motstand i serie. Vi dimensjonerte oppsettet, med en motstand p\aa 47? foran dioden, slik at det g\aa r under 100mA gjennom hver diode. Det er ogs\aa \space koblet opp en bryter med tre innstillinger for \aa \space kunne bytte mellom at 2 dioder lyser, og 1 diode. Vi har bestemt oss for \aa \space bruke en diode for tracking med wii-remotes, og to dioder ved bruk av hd kamera istedenfor tre.
 
-		Det viste seg at kameraet klarte \aa \space detektere diodene bedre enn forventet, som gj\o r at diodestr\o mmen 
-er kraftig overdimensjonert, noe som da trekker mer strøm fra batteriet til headsettet enn n\odvendig.
+		Det viste seg at kameraet klarte \aa \space detektere diodene bedre enn forventet, som gj\o r at diodestr\o mmen er kraftig overdimensjonert, noe som da trekker mer str\o m fra batteriet til headsettet enn n\o dvendig.
+		
+	\subsection{Tilkobling av kamera til PC}
+	
+		Kameraet er koblet til PC-en gjennom en HDMI-kabel. Denne kabelen er festet til et Intensity-kort som er installert i PC-kabinettet.
+	
+	\subsection{Implementasjon av programvaren}
+	
+		Progamvaren består av punktfinneren, posisjonsfinneren og 3D-viseren. De er alle skrevet i Java, men 3D-viseren bruker et bibliotek implementert i C for selve visning av 3D-grafikken. Figur \ref{fig:class_diagram} viser et klassediagram av programvaredelen av systemet.
+		
+		TODO: Beskriv klassediagrammet
+		
+		TODO: Beskriv biblioteker vi har brukt (DirectShow, JOGL, Bluetooth-shit, osv)
+		
+		TODO: Legg til tekst om JAR-filen vi har laget, og eventuelle andre filer som må være med en distribusjon
+		
+		\begin{figure}[h]
+		\centering
+		%\includegraphics[width=\textwidth]{graphics/class_diagram.png}
+		\caption{Klassediagram for programvaredelen av systemet}
+		\label{fig:class_diagram}
+		\end{figure}
