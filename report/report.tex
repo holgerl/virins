@@ -4,7 +4,7 @@
 \usepackage[tt]{titlepic}
 \setlength{\parindent}{0.0in}
 \setlength{\parskip}{0.1in}
-%\setcounter{secnumdepth}{1}
+\setcounter{secnumdepth}{-1}
 %\setcounter{tocdepth}{1}
 
 %\addtolength{\textheight}{2cm}
@@ -41,7 +41,8 @@
 
 \pagenumbering{roman}
 
-\input{summary.tex}
+\chapter{Summary of report}
+	\input{summary.tex}
 \pagebreak
 	
 \setlength{\parskip}{0.0in}
@@ -71,13 +72,9 @@
 
 	\input{design_impl.tex}
 
-\chapter{Resultat og evaluering}
+\chapter{Resultat}
 
-	\input{result_eval.tex}
-
-\chapter{Konklusjon og videre arbeid}
-
-	\input{conclusion.tex}
+	\input{result.tex}
 
 \appendix
 
