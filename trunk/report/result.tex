@@ -17,11 +17,6 @@
 	\end{description}
 
 \section{Evaluering av resultatet}
-
-	%Løsningen følger kravspekken og designen
-	%HD-kamera har latency
-	%Headset er æss
-	%To Wiimotes er bra, rotasjonsinvariant, høyere oppløsning, etc
 	
 	Løsningen vi endte opp med følger kravspesifikasjonene og designen. Den estimerer posisjonen til hodet ved å filme infrarøde LEDs montert på hodet, og bruker denne til å skape en virtuell virkelighet på skjermen foran brukeren. Vi starter evaluering ved å påpeke svakhetene ved systemet, og avslutter med styrkene.
 	
@@ -29,9 +24,9 @@
 	
 		\subsubsection{HD-kameraet har forsinkelse}
 		
-			
+			Når systemet endelig var kapabelt til å motta bilder fra HD-kameraet og spore lyspunktene ble det klart at det er forsinkelse på disse bildene. Denne forsinkelsen er ca 0,5 sekunder og er i stor grad merkbar. Vi håpet tidligere at forsinkelsen var en eller annen flaskehals som bare eksisterte i den tidlige suboptimale koden vi brukte for å få ting til å fungere, men det ser ut til at dette er en iboende egenskap ved HD-kameraet og/eller overføringen av bildene gjennom HDMI-kortet. Siden kameraet har høy oppløsning er det mange piksler som skal sendes. I tillegg til dette er kameraet ikke beregnet for sanntidsfilming, men heller å ta opp for å se senere. Heldigvis er Wiimotesene beregnet på denne bruken og har neglisjerbar forsinkelse.
 		
-		\subsubsection{LED-headset er suboptimalt}
+		\subsubsection{LED-headset er suboptimalt (Vegar)}
 		
 			
 	
@@ -39,19 +34,19 @@
 	
 		\subsubsection{HD-kamera har høy oppløsning}
 		
+			HD-kameraets høye oppløsning gjør at små LEDs synes på lang avstand. Dette betyr at man kan stå langt unna kameraet, og dermed også langt unna skjermen, og fortsatt oppleve god respons på hodebevegelser. Aberet er at høyere oppløsning betyr flere piksler å prosessere i søk etter lysprikkene, men dette ser ikke ut til å være den største flaskehalsen med de nåværende algoritmene.
+		
+		\subsubsection{Støtte for to Wiimotes gir fordeler (Vegar)}
+		
 			
 		
-		\subsubsection{Støtte for to Wiimotes gir fordeler}
-		
-			
-		
-		\subsubsection{Systemet er portabelt og fleksibelt}
+		\subsubsection{Systemet er portabelt og fleksibelt (Vegar)}
 		
 			
 		
 		\subsubsection{Virkelighetsfølelsen er sterk}
 		
-			
+			Det finnes mange ulike systemer for virtuell virkelighet. Virkemidlene de bruker for å oppnå denne illusjonen varierer sterkt, og ingen dekker alle sansene på en gang. Vårt system simulerer virkningene av å bevege hodet når man ser på noe. Dette gir en sterk virkelighetsfølelse fordi hjernen kobler sammen hvordan kroppen beveger seg med hva den ser. For at hjernen skal tro at den ser på et 3-dimensjonal objekt må synet matche bevegelsene, og det gjør de i vårt system.
 
 \section{Konklusjon}
 
@@ -59,4 +54,6 @@
 
 \section{Videre arbeid}
 
-	
+	%HD-kameraet bør byttes ut med f.eks. webcam uten forsinkelse (eller bare bruke wiimotes)
+	%Et skikkelig headset bør lages (slik som sensorbaren)
+	%Forslag: Fyll et rom med wiimotes og ett lys på hodet
