@@ -11,7 +11,7 @@
 		
 		Den overordnede designen er en pipeline som begynner med lys fra LEDs og ender opp med visning av en 3D-scene. Figur \ref{fig:main_design} illustrerer dette. Vi ser at alt begynner med infrarø de LEDs som er festet på hodet til brukeren. Disse sender lys som filmes av kameraet. Bildene fra kameraet leses av kode som finner punktene på bildet som senteret til hvert filmet LED. Disse koordinatene sendes til kode som bruker dem til å \space beregninge posisjonen til hodet. Denne posisjonen sendes til kode som viser en 3D-scene på skjermen, hvor synsvinkelen passer posisjonen til hodet.
 	
-	\subsection{Design av LED-headset (Jon)}
+	\subsection{Design av LED-headset}
 	
 		Planen for headsettet er at det skal inneholde tre dioder plassert så langt unna hverandre som mulig slik at det blir enklest mulig å skille lyspunktene fra hverandre. Vi vil ha en løsning som er grei å ha på hodet, som er portabel og lett. Vi ønsker å koble oss direkte til batteriet for å få strøm til diodene. Her trengs det en bryter for å ikke kortslutte batteriet. Diodene kobles så i parallell over batteriet i serie med hver sin motstand for å begrense strømmen.
 
@@ -24,7 +24,7 @@
 
 		Vi ønsker at to av diodene står vannrett på hverandre, med en tredje diode over eller under. Vi ønsker også å kunne bytte mellom og ha en og tre dioder på om gangen for å kunne sammenligne ulike tilnærminger til problemet. Ved bare en diode på må den være synlig fra størst mulig vinkel. For at diodene skal være synlige fra størst mulig vinkel uten at hodet til brukeren kommer i veien er det ønskelig at diodene monteres langt fram på headsettet, og at den tredje dioden monteres ved mikrofonen på headsettet. 
 		
-	\subsection{Design av punktfinneren (Holger)}
+	\subsection{Design av punktfinneren}
 	
 		Punktfinnerens oppgave er å lese bildet fra kameraet og finne koordinatene til lyspunktene til LED-ene i dette bildet. Punktfinnerens oppførsel er illustrert i figur \ref{fig:pointfinder_sequence}. Sekvensen er et eksempel på typisk oppførsel. Det starter med at finneren søker gjennom hele bildet etter punktenes koordinater (kalt kalibrering). Deretter oppdateres disse koordinatene ved å kun søke i området rundt der punktet var sist. Slik inneholder punktfinneren alltid oppdaterte punktkoordinater. Om punktene ikke finnes kan man kalibrere om igjen.
 		
@@ -102,17 +102,38 @@
 	
 	\subsection{Implementasjon av programvaren}
 	
-		Progamvaren består av punktfinneren, posisjonsfinneren og 3D-viseren. De er alle skrevet i Java, men 3D-viseren bruker et bibliotek implementert i C for selve visning av 3D-grafikken. Figur \ref{fig:class_diagram} viser et klassediagram av programvaredelen av systemet.
+		Progamvaren består av punktfinneren, posisjonsfinneren og 3D-viseren. De er alle skrevet i Java, men 3D-viseren bruker et bibliotek implementert i C for selve visning av 3D-grafikken. Figur \ref{fig:holger_class_diagram} viser et klassediagram av punktfinneren og figur \ref{fig:vegar_class_diagram} viser posisjonsfinneren og 3D-viseren.
 		
-		TODO: Beskriv klassediagrammet
+		\subsubsection{Punktfinneren (Holger)}
 		
-		TODO: Beskriv biblioteker vi har brukt (DirectShow, JOGL, Bluetooth-shit, osv)
+			Figur \ref{fig:holger_class_diagram} viser et klassediagram av punktfinneren.
 		
-		TODO: Legg til tekst om JAR-filen vi har laget, og eventuelle andre filer som må være med en distribusjon
+			\begin{figure}[h]
+			\centering
+			%\includegraphics[width=\textwidth]{graphics/holger_class_diagram.png}
+			\caption{Klassediagram for punktfinneren}
+			\label{fig:holger_class_diagram}
+			\end{figure}
+			
+			%TODO: Lag og beskriv klassediagrammet
 		
-		\begin{figure}[h]
-		\centering
-		%\includegraphics[width=\textwidth]{graphics/class_diagram.png}
-		\caption{Klassediagram for programvaredelen av systemet}
-		\label{fig:class_diagram}
-		\end{figure}
+		\subsubsection{Posisjonsfinneren og 3D-viseren (Vegar)}
+		
+			Figur \ref{fig:vegar_class_diagram} viser et klassediagram av posisjonsfinneren og 3D-viseren.
+		
+			\begin{figure}[h]
+			\centering
+			%\includegraphics[width=\textwidth]{graphics/vegar_class_diagram.png}
+			\caption{Klassediagram for posisjonsfinneren og 3D-viseren}
+			\label{fig:vegar_class_diagram}
+			\end{figure}
+			
+			%TODO: Lag og beskriv klassediagrammet
+			
+		\subsubsection{Biblioteker brukt i implementasjonen}
+		
+			%TODO: Beskriv biblioteker vi har brukt (DirectShow, JOGL, Bluetooth-shit, osv)
+		
+		\subsubsection{Kjørbar distribusjon (Vegar)}
+		
+			%TODO: Legg til tekst om JAR-filen vi har laget, og eventuelle andre filer som må være med en distribusjon
