@@ -49,11 +49,13 @@
 			Det finnes mange ulike systemer for virtuell virkelighet. Virkemidlene de bruker for å oppnå denne illusjonen varierer sterkt, og ingen dekker alle sansene på en gang. Vårt system simulerer virkningene av å bevege hodet når man ser på noe. Dette gir en sterk virkelighetsfølelse fordi hjernen kobler sammen hvordan kroppen beveger seg med hva den ser. For at hjernen skal tro at den ser på et 3-dimensjonal objekt må synet matche bevegelsene, og det gjør de i vårt system.
 
 \section{Konklusjon}
-
-	TODO: Hva er svaret på problemstillingen?
+	
+	Problemstillingen vår var om det mulig å lage en rimelig og brukbar løsning for tracking av hode til bruk i VR. Vi mener at løsningen vi har utviklet er et svar på denne problemstillingen. Og svaret er "ja". Komponentene som brukes er under 10 000 NOK tilsammen, og kan byttes ut med enda billigere typer. For eksempel kan HD-kamera til 6000 NOK byttes ut med webkamera til 1000 NOK uten problemer. Systemet fungerer og gir en virtuell virkelighetsfølelse. Videre er den enkel å bruke og konfigurere.
 
 \section{Videre arbeid}
-
-	%HD-kameraet bør byttes ut med f.eks. webcam uten forsinkelse (eller bare bruke wiimotes)
-	%Et skikkelig headset bør lages (slik som sensorbaren)
-	%Forslag: Fyll et rom med wiimotes og ett lys på hodet
+	
+	Systemet vi har laget bør ses på som en prototype eller proof-of-concept. Det er mange forbedringsmuligheter. HD-kameraet bør byttes ut med et kamera med neglisjerbar forsinkelse, men som fortsatt har høy oppløsning. Et høytoppløst webcamera foreslås som mulig kandidat. Eventuelt kan man kun bruke Wiimotes, ettersom disse har gitt gode resultater.
+	
+	Headsettet bør forbedres slik at LEDsene lyser i alle retninger og slik at batteriet varer lenger. En løsning kan være å koble til en Wii sensorbar til et batteripakke på hodet. Sensorbaren har flere LEDs samlet sammen pekende i en fane utover. Dette gir god spredning og kraftig lysstyrke.
+	
+	Et forslag til hvordan konseptet kan dras videre er å montere mange (4-10) Wiimotes rundt i et stort rom og beregne hodeposisjonen ut fra alle dataene disse fanger opp. Så lenge minst to av disse ser lyset vil det være nok for å beregne dets posisjon. Om flere ser lyset vil estimeringen bare bli mer nøyaktig. Ved å f.eks. plassere Wiimotesene i hjørnene vil hele rommet være dekket, og man har full frihet til å bevege seg.
