@@ -76,8 +76,15 @@
 		\end{itemize}
 		 
 		For å få en fornuftig pris på kameraet undersøkte vi vanlige full hd (high definition) kamera. Vi så etter et kamera som fulgte standarden 1080P. Dette er en oppløsning på 1920 linjer horisontalt, 1080 linjer vertikalt, og gir høy nøyaktighet på avstand. P står for progressive. Det betyr at kameraet tar et fullt bilde i motsetning til interlaced, hvor det bare tar annenhver linje. Vi ønsker progressive for å få mindre bildebehandling enn ved interlaced. For å få live feed fra kameraet er vi avhengig av å overføre store datamenger fra kameraet til datamaskinen. Analog overføring er ikke aktuelt på grunn av kvalitetstapet i bildet. Hver kanal gir ut 1byte per piksel, og det er 3 kanaler for rød, grønn og blå. Kameraet gir ut 25 bilder i sekundet, som gir 150 USB 2.0 kan overføre opp til 480 megabit, og dette er for lite til å øverføre en ukomprimert live feed i full oppløsning. Derfor er vi avhengige av HDMI output på kameraet. En stor del av kameraene tar i bruk en 3CCD bildesensor. CCD brikkene fanger opp en del av det infrarøde spekteret i tillegg til synlig lys, derfor settes det på et infrarødt filter foran sensoren. Vi tar utgangspunkt i at vi fjerner dette filteret. Dette vil føre til at autofokusen ikke vil fungere lenger, og vi er derfor avhengig av manuell fokus. CMOS bildebrikker er et annet alternativ da disse også fanger opp infrarødt lys.
+		
+		\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.40\textwidth]{graphics/hdcam.jpg}
+		\caption{Panasonic HDC-SD9}
+		\label{fig:hdcam}
+		\end{figure}
 
-		Valget av kamera falt til slutt på et Panasonic HDC-SD9 kamera. Dette har etter spesifikasjonene 3CCD bildesensor, HDMI utgang, manuell fokus, 1080P bilde og lav pris. Etter noe fram og tilbake fikk vi servicemanualen til kameraet fra Panasonic. Den beskriver trinnvis hvordan IR-filteret kan fjernes. Vi fikk fjernet IR-filteret, men det viste seg at manuell fokus ikke fungerte som forventet. Det var en automatisert funksjon som sto for fokuset, slik at dette ikke kunne stilles inn riktig uten filteret. Optimalt burde vi erstattet filteret med en glassbit, men vi valgte å erstatte filteret med gjennomsiktig pvc plast, slik at lysbrytningen skulle ligne på den gjennom IR-filteret. De optiske egenskapene til plasten er ikke spesielt bra, men vi ender likevel opp med et mye bedre bilde på grunn av at bildet ikke lenger er like langt ute av fokus. For vår applikasjon er dette bildet mer enn nok til å tracke IR lys i rommet. For å lettere kunne tracke lyset fra dioden har vi tatt i bruk et filter som blokkerer alt lys utenom infrarødt. REF: (OPTIR 1.0 NG 305 X 100 fra Instrument Plastics. Kjøpt via http://www.farnell.com (varenr 177143))
+		Valget av kamera falt til slutt på et Panasonic HDC-SD9 kamera (se figur \ref{fig:hdcam}). Dette har etter spesifikasjonene 3CCD bildesensor, HDMI utgang, manuell fokus, 1080P bilde og lav pris. Etter noe fram og tilbake fikk vi servicemanualen til kameraet fra Panasonic. Den beskriver trinnvis hvordan IR-filteret kan fjernes. Vi fikk fjernet IR-filteret, men det viste seg at manuell fokus ikke fungerte som forventet. Det var en automatisert funksjon som sto for fokuset, slik at dette ikke kunne stilles inn riktig uten filteret. Optimalt burde vi erstattet filteret med en glassbit, men vi valgte å erstatte filteret med gjennomsiktig pvc plast, slik at lysbrytningen skulle ligne på den gjennom IR-filteret. De optiske egenskapene til plasten er ikke spesielt bra, men vi ender likevel opp med et mye bedre bilde på grunn av at bildet ikke lenger er like langt ute av fokus. For vår applikasjon er dette bildet mer enn nok til å tracke IR lys i rommet. For å lettere kunne tracke lyset fra dioden har vi tatt i bruk et filter som blokkerer alt lys utenom infrarødt. REF: (OPTIR 1.0 NG 305 X 100 fra Instrument Plastics. Kjøpt via http://www.farnell.com (varenr 177143))
 		
 	\subsection{Valg av IR-sender}
 		
@@ -131,8 +138,12 @@
 			%TODO: Lag og beskriv klassediagrammet
 			
 		\subsubsection{Biblioteker brukt i implementasjonen}
-		
-			%TODO: Beskriv biblioteker vi har brukt (DirectShow, JOGL, Bluetooth-shit, osv)
+			
+			DirectShow brukes for å hente bildene fra HD-kameraet. For å bruke dette i Java tok vi i bruk en DirectShow Java wrapper kalt dsj. Dette er et Java-bibliotek (jar-fil) med tilhørende maskinkode (dll-fil) som gjør DirectShow tilgjengelig gjennom et grensesnitt i Java. Dette grensesnittet er enklere å bruke enn det opprinnelige DirectShow-grensesnittet, som er notorisk for sin kompleksitet.
+			
+			For å vise 3D-scener på skjermen brukes OpenGL. Dette er et bibliotek for å tegne 2 og 3-dimensjonelle figurer, og bruker datamaskinens skjermkort for akselerasjon av den prosessen. For å gjøre OpenGL tilgjengelig i Java bruker vi en wrapper kalt Java OpenGL (JOGL). Dette gjør at maskinkoden i OpenGL kan kjøres fra Java.
+			
+			Wiimotesene kommuniserer gjennom Bluetooth-nettverk. For å snakke med disse bruker vi et Java-bibliotek kalt BlueCove. Dette tilbyr et grensesnitt for å sende og ta imot melding gjennom Bluetooth.
 		
 		\subsubsection{Kjørbar distribusjon (Vegar)}
 		
