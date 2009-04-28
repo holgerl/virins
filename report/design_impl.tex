@@ -86,20 +86,27 @@
 
 		Valget av kamera falt til slutt på et Panasonic HDC-SD9 kamera (se figur \ref{fig:hdcam}). Dette har etter spesifikasjonene 3CCD bildesensor, HDMI utgang, manuell fokus, 1080P bilde og lav pris. Etter noe fram og tilbake fikk vi servicemanualen til kameraet fra Panasonic. Den beskriver trinnvis hvordan IR-filteret kan fjernes. Vi fikk fjernet IR-filteret, men det viste seg at manuell fokus ikke fungerte som forventet. Det var en automatisert funksjon som sto for fokuset, slik at dette ikke kunne stilles inn riktig uten filteret. Optimalt burde vi erstattet filteret med en glassbit, men vi valgte å erstatte filteret med gjennomsiktig pvc plast, slik at lysbrytningen skulle ligne på den gjennom IR-filteret. De optiske egenskapene til plasten er ikke spesielt bra, men vi ender likevel opp med et mye bedre bilde på grunn av at bildet ikke lenger er like langt ute av fokus. For vår applikasjon er dette bildet mer enn nok til å tracke IR lys i rommet. For å lettere kunne tracke lyset fra dioden har vi tatt i bruk et filter som blokkerer alt lys utenom infrarødt. REF: (OPTIR 1.0 NG 305 X 100 fra Instrument Plastics. Kjøpt via http://www.farnell.com (varenr 177143))
 		
-	\subsection{Valg av IR-sender}
+	\subsection{Konstruksjon av LED-headset}
 		
-		Kriterier vi ser etter:
+		Kriterier vi så etter:
 	
 		\begin{itemize}
 			\item Lett å bruke
 			\item Liten vekt
 			\item Minst mulig i veien
-			\item Høy intensitet pålyset
+			\item Høy intensitet på lyset
 		\end{itemize}
 
-		Målet var å finne en løsning som ikke er i veien for brukeren. Optimalt sett såtrenger ikke brukeren ta på seg noe ekstra utstyr. For å kunne tracke brukeren trengs det minimum to lyskilder og 1 kamera, eller to kamera og en lyskilde. Vi bestemte oss for å bruke et trådløst headset, da dette ikke er spesielt tungvindt å ha p\aa. Dette har ogsået innebygd batteri som vi kan koble lyskilder på. For å kunne skille rotasjon fra avstand trengs det en tredje diode. Denne kan festes på mikrofonen.
+		Målet var å finne en løsning som ikke er i veien for brukeren. Optimalt sett såtrenger ikke brukeren ta på seg noe ekstra utstyr. For å kunne tracke brukeren trengs det minimum to lyskilder og 1 kamera, eller to kamera og en lyskilde. Vi bestemte oss for å bruke et trådløst headset, da dette ikke er spesielt tungvindt å ha på. Dette har også et innebygd batteri som vi kan koble lyskilder på. For å kunne skille rotasjon fra avstand trengs det en tredje diode. Denne kan festes på mikrofonen.
+		
+		\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.4\textwidth]{graphics/headset.jpg}
+		\caption{Logitech Clearchat}
+		\label{fig:headset}
+		\end{figure}
 
-		Vi gikk til innkjøp av et Logitech Clearchat trådløst headset, og 3 IR dioder (SFH 415) med høy intensitet. IR diodene var spesifisert til å tåle opp mot 1 Ampere. Batteriet påheadsettet gir ut 3,7V. Målet var å få mest mulig intensitet ut, slik at lyset er synlig lengst mulig bort, og slik at dioden ikke trenger peke direkte påkameraet for å kunne registreres. Diodene vil fungere som en kortslutning om de festes rett påbatteriet, såfor å begrense strømmen gjennom dem trengs det motstand i serie. Vi dimensjonerte oppsettet, med en motstand på47? foran dioden, slik at det går under 100mA gjennom hver diode. Det er også koblet opp en bryter med tre innstillinger for å kunne bytte mellom at 2 dioder lyser, og 1 diode. Vi har bestemt oss for å bruke en diode for tracking med wii-remotes, og to dioder ved bruk av hd kamera istedenfor tre.
+		Vi gikk til innkjøp av et Logitech Clearchat trådløst headset (seg figur \ref{fig:headset}, og 3 IR dioder (SFH 415) med høy intensitet. IR diodene var spesifisert til å tåle opp mot 1 Ampere. Batteriet påheadsettet gir ut 3,7V. Målet var å få mest mulig intensitet ut, slik at lyset er synlig lengst mulig bort, og slik at dioden ikke trenger peke direkte påkameraet for å kunne registreres. Diodene vil fungere som en kortslutning om de festes rett påbatteriet, så for å begrense strømmen gjennom dem trengs det motstand i serie. Vi dimensjonerte oppsettet, med en motstand på 47? foran dioden, slik at det går under 100mA gjennom hver diode. Det er også koblet opp en bryter med tre innstillinger for å kunne bytte mellom at 2 dioder lyser, og 1 diode. Vi har bestemt oss for å bruke en diode for tracking med wii-remotes, og to dioder ved bruk av hd kamera istedenfor tre.
 
 		Det viste seg at kameraet klarte å detektere diodene bedre enn forventet, som gjør at diodestrømmen er kraftig overdimensjonert, noe som da trekker mer strøm fra batteriet til headsettet enn nødvendig.
 		
@@ -113,16 +120,16 @@
 		
 		\subsubsection{Punktfinneren (Holger)}
 		
-			Figur \ref{fig:holger_class_diagram} viser et klassediagram av punktfinneren.
+			Figur \ref{fig:holger_class_diagram} viser et klassediagram av punktfinneren. CameraHeadTracker (CHT) er den viktigste klassen. Det er denne som tilbyr punktfinne-funksjonaliteten ovenfor resten av systemet. Denne arver fra SingleSourceHeadTracker, som igjen arver fra HeadTracker. CHT bruker TrackingUtil for å gjøre oppgaven sin, og inneholder TrackedPoint-instanser for punktene som spores. TrackingUtil tilbyr nyttefulle funksjoner i forbindelse med finning og sporing av punkter.
+			
+			CHT inneholder også et graphical user interface (GUI) gjennom CameraHeadTrackerGUI. Dette et er et enkelt GUI som viser bildet fra kameraet og "p" holdes på tastaturet, og gir mulighet for finne alle punktene på nytt ved å taste mellomrom. Dette GUI-et inneholder to instanser av lyttere for å lytte etter disse tastetrykkene. Disse er CalibrateKeyListener og ShowCamKeyListener.
 		
-			\begin{figure}[h]
+			\begin{figure}[ht]
 			\centering
-			%\includegraphics[width=\textwidth]{graphics/holger_class_diagram.png}
+			\includegraphics[width=\textwidth]{graphics/holger_class_diagram.png}
 			\caption{Klassediagram for punktfinneren}
 			\label{fig:holger_class_diagram}
 			\end{figure}
-			
-			%TODO: Lag og beskriv klassediagrammet
 		
 		\subsubsection{Posisjonsfinneren og 3D-viseren (Vegar)}
 		
