@@ -57,7 +57,7 @@
 				\end{enumerate}
 		\end{enumerate}
 	
-	\subsection{Design av posisjonsfinneren}
+	\subsection{Design av posisjonsfinneren og 3D demo}
 		    Figur \ref{fig:vegar_class_diagram} viser et klassediagram som illustrerer hvordan posisjonsfinner er designet.
 		    Hovedmotivasjonen er at rammeverket skal være utvidtbart slik at det enkelt kan lages andre typer HeadTrackerobjekter,
 		    som for eksempel støtter annet utstyr.
@@ -69,7 +69,6 @@
 			\caption{Klassediagram for posisjonsfinneren og 3D-viseren}
 			\label{fig:vegar_class_diagram}
 			\end{figure}
-	Design av posisjonsfinner og 3D-viser
 		
 	
 \section{Implementasjon av løsningen}
@@ -144,17 +143,13 @@
 		
 		\subsubsection{Posisjonsfinneren og 3D-viseren (Vegar)}
 		
-			Figur \ref{fig:vegar_class_diagram} viser et klassediagram av posisjonsfinneren og 3D-viseren.
-		
-			\begin{figure}[h]
-			\centering
-			\includegraphics[width=\textwidth]{graphics/vegar_class_diagram.png}
-			\caption{Klassediagram for posisjonsfinneren og 3D-viseren}
-			\label{fig:vegar_class_diagram}
-			\end{figure}
-			
+			Posisjonsfinner ble implementert som i figur \ref{fig:vegar_class_diagram}.
 			Noen detaljer er utelatt, for eksempel benytter wiimote-klassene seg av biblioteket 
-			wiimote-simple for oppkobling og datauthenting fra wiimote.
+			wiimote-simple for oppkobling og datauthenting fra wiimote. I tillegg er det lagd noen trivielle klasser som kun brukes til å holde data,
+			evt brukes til testing.
+			
+			Implementasjon av matematikken som beskrevet i forstudien ble gjort i størst mulig grad likt formelverket i forstudien.
+			Noen hensyn til ytelse er riktignok tatt.
 			
 		\subsubsection{Bibliotek brukt i implementasjonen}
 			
@@ -162,8 +157,10 @@
 			
 			For å vise 3D-scener på skjermen brukes OpenGL. Dette er et bibliotek for å tegne 2 og 3-dimensjonelle figurer, og bruker datamaskinens skjermkort for akselerasjon av den prosessen. For å gjøre OpenGL tilgjengelig i Java bruker vi en wrapper kalt Java OpenGL (JOGL). Dette gjør at maskinkoden i OpenGL kan kjøres fra Java.
 			
-			Wiimotesene kommuniserer gjennom Bluetooth-nettverk. For å snakke med disse bruker vi et Java-bibliotek kalt BlueCove. Dette tilbyr et grensesnitt for å sende og ta imot melding gjennom Bluetooth.
+			Wiimote-simple brukes for å lese ut dataene fra wiimote, som er på et proprietært format.
+			
+			Wiimotesene kommuniserer gjennom Bluetooth-nettverk. For å snakke med disse bruker vi et Java-bibliotek kalt BlueCove. Dette tilbyr et grensesnitt for å sende og ta imot meldinger gjennom Bluetooth.
 		
 		\subsubsection{Kjørbar distribusjon (Vegar)}
 		
-			%TODO: Legg til tekst om JAR-filen vi har laget, og eventuelle andre filer som må være med en distribusjon
+			En kjørbar jar(java archive)-fil lages og pakkes med de nødvendige biblioteker, samt en konfigurasjonsfil headtracker.properties for å konfigurere parametre som påvirker trackingen. Dette skal gjøre det enkelt å få kjørt en demonstrasjon av produktet, uten å ha kjennskap til biblioteker og kompilering.
