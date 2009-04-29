@@ -6,7 +6,7 @@
 
 	For å koble et kamera til en PC og lese dens videobilder trenger man både maskinvare og programvare. Maskinvaren gir den fysiske tilkoblingen mellom kameraet og PC-en samt gjør lavnivås logikk og behandling av dataene. Programvaren abstraherer bort maskinvaren og gir utviklere et brukbart grensesnitt for å lese og bruke videobildene. Av maskinvare har vi i prosjektet tenkt å bruke HDMI og et Intensity-kort for å koble kameraet til PC-en som kjører systemet vårt. Av programvare har vi tenkt å bruke DirectShow for å få lett tilgang til videobildene fra kameraet.
 	
-\subsection{HDMI og Intensity}
+\section{HDMI og Intensity}
 
 	HDMI er en standard for et fysisk grensesnitt for å sende og motta digital lyd og bilde. Apparater med HDMI-kontakt kan kobles til hverandre ved hjelp av en HDMI-kabel (se figur \ref{fig:hdmi}). HDMI er designet for å håndtere lyd og bilde med høy oppløsning, og kan sende opptil 10,2 gigabit per sekund.
 	
@@ -28,11 +28,11 @@
 	\label{fig:intensity}
 	\end{figure}
 
-\subsection{DirectShow}
+\section{DirectShow}
 
 	DirectShow er et rammeverk og programvaregrensesnitt for å håndtere multimedia på PC-er. Det er utviklet av Microsoft og gjør det mulig å spille av og ta opp media (typisk lyd og/eller bilde) gjennom et felles grensesnitt, og abstraherer bort maskinvaren. Bildene fra videokamera koblet til et Intensity-kort er tilgjengelig gjennom DirectShow. DirectShow er tilgjengelig gratis fra Microsofts nettsider.
 	
-\subsection{Infrarødt lys}
+\section{Infrarødt lys}
 
 	Infrarød lys er elekektromagnetisk stråling av bølgelengder lengre enn bølgelengdene til synlig lys. Det synlige lyset har bølgelengder mindre enn 750nm. Ordet infra kommer fra latinsk og betyr under, og rød er den fargen innenfor det synlige spekteret som har den lengste bølgelengden. Det infrarøde lyset som ligger nærmest det synlige lys har mye av de samme egnskapene som det synlige lyset bortsett fra at det er usynlig for det mennesklige øyet. Infrarødtlys er derfor mye brukt til blant annet overvåkning og nattkamera, i tillegg til signaler i elektriske kontroller. Infrarød stråling med lengre bølgelengder er mer knyttet til varmeproduksjon og varmesensitive kameraer som er mye brukt i romfartsindustri og våpenindustri. Se figur \ref{fig:irled} for et eksempel på en LED som sender infrarødt lys.
 	
@@ -56,14 +56,10 @@
 	\label{fig:wiimote}
 	\end{figure}
 
-\section{Å spore punkter i et bilde (Holger)}
-
-	
-
 \section{Bruksområder}
 
-Spill er et typisk bruksområde for headtracking. Eksempler er bilspill hvor en kan kikke deg rundt i kabinen, flysimulatorer hvor en må flytte på hodet for å se hele cockpiten, og slossspill der en beveger hodet til karakteren en spiller. En annen anvendelse er å styre karakteren sin i Second Life som er en virtuell virkelighet som kan brukes til konferanser og møter.
-
-Visualisering av store datamengder som en grafisk fremstilling av et reservoar kan ta i bruk head tracking for å navigere seg rundt i reservoaret for å få et mer riktig bilde av dimensjoner og oppbygning. For å oppnå dette kan headtracking-prorgramvare integreres med cavelib, som er et grensesnitt for visualisering som brukes mye av petroleums-programvare.
-
-Andre eksempler på bruk er styre systemer, som å tegne med hodet. Og navigere i kart, når skjermen er for liten til å vise all informasjonen kan head tracking brukes til å tracke vinkelen inn på skjermen for å kunne presentere forskjellige deler av kartet. Dette kan sammenlignes med å se gjennom en rute ned på et stort virtuelt kart, slik at forskjellige deler av kartet kommer til syne ved forskjellig synsvinkel.	
+	Spill er et typisk bruksområde for headtracking. Eksempler er bilspill hvor en kan kikke deg rundt i kabinen, flysimulatorer hvor en må flytte på hodet for å se hele cockpiten, og slossspill der en beveger hodet til karakteren en spiller. En annen anvendelse er å styre karakteren sin i Second Life som er en virtuell virkelighet som kan brukes til konferanser og møter.
+	
+	Visualisering av store datamengder som en grafisk fremstilling av et reservoar kan ta i bruk head tracking for å navigere seg rundt i reservoaret for å få et mer riktig bilde av dimensjoner og oppbygning. For å oppnå dette kan headtracking-prorgramvare integreres med cavelib, som er et grensesnitt for visualisering som brukes mye av petroleums-programvare.
+	
+	Andre eksempler på bruk er styre systemer, som å tegne med hodet. Og navigere i kart, når skjermen er for liten til å vise all informasjonen kan head tracking brukes til å tracke vinkelen inn på skjermen for å kunne presentere forskjellige deler av kartet. Dette kan sammenlignes med å se gjennom en rute ned på et stort virtuelt kart, slik at forskjellige deler av kartet kommer til syne ved forskjellig synsvinkel.	
