@@ -130,7 +130,7 @@
 		
 		\subsubsection{Punktfinneren (Holger)}
 		
-			Figur \ref{fig:holger_class_diagram} viser et klassediagram av punktfinneren. CameraHeadTracker (CHT) er den viktigste klassen. Det er denne som tilbyr punktfinne-funksjonaliteten ovenfor resten av systemet. Denne arver fra SingleSourceHeadTracker, som igjen arver fra HeadTracker. CHT bruker TrackingUtil for å gjøre oppgaven sin, og inneholder TrackedPoint-instanser for punktene som spores. TrackingUtil tilbyr nyttefulle funksjoner i forbindelse med finning og sporing av punkter.
+			Figur \ref{fig:holger_class} viser et klassediagram av punktfinneren. CameraHeadTracker (CHT) er den viktigste klassen. Det er denne som tilbyr punktfinne-funksjonaliteten ovenfor resten av systemet. Denne arver fra SingleSourceHeadTracker, som igjen arver fra HeadTracker. CHT bruker TrackingUtil for å gjøre oppgaven sin, og inneholder TrackedPoint-instanser for punktene som spores. TrackingUtil tilbyr nyttefulle funksjoner i forbindelse med finning og sporing av punkter.
 			
 			CHT inneholder også et graphical user interface (GUI) gjennom CameraHeadTrackerGUI. Dette et er et enkelt GUI som viser bildet fra kameraet og "p" holdes på tastaturet, og gir mulighet for finne alle punktene på nytt ved å taste mellomrom. Dette GUI-et inneholder to instanser av lyttere for å lytte etter disse tastetrykkene. Disse er CalibrateKeyListener og ShowCamKeyListener.
 		
@@ -138,12 +138,20 @@
 			\centering
 			\includegraphics[width=\textwidth]{graphics/holger_class_diagram.png}
 			\caption{Klassediagram for punktfinneren}
-			\label{fig:holger_class_diagram}
+			\label{fig:holger_class}
 			\end{figure}
 		
 		\subsubsection{Posisjonsfinneren og 3D-viseren (Vegar)}
 		
-			Posisjonsfinner ble implementert som i figur \ref{fig:vegar_class_diagram}.
+			Figur \ref{fig:vegar_class} viser et klassediagram av posisjonsfinneren og 3D-viseren.
+		
+			\begin{figure}[h]
+			\centering
+			\includegraphics[width=\textwidth]{graphics/vegar_class_diagram.png}
+			\caption{Klassediagram for posisjonsfinneren og 3D-viseren}
+			\label{fig:vegar_class}
+			\end{figure}
+			
 			Noen detaljer er utelatt, for eksempel benytter wiimote-klassene seg av biblioteket 
 			wiimote-simple for oppkobling og datauthenting fra wiimote. I tillegg er det lagd noen trivielle klasser som kun brukes til å holde data,
 			evt brukes til testing.
