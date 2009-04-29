@@ -1,7 +1,6 @@
 As a part of the course Experts in Team (EiT) at NTNU, five students were put in a group to collaborate on a project. This team (us) was a part of the virtual reality village of EiT, and came up with the following problem statement:
 
 \begin{center}\em How can you make an affordable and usable prototype\\for head tracking to be used for virtual reality?\end{center}
-\vspace{\parskip}
 
 We solved this problem by first doing a preliminary study followed by design and imlementation of the solution. In the preliminary study, several technical and theoretical subjects were investigated. The mathematics behind estimation of object position from pictures were elaborated. We looked at the available technology for connecting a high definition camera to a PC and reading the images from it. We studied the properties of infrared light. We checked out and tested the Nintendo Wii and its Wiimotes. Lastly, potential areas of use for a solution was described.
 
@@ -13,6 +12,8 @@ Then, a specification of the requirements was carefully crafted. The specificati
 \end{figure}
 
 The LED-component is a set of infra red LEDs that are attached to the user's head. These transmit light that is captured by a high definition camera. The image from this camera is read by a point finder software that attempts to locate the coordinates of the bright dots in the image where the LEDs are. These coordinates are transferred to the position finder software which uses them to estimate the position of the user's head. This head position is then used by the 3D-renderer software to display a 3D-scene on a screen where the viewpoint is mapped to the head position.
+
+The implementation was done by acquiring a Panasonic HDC-SD9 high definition digital camera and connecting this to a PC with a Blackmagic Design Intensity HDMI-card. In addition, a headset with infra red LEDs was constructed. For the software part, the point finder, posistion finder and 3D-renderer was written in Java with bindings to native machine code for the 3D-rendering part.
 
 Course
 Project group
