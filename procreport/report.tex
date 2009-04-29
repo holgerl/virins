@@ -1,0 +1,108 @@
+\documentclass[11pt]{report}
+\pagestyle{headings}
+
+\usepackage[pdftex]{graphicx}
+\usepackage{fullpage}
+\usepackage[tt]{titlepic}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+
+\setlength{\parindent}{0.0in}
+%\setlength{\parskip}{0.1in}
+\setcounter{secnumdepth}{1}
+\setcounter{tocdepth}{1}
+\setlength{\parskip}{0.1in}
+
+%\addtolength{\textheight}{2cm}
+%\addtolength{\footskip}{2cm}
+
+\renewcommand*\contentsname{Innhold}
+\renewcommand*\listtablename{Tabell-liste}
+\renewcommand*\listfigurename{Figurliste}
+\renewcommand*\chaptername{Kapittel}
+\renewcommand*\partname{Del}
+\renewcommand*\figurename{Figur}
+\renewcommand*\tablename{Tabell}
+\renewcommand*\bibname{Bibliografi}
+
+%\renewcommand{\section}{\@startsection{chapter}{0}{0mm}{-\baselineskip}{0.5\baselineskip}{\normalfont\large}}
+
+\newcommand\placeholder[2]{
+	\noindent
+	{\setlength{\fboxsep}{0pt}
+		\makebox[#1]{
+			\parbox{0pt}{\rule{0pt}{#2}}
+			\parbox{#1}{
+				\centering
+				\includegraphics[width=0.66\textwidth]{graphics/logo.jpg}
+			}
+		}
+	}
+}
+
+\titlepic{\placeholder{\textwidth}{0.5\textwidth}}
+\title{{\Large Eksperter i Team\\TPG4850 VR-Landsbyen\\{\bf Virtual Insanity (Team 4)\\Prosessrapport}}}
+\author{Holger Ludvigsen,\\Vegar Neshaug,\\Rahele Zarabi,\\Jon Skarpetveit,\\Kristoffer Selboe}
+\date{{\small \today}}
+
+\begin{document}
+\maketitle
+
+\chapter{Sammendrag}
+	\input{summary.tex}
+\pagebreak
+	
+\setlength{\parskip}{0.0in}
+\tableofcontents
+%\listoftables
+%\listoffigures
+%\pagebreak
+\setlength{\parskip}{0.1in}
+
+\chapter{Innledning}
+
+	\input{intro.tex}
+
+\chapter{Temaet}
+
+	\input{theme.tex}
+
+\chapter{Grupesammensetning}
+
+	\input{group.tex}
+	
+\chapter{Evaluering av gruppen}
+
+	\input{group_eval.tex}
+
+\chapter{De fire gruppefasene}
+
+	\input{group_phases.tex}
+	
+\chapter{Kommunikasjon og verktøy}
+
+	\input{comm_tools.tex}
+	
+\chapter{Evaluering av EiT}
+
+	\input{evaluation.tex}
+	
+\chapter{Konklusjon}
+
+	\input{conclusion.tex}
+
+%\nocite{a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20,a21}
+%\bibliographystyle{plain}	
+%\bibliography{literature}
+
+\chapter{Referanser}
+
+	\input{references.tex}
+	
+\appendix
+
+	\chapter{Samarbeidskontrakt}
+	
+		\input{group_contract.tex}
+
+\end{document}
