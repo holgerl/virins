@@ -16,6 +16,36 @@
 		\item[To Wiimotes som filmer ett lys på hodet] I denne konfigurasjonen brukes {\em to} Wiimotes. Dette betyr at kun ett lys trengs på hodet.
 	\end{description}
 
+    \subsection{Illusjonen}
+    En av målsetningene til prosjektgruppa var å produsere en eller flere demonstrasjonsprogrammer
+    som viser hvordan hodetracking kan brukes. Johnny Chung demonstrerer i en video på youtube
+    hvordan man kan få et objekt til å tilsynelatende bryte skjermflaten og sveve ut i rommet foran skjermen.
+    Denne illusjonen ble gjenskapt i produktet. Hvordan denne effekten oppstår kan kanskje en psykolog forklare
+    best, men rent teknisk oppnås denne effekten ved å angi dybden til nærplanet/klippeplanet, som nærmere enn
+    starten på grid-rommet og benytte en perspektivprojeksjonen som gjør at grid-rommet er kant-i-kant med skjermen.
+    Et objekt som befinner seg lenger frem enn skjermkantene vil da likevel tegnes på grunn av et nærmere nærplan.
+    I demonstrasjonen tegnes en linje fra bakveggen i rommet til objektet, sammenligner man denne linjen med linjene
+    i grid-rommet vil man se at linjen til objektet later til å være lenger, og dette forsterker inntrykket av at
+    objektet er lenger ut i rommet enn skjermflaten. 
+    Følgende ligninger brukes for å regne ut et nærmere nærplan. Se også figur \ref{figur}.
+    Definer $d$ som dybden til ønsket nærplan.
+    \begin{eqnarray}
+    &p_{min} = d\frac{b-x}{z}\\
+    &p_{max} = d\frac{a-x}{z}
+    \end{eqnarray}
+    For y-aksen gjelder figur og ligninger med x utbyttet med y.
+
+	\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.80\textwidth]{graphics/Illusjonen.jpg}
+	\caption{Illustrasjon illusjon}
+	\label{fig:illusjon}
+	\end{figure}
+	
+\section{Testresultater (Vegar)}
+
+
+
 \section{Evaluering av resultatet}
 	
 	Løsningen vi endte opp med følger kravspesifikasjonene og designen. Den estimerer posisjonen til hodet ved å filme infrarøde LEDs montert på hodet, og bruker denne til å skape en virtuell virkelighet på skjermen foran brukeren. Vi starter evaluering ved å påpeke svakhetene ved systemet, og avslutter med styrkene.
@@ -26,8 +56,12 @@
 		
 			Når systemet endelig var kapabelt til å motta bilder fra HD-kameraet og spore lyspunktene ble det klart at det er forsinkelse på disse bildene. Denne forsinkelsen er ca 0,5 sekunder og er i stor grad merkbar. Vi håpet tidligere at forsinkelsen var en eller annen flaskehals som bare eksisterte i den tidlige suboptimale koden vi brukte for å få ting til å fungere, men det ser ut til at dette er en iboende egenskap ved HD-kameraet og/eller overføringen av bildene gjennom HDMI-kortet. Siden kameraet har høy oppløsning er det mange piksler som skal sendes. I tillegg til dette er kameraet ikke beregnet for sanntidsfilming, men heller å ta opp for å se senere. Heldigvis er Wiimotesene beregnet på denne bruken og har neglisjerbar forsinkelse.
 		
-		\subsubsection{LED-headset er suboptimalt (Vegar)}
+		\subsubsection{LED-headsettet er ikke profesjonelt}
+		I forhold til Nintendo sensorbar er ikke headsettet en like god lyskilde.
+		Nintendo senorbare har en vifteform av LED's samt en skikkelig lysspreder(diffusjonsglass).
 		
+		Selv om det for prosjektgruppa er sjarmerende med et headsett som har synlige røde og sorte
+		ledninger, med kledelig sort elektrikerteip, er dette ikke like betryggende for de personene som tester systemet.
 			
 	
 	\subsection{Styrker ved systemet}
@@ -36,17 +70,49 @@
 		
 			HD-kameraets høye oppløsning gjør at små LEDs synes på lang avstand. Dette betyr at man kan stå langt unna kameraet, og dermed også langt unna skjermen, og fortsatt oppleve god respons på hodebevegelser. Aberet er at høyere oppløsning betyr flere piksler å prosessere i søk etter lysprikkene, men dette ser ikke ut til å være den største flaskehalsen med de nåværende algoritmene.
 		
-		\subsubsection{Støtte for to Wiimotes gir fordeler (Vegar)}
-		
-			
-		
-		\subsubsection{Systemet er portabelt og fleksibelt (Vegar)}
 		
 			
 		
 		\subsubsection{Virkelighetsfølelsen er sterk}
 		
 			Det finnes mange ulike systemer for virtuell virkelighet. Virkemidlene de bruker for å oppnå denne illusjonen varierer sterkt, og ingen dekker alle sansene på en gang. Vårt system simulerer virkningene av å bevege hodet når man ser på noe. Dette gir en sterk virkelighetsfølelse fordi hjernen kobler sammen hvordan kroppen beveger seg med hva den ser. For at hjernen skal tro at den ser på et 3-dimensjonal objekt må synet matche bevegelsene, og det gjør de i vårt system.
+			
+    \subsection{Evaluering - Sammenligning med andre}
+    Før og i  løpet av prosjektet har prosjektgruppa merket seg og blitt inspirert av andre som har implementert lignende
+    løsninger. Av disse har vi sett på videomateriale fra tidligere VR-landsbyer, samt Johnny Chung Lee, Ph.D ved Carnegie Mellon University.
+    Prosjektetgruppas hovedmål har hele tiden vært at produktet skal være en god teknologisk løsning på headtracking.
+    Sammenlignet med disse er det prosjektgruppas mening at Virins er en like god eller bedre teknologisk løsning.
+    To egenskaper ved Virins er stor bevegelsesfrihet, samt to former(modi) for bestemmelse av hodeposisjon begge med eksakt løsning på lukket form.
+
+
+    Etter gjennomsyn av Johnny Chungs implementasjon kan det trekkes noen sammenligninger med Virins.
+    \begin{enumerate}
+    \item Virins tilbyr bruk av trianguleringsberegning når to sensorer benyttes(med full bevegelsesfrihet) samt en modell for beregning med en sensor hvor det er antatt at brukerens hode alltid er vendt mot sensoren.
+    \item Den matematiske modellen for beregning av hodeposisjon fra to lyspunkt er annerledes. (Bør dette utdypes? Basically, brukes R som Z. Som er rart!)
+    \item Det er tydelig at Johnny Chungs kode er ment primært som et eksempel på hvordan hodetracking og fysisk riktig perspektivprojeksjon
+    kan gjøres, og ikke et verktøy eller et rammeverk som kan brukes i andre prosjekter uten endring. Prosjektgruppa mener at Virins utgjør et rammeverk som godt kan brukes uten nevneverdig innsats som en modul for et software/spill-prosjekt som vil ta i bruk tracking av hode uten å implementere dette selv.
+    \end{enumerate}
+    Følgende er en sammenligning av Johnny Chungs implementasjon og implementasjon som er diskutert i denne rapporten.
+
+    \begin{tabular}{| p{0.3\textwidth} | p{0.3\textwidth} | p{0.3\textwidth} | }
+    \hline			
+                            & \textbf{Virins}                                               & \textbf{Chung} \\
+    \hline
+      Programmeringsspråk   & Java                                                          & C\# \\
+    \hline
+      Plattformuavhengig    & Ja(OpenGL, Java)                                              & Nei(DirectX) \\
+    \hline
+      Sensor                & Wiimote eller kamera                                          & Wiimote \\
+    \hline
+      Modi                  & To wiimotes og triangulering eller en wiimote og kuleskall    & En wiimote og tilnærmet beregning \\
+    \hline  
+    \end{tabular}
+
+    Det bør nevnes at rammeverket ble bestemt å skulle ta i bruk Java Media Framework(JMF), siden dette er tilgjengelig på flere plattformer. JMF er et bibliotek for mediaprosessering, og tilbyr et enkelt grensesnitt for å få tilgang til video.
+    For å få tilgang til HDMI capture kortet ble vi nødt til å bruke et plattformspesifikt bibliotek for directshow, da HDMI capture kortet ikke var tilgjengelig ved bruk av JMF. Vanlige webkameraer ble testet og fungerte ved bruk av JMF, og rammeverket støtter
+    videokilder som er tilgjengelige gjennom JMF.  Rammeverket er derfor plattformuavhengig både ved bruk av Wiimotes og kamera, med mulighet til
+    å bruke et plattformspesifikt bibliotek for mer eksotiske videokilder som HDMI capture kort.
+
 
 \section{Konklusjon}
 	

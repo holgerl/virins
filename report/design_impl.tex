@@ -57,8 +57,19 @@
 				\end{enumerate}
 		\end{enumerate}
 	
-	\subsection{Design av posisjonsfinneren og 3D-viseren (Vegar)}
-	
+	\subsection{Design av posisjonsfinneren}
+		    Figur \ref{fig:vegar_class_diagram} viser et klassediagram som illustrerer hvordan posisjonsfinner er designet.
+		    Hovedmotivasjonen er at rammeverket skal være utvidtbart slik at det enkelt kan lages andre typer HeadTrackerobjekter,
+		    som for eksempel støtter annet utstyr.
+		    OpenGLDemo benytter grensesnittet HeadTracker og er ikke avhengig av en bestemt HeadTracker-implementasjon.
+		
+			\begin{figure}[h]
+			\centering
+			\includegraphics[width=\textwidth]{graphics/vegar_class_diagram.png}
+			\caption{Klassediagram for posisjonsfinneren og 3D-viseren}
+			\label{fig:vegar_class_diagram}
+			\end{figure}
+	Design av posisjonsfinner og 3D-viser
 		
 	
 \section{Implementasjon av løsningen}
@@ -137,12 +148,13 @@
 		
 			\begin{figure}[h]
 			\centering
-			%\includegraphics[width=\textwidth]{graphics/vegar_class_diagram.png}
+			\includegraphics[width=\textwidth]{graphics/vegar_class_diagram.png}
 			\caption{Klassediagram for posisjonsfinneren og 3D-viseren}
 			\label{fig:vegar_class_diagram}
 			\end{figure}
 			
-			%TODO: Lag og beskriv klassediagrammet
+			Noen detaljer er utelatt, for eksempel benytter wiimote-klassene seg av biblioteket 
+			wiimote-simple for oppkobling og datauthenting fra wiimote.
 			
 		\subsubsection{Bibliotek brukt i implementasjonen}
 			
