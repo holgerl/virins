@@ -8,14 +8,16 @@
 \usepackage[latin1]{inputenc}
 \usepackage[T1]{fontenc}
 
+\titleformat{\chapter}{\bfseries\huge}{\thechapter}{1em}{}
+\titlespacing{\chapter}{0pt}{0pt}{6pt}
+
+\titleformat{\section}{\bfseries\Large}{\thesection}{1em}{}
+\titlespacing{\section}{0pt}{6pt}{3pt}
+
 \setlength{\parindent}{0.0in}
-%\setlength{\parskip}{0.1in}
 \setcounter{secnumdepth}{1}
 \setcounter{tocdepth}{1}
 \setlength{\parskip}{0.1in}
-
-%\addtolength{\textheight}{2cm}
-%\addtolength{\footskip}{2cm}
 
 \renewcommand*\contentsname{Innhold}
 \renewcommand*\listtablename{Tabell-liste}
@@ -25,8 +27,6 @@
 \renewcommand*\figurename{Figur}
 \renewcommand*\tablename{Tabell}
 \renewcommand*\bibname{Bibliografi}
-
-%\renewcommand{\section}{\@startsection{chapter}{0}{0mm}{-\baselineskip}{0.5\baselineskip}{\normalfont\large}}
 
 \newcommand\placeholder[2]{
 	\noindent
@@ -49,16 +49,19 @@
 \begin{document}
 \maketitle
 
-\chapter{Sammendrag}
+\pagenumbering{roman}
+
+\chapter*{Sammendrag}
 	\input{summary.tex}
 \pagebreak
 	
 \setlength{\parskip}{0.0in}
 \tableofcontents
-%\listoftables
-%\listoffigures
-%\pagebreak
 \setlength{\parskip}{0.1in}
+
+\pagebreak
+\pagenumbering{arabic}
+\setcounter{page}{1}
 
 \chapter{Innledning}
 
@@ -91,18 +94,22 @@
 \chapter{Konklusjon}
 
 	\input{conclusion.tex}
-
+	
+\pagebreak
+\pagenumbering{roman}
+\setcounter{page}{1}
+	
 %\nocite{a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20,a21}
 %\bibliographystyle{plain}	
 %\bibliography{literature}
 
-\chapter{Referanser}
+\chapter*{Referanser}
 
 	\input{references.tex}
 	
 \appendix
 
-	\chapter{Samarbeidskontrakt}
+	\chapter*{Vedlegg: Samarbeidskontrakt}
 	
 		\input{group_contract.tex}
 
