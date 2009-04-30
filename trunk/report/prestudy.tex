@@ -8,13 +8,11 @@
     hakkete bevegelse eller etterslep i en eventuell 3d-scene.
 
     Da kostnad er en av prioriteringene til dette systemet er bruk av Nintendo Wiimote, en relativt billig kontroller med
-    innebygd optisk sensor og tracking av infrarøde lys, vurdert. Nintendo Wiimote har en oppløsning på 786 432 piksler og en oppdateringshastighet 
-    på ? bilder i sekundet\ref{Wiimote hacking}. Tidlige tester antyder at oppløsningen til Wiimote er i nedre sjikt av hva som er
+    innebygd optisk sensor og tracking av infrarøde lys, vurdert. Nintendo Wiimote har en oppløsning på 786 432 piksler. Tidlige tester antyder at oppløsningen til Wiimote er i nedre sjikt av hva som er
     akseptabelt, i tillegg er bevegelsesområdet noe begrenset på grunn av en noe lav utsynsvinkel på 45 grader.
 
     På grunn av dette vil det også ses på støtte for bruk av kamera med vilkårlig oppdateringshastighet og presisjon.
-    Spesifikt et Panasonic HD-kamera med ~2,1 megapiksler, 60 grader utsynsvinkel og 60 bilder i sekundet. En vidvinkellinse
-    kan også monteres for å bedre utsynsvinkelen.
+    Spesifikt et Panasonic HD-kamera med ~2,1 megapiksler, 60 grader utsynsvinkel.
 
     Beregning av hodeposisjon vil, på grunn av valgene over, bestå av å bruke informasjon om pikselposisjon av infrarøde punkter
     i et todimensjonalt bilde. For å forenkle denne beregningen brukes vinkelmål istedet for piksler, og det antas derfor
@@ -24,7 +22,7 @@
     Det bør nevnes at motivasjonen ligger i å beregne hodeposisjonen, det vil si at interessen ligger i bevegelse langs tre akser,
     men ikke rotasjon om aksene. Det er ikke dermed slik at det ikke er mulig å beregne hoderotasjonen, eller at brukeren ikke har
     mulighet til å rotere hodet. Årsaken til at det er interessant å kun beregne hodeposisjon er på grunn av at det kun er disse
-    parametrene som er nødvendig for å få riktig perspektivprojeksjon i en 3d-scene, dette blir forklart mer dyptgående i \ref{3d}.
+    parametrene som er nødvendig for å få riktig perspektivprojeksjon i en 3d-scene.
 
     \subsection{En optisk sensor og to infrarøde punkter}
     Når en optisk sensor og to infrarøde punkter er brukt, enten en wiimote eller et kamera, er det antatt følgende.
@@ -58,8 +56,7 @@
     Da er $\beta = \beta^\prime + b$, hvor $\beta^\prime$ er vinkel fra kameraets midtpunkt og $b$ må kalibreres når brukeren står i en kjent posisjon.
 
     Antagelsen om at brukerens hode alltid er vendt mot sensoren er en følge av at kun to infrarøde punkter
-    utgjør beregningsgrunnlaget. Med tre infrarøde punkter kan man oppnå full bevegelsesfrihet, ved bruk
-    av algoritmer som \ref{hmm} eller \ref{hmm2}. Disse løsningene er iterative, og gir ikke eksakt(men veldig nære) løsninger.
+    utgjør beregningsgrunnlaget. Det finnes mer kompliserte algoritmer som er iterative(ikke på lukket form), og gir ikke eksakt(men veldig nære)       løsninger.
     Metoden beskrevet her, med antagelsen om at brukeren er vendt mot sensor, gir en eksakt løsning på lukket form.
 
     \subsection{To optiske sensorer}
@@ -82,7 +79,7 @@
     &\frac{z}{a} = \tan( \alpha )\\
     &\frac{z}{b} = \tan( \beta )\\
     &l = a + b = z(\frac{1}{tan( \alpha )} + \frac{1}{tan( \beta )})
-    &z = \frac{l}{\frac{1}{\alpha} + \frac{1}{\beta}}\\
+    &z = \frac{l}{\frac{1}{\tan( \alpha )} + \frac{1}{\tan( \beta )}}\\
     &x = \frac{l}{2} - \frac{z}{\tan( \alpha )}\\
     &y = z\sin( \gamma )
     \end{eqnarray}
@@ -112,7 +109,7 @@
 	    \begin{figure}[h]
 	    \centering
 	    \includegraphics[width=0.80\textwidth]{graphics/Perspektivkorreksjon.jpg}
-	    \caption{HDMI-kontakt (venstre) og kabel (høyre)}
+	    \caption{Perspektivkorreksjon}
 	    \label{fig:hdmi}
 	    \end{figure}
     \begin{eqnarray}
