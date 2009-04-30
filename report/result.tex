@@ -16,9 +16,11 @@
 		\item[To Wiimotes som filmer ett lys på hodet] I denne konfigurasjonen brukes {\em to} Wiimotes. Dette betyr at kun ett lys trengs på hodet.
 	\end{description}
 
-    \subsection{Illusjonen}
+    \subsection{Demonstrasjonsprogrammer}
     En av målsetningene til prosjektgruppa var å produsere en eller flere demonstrasjonsprogrammer
-    som viser hvordan hodetracking kan brukes. Johnny Chung demonstrerer i en video på youtube
+    som viser hvordan hodetracking kan brukes.
+    \subsubsection{Illusjonen}
+    Johnny Chung demonstrerer i en video på youtube
     hvordan man kan få et objekt til å tilsynelatende bryte skjermflaten og sveve ut i rommet foran skjermen.
     Denne illusjonen ble gjenskapt i produktet. Hvordan denne effekten oppstår kan kanskje en psykolog forklare
     best, men rent teknisk oppnås denne effekten ved å angi dybden til nærplanet/klippeplanet, som nærmere enn
@@ -42,16 +44,22 @@
 	\label{fig:illusjon}
 	\end{figure}
 	
-\section{Testresultater (Vegar)}
+	\subsubsection{Spillet}
+	For å få en engasjerende og morsom demonstrasjon valgte vi å implementere et spill som består av et virtuelt rom
+	hvor forskjellige gjenstander beveger seg mot spilleren. Dette kan sammenlignes med TV-underholdningsprogrammet "Ylvis møter veggen"
+	hvor deltagerne prøver å komme seg igjennom en form i en vegg. Hodetracking gir oss en indikasjon på hvor spilleren befinner seg,
+	dette kan brukes til å bestemme om spilleren kolliderer med eller unngår solide objekter. Spilleren må hoppe over, dukke under og
+	løpe til siden av objekter for å unngå kollisjon. Poengsummen bestemmes av hvor lenge spilleren har klart å unngå
+	objektene, som kommer flyvende imot både i økende antall og med økende hastighet. Dette gir et meget godt bilde på
+	hvordan et spill blir mer engasjerende når spilleren ikke sitter tilnærmet passiv i godstolen, men må opp og røre på seg
+	for å få en god score.
 
-	\includegraphics[width=1.25\textwidth]{graphics/testresults.pdf}
 
 \section{Evaluering av resultatet}
 	
 	Løsningen vi endte opp med følger kravspesifikasjonene og designen. Den estimerer posisjonen til hodet ved å filme infrarøde LEDs montert på hodet, og bruker denne til å skape en virtuell virkelighet på skjermen foran brukeren. Vi starter evaluering ved å påpeke svakhetene ved systemet, og avslutter med styrkene.
 	
 	\subsection{Svakheter ved systemet}
-	
 		\subsubsection{HD-kameraet har forsinkelse}
 		
 			Når systemet endelig var kapabelt til å motta bilder fra HD-kameraet og spore lyspunktene ble det klart at det er forsinkelse på disse bildene. Denne forsinkelsen er ca 0,5 sekunder og er i stor grad merkbar. Vi håpet tidligere at forsinkelsen var en eller annen flaskehals som bare eksisterte i den tidlige suboptimale koden vi brukte for å få ting til å fungere, men det ser ut til at dette er en iboende egenskap ved HD-kameraet og/eller overføringen av bildene gjennom HDMI-kortet. Siden kameraet har høy oppløsning er det mange piksler som skal sendes. I tillegg til dette er kameraet ikke beregnet for sanntidsfilming, men heller å ta opp for å se senere. Heldigvis er Wiimotesene beregnet på denne bruken og har neglisjerbar forsinkelse.
@@ -76,35 +84,48 @@
 		\subsubsection{Virkelighetsfølelsen er sterk}
 		
 			Det finnes mange ulike systemer for virtuell virkelighet. Virkemidlene de bruker for å oppnå denne illusjonen varierer sterkt, og ingen dekker alle sansene på en gang. Vårt system simulerer virkningene av å bevege hodet når man ser på noe. Dette gir en sterk virkelighetsfølelse fordi hjernen kobler sammen hvordan kroppen beveger seg med hva den ser. For at hjernen skal tro at den ser på et 3-dimensjonal objekt må synet matche bevegelsene, og det gjør de i vårt system.
-			
-    \subsection{Evaluering - Sammenligning med andre}
+	 \subsection{Testresultater (Vegar)}
+    For å få et inntrykk av nøyaktigheten til posisjoneringen merket vi opp avstander i et rom, kalibrerte program og utstyr og
+    foretok målinger på de oppmerkede punktene.
+    
+    Følgende tabell viser nøyaktigheten til systemet ved bruk av henholdsvis en sensor(kuleskallmodell) og to sensorer(triangulering).
+    
+    \includegraphics[width=1.25\textwidth]{graphics/testresults.pdf}
+    
+    Følgende feilkilder må tas med i tolkningen av resultatet.
+    \begin{enumerate}
+    \item Avstandsoppmerkingen ble gjort med tommestokk, og er nøyaktig innenfor et par centimeter.
+    \item Ved bruk av en sensor, er det ikke alltid at hodet er vendt nøyaktig vinkelrett på sensor, slik som modellen antar.
+    \item Målepunktene med stor x-verdi er veldig nært maksimal utsynsvinkel for sensor.
+    \end{enumerate}
+	
+	Det mest åpenbare resultatet er at gjennomsnittlig absolutt avvik er mindre ved bruk av triangulering. 
+	Det er verdt å merke seg at de største avvikene er i måleposisjonen med stor x-verdi(langt ut til siden),
+	og det er sannsynlig at målepunktet er på grensen av hva utstyret klarer å observere. Kuleskallmodellen
+	får en uvanlig høy feil ved x-verdi -100, og dette kan skyldes støy fra andre infrarøde kilder som belysning og lignende.
+	
+	Resultatet er i tråd med gruppas forventning siden triangulering ikke gjør antagelser om hoderotasjonen til brukeren og
+	eliminerer derfor en feilkilde.
+    
+    
+    \subsection{Sammenligning med andre}
     Før og i  løpet av prosjektet har prosjektgruppa merket seg og blitt inspirert av andre som har implementert lignende
     løsninger. Av disse har vi sett på videomateriale fra tidligere VR-landsbyer, samt Johnny Chung Lee, Ph.D ved Carnegie Mellon University.
     Prosjektetgruppas hovedmål har hele tiden vært at produktet skal være en god teknologisk løsning på headtracking.
     Sammenlignet med disse er det prosjektgruppas mening at Virins er en like god eller bedre teknologisk løsning.
     To egenskaper ved Virins er stor bevegelsesfrihet, samt to former(modi) for bestemmelse av hodeposisjon begge med eksakt løsning på lukket form.
 
+    Følgende er noen karakteristika for Virins.
 
-    Etter gjennomsyn av Johnny Chungs implementasjon kan det trekkes noen sammenligninger med Virins.
-    \begin{enumerate}
-    \item Virins tilbyr bruk av trianguleringsberegning når to sensorer benyttes(med full bevegelsesfrihet) samt en modell for beregning med en sensor hvor det er antatt at brukerens hode alltid er vendt mot sensoren.
-    \item Den matematiske modellen for beregning av hodeposisjon fra to lyspunkt er annerledes. (Bør dette utdypes? Basically, brukes R som Z. Som er rart!)
-    \item Det er tydelig at Johnny Chungs kode er ment primært som et eksempel på hvordan hodetracking og fysisk riktig perspektivprojeksjon
-    kan gjøres, og ikke et verktøy eller et rammeverk som kan brukes i andre prosjekter uten endring. Prosjektgruppa mener at Virins utgjør et rammeverk som godt kan brukes uten nevneverdig innsats som en modul for et software/spill-prosjekt som vil ta i bruk tracking av hode uten å implementere dette selv.
-    \end{enumerate}
-    Følgende er en sammenligning av Johnny Chungs implementasjon og implementasjon som er diskutert i denne rapporten.
-
-    \begin{tabular}{| p{0.3\textwidth} | p{0.3\textwidth} | p{0.3\textwidth} | }
-    \hline			
-                            & \textbf{Virins}                                               & \textbf{Chung} \\
+    \begin{tabular}{| p{0.4\textwidth} | p{0.4\textwidth} | }
     \hline
-      Programmeringsspråk   & Java                                                          & C\# \\
+      Programmeringsspråk   & Java\\
     \hline
-      Plattformuavhengig    & Ja(OpenGL, Java)                                              & Nei(DirectX) \\
+      Plattformuavhengig    & Ja(OpenGL, Java)\\
     \hline
-      Sensor                & Wiimote eller kamera                                          & Wiimote \\
+      Sensor                & Wiimote eller kamera\\
     \hline
-      Modi                  & To wiimotes og triangulering eller en wiimote og kuleskall    & En wiimote og tilnærmet beregning \\
+      Modi                  & 1. To wiimotes og triangulering 2. En wiimote eller kamera og kuleskall. Begge med eksakt beregninsmodell \\
     \hline  
     \end{tabular}
 
@@ -113,10 +134,9 @@
     videokilder som er tilgjengelige gjennom JMF.  Rammeverket er derfor plattformuavhengig både ved bruk av Wiimotes og kamera, med mulighet til
     å bruke et plattformspesifikt bibliotek for mer eksotiske videokilder som HDMI capture kort.
 
-
 \section{Konklusjon}
 	
-	Problemstillingen vår var om det mulig å lage en rimelig og brukbar løsning for tracking av hode til bruk i VR. Vi mener at løsningen vi har utviklet er et svar på denne problemstillingen. Og svaret er "ja". Komponentene som brukes er under 10 000 NOK tilsammen, og kan byttes ut med enda billigere typer. For eksempel kan HD-kamera til 6000 NOK byttes ut med webkamera til 1000 NOK uten problemer. Systemet fungerer og gir en virtuell virkelighetsfølelse. Videre er den enkel å bruke og konfigurere.
+	Problemstillingen vår var om det mulig å lage en rimelig og brukbar løsning for tracking av hode til bruk i VR. Vi mener at løsningen vi har utviklet er et svar på denne problemstillingen. Og svaret er "ja". Komponentene som brukes er under 10 000 NOK tilsammen, og kan byttes ut med enda billigere typer. For eksempel kan HD-kamera til 6000 NOK byttes ut med webkamera til 1000 NOK uten problemer. Ved bruk av Wiimotes kommer man også godt under 1000 NOK. Systemet fungerer og gir en virtuell virkelighetsfølelse. Videre er den enkel å bruke og konfigurere.
 
 \section{Videre arbeid}
 	
@@ -125,3 +145,8 @@
 	Headsettet bør forbedres slik at LEDsene lyser i alle retninger og slik at batteriet varer lenger. En løsning kan være å koble til en Wii sensorbar til et batteripakke på hodet. Sensorbaren har flere LEDs samlet sammen pekende i en fane utover. Dette gir god spredning og kraftig lysstyrke.
 	
 	Et forslag til hvordan konseptet kan dras videre er å montere mange (4-10) Wiimotes rundt i et stort rom og beregne hodeposisjonen ut fra alle dataene disse fanger opp. Så lenge minst to av disse ser lyset vil det være nok for å beregne dets posisjon. Om flere ser lyset vil estimeringen bare bli mer nøyaktig. Ved å f.eks. plassere Wiimotesene i hjørnene vil hele rommet være dekket, og man har full frihet til å bevege seg.
+	
+	Hvis man har en stereoskopisk skjerm, kan dette benyttes til å gi en mye bedre dybdefølelse enn hva som gis av illusjonsdemonstrasjonen.
+	En annen mulighet er å bruke en stereoskopisk skjerm til å la to spillere spille samtidig. Ved at den ene spilleren bruker briller
+	med annen polarisering enn den andre spilleren kan begge få et individuelt perspektiv i spillet. En mulighet er å bruke trianguleringsmodus,
+	slik at begge spillerne har et infrarødt lys hver på hodet som trackes uavhengig.
