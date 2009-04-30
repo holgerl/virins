@@ -20,6 +20,12 @@
     En av målsetningene til prosjektgruppa var å produsere en eller flere demonstrasjonsprogrammer
     som viser hvordan hodetracking kan brukes.
     \subsubsection{Illusjonen}
+        \begin{figure}[h]
+	\centering
+	\includegraphics[width=0.80\textwidth]{graphics/Illusjonen.jpg}
+	\caption{Illustrasjon illusjon}
+	\label{fig:illusjon}
+	\end{figure}
     Johnny Chung demonstrerer i en video på youtube
     hvordan man kan få et objekt til å tilsynelatende bryte skjermflaten og sveve ut i rommet foran skjermen.
     Denne illusjonen ble gjenskapt i produktet. Hvordan denne effekten oppstår kan kanskje en psykolog forklare
@@ -29,20 +35,17 @@
     I demonstrasjonen tegnes en linje fra bakveggen i rommet til objektet, sammenligner man denne linjen med linjene
     i grid-rommet vil man se at linjen til objektet later til å være lenger, og dette forsterker inntrykket av at
     objektet er lenger ut i rommet enn skjermflaten. 
-    Følgende ligninger brukes for å regne ut et nærmere nærplan. Se også figur \ref{figur}.
+    Følgende ligninger brukes for å regne ut et nærmere nærplan. Se også figur \ref{fig:illusjon}.
     Definer $d$ som dybden til ønsket nærplan.
+
+	
     \begin{eqnarray}
     &p_{min} = d\frac{b-x}{z}\\
     &p_{max} = d\frac{a-x}{z}
     \end{eqnarray}
     For y-aksen gjelder figur og ligninger med x utbyttet med y.
 
-	\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.80\textwidth]{graphics/Illusjonen.jpg}
-	\caption{Illustrasjon illusjon}
-	\label{fig:illusjon}
-	\end{figure}
+
 	
 	\subsubsection{Spillet}
 	For å få en engasjerende og morsom demonstrasjon valgte vi å implementere et spill som består av et virtuelt rom
