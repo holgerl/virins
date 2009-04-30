@@ -99,19 +99,19 @@
     og betraktningsretningen endres.  Den andre, glFrustum, modifiserer projeksjonsmatrisen slik at
     man får en perspektivprojeksjon. Perspektivprojeksjonen bestemmes av dybden til nærplanet/klippeplanet
     samt koordinatene til et rektangel på nærplanet.
-
+	    \begin{figure}[h]
+	    \centering
+	    \includegraphics[width=0.80\textwidth]{graphics/Perspektivkorreksjon.jpg}
+	    \caption{Perspektivkorreksjon}
+	    \label{fig:perspektivkorreksjon}
+	    \end{figure}
     I korte trekk flyttes "øyet" til hodeposisjonen, og betraktningsretningen settes til å være vinkelrett på
     skjermplanet, det vil si at det virtuelle kamerat/øyet ikke roterer(et vindu vil ikke rotere om man ser på det fra en annen vinkel).
     Så endres perspektivprojeksjonen, slik at hjørnekoordinatene på rektangelet på nærplanet sammenfaller med hjørnekoordinatene til
     et virtuelt grid-rom. 
 
-    De følgende ligningene benyttes for å korrigere perspektivet(regne ut koordinatene til nærplanet) når øyet er flyttet til posisjonen x,y,z. Figur \ref{figur} viser denne sammenhengen.
-	    \begin{figure}[h]
-	    \centering
-	    \includegraphics[width=0.80\textwidth]{graphics/Perspektivkorreksjon.jpg}
-	    \caption{Perspektivkorreksjon}
-	    \label{fig:hdmi}
-	    \end{figure}
+    De følgende ligningene benyttes for å korrigere perspektivet(regne ut koordinatene til nærplanet) når øyet er flyttet til posisjonen x,y,z. Figur \ref{fig:perspektivkorreksjon} viser denne sammenhengen.
+
     \begin{eqnarray}
     &p_{min} = b-x\\
     &p_{max} = a-x
