@@ -1,6 +1,6 @@
 rem USAGE: Set the texfile and aux-dir parameters below to the name of the tex files to compile and the directory where auxiliry files should be put. The file name is without .tex postfix and the aux directory needs to exist in beforehand.
 
-set texfile=report
+set texfile=extended_abstract
 set aux-dir=aux-files
 
 if not exist %aux-dir% goto createAuxDir
