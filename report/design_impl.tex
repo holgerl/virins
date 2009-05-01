@@ -1,6 +1,6 @@
 \section{Design av løsningen}
 
-	\subsection{Overordnet design (Holger)}
+	\subsection{Overordnet design}
 	
 		\begin{figure}[h]
 		\centering
@@ -17,7 +17,7 @@
 
 		\begin{figure}[h]
 		\centering
-		\includegraphics[width=\textwidth]{graphics/circuit.jpg}
+		\includegraphics[width=0.75\textwidth]{graphics/circuit.jpg}
 		\caption{Kretskjema for LED-headset}
 		\label{fig:circuit}
 		\end{figure}
@@ -128,7 +128,7 @@
 	
 		Progamvaren består av punktfinneren, posisjonsfinneren og 3D-viseren. De er alle skrevet i Java, men 3D-viseren bruker et bibliotek implementert i C for selve visning av 3D-grafikken. I denne seksjonen kommer vi til å presentere hvordan programvaren i løsningen er strukturert.
 		
-		\subsubsection{Punktfinneren (Holger)}
+		\subsubsection{Punktfinneren}
 		
 			Figur \ref{fig:holger_class} viser et klassediagram av punktfinneren. CameraHeadTracker (CHT) er den viktigste klassen. Det er denne som tilbyr punktfinne-funksjonaliteten ovenfor resten av systemet. Denne arver fra SingleSourceHeadTracker, som igjen arver fra HeadTracker. CHT bruker TrackingUtil for å gjøre oppgaven sin, og inneholder TrackedPoint-instanser for punktene som spores. TrackingUtil tilbyr nyttefulle funksjoner i forbindelse med finning og sporing av punkter.
 			
@@ -141,7 +141,7 @@
 			\label{fig:holger_class}
 			\end{figure}
 		
-		\subsubsection{Posisjonsfinneren og 3D-viseren (Vegar)}
+		\subsubsection{Posisjonsfinneren og 3D-viseren}
 		
 			Figur \ref{fig:vegar_class} viser et klassediagram av posisjonsfinneren og 3D-viseren.
 		
@@ -169,6 +169,6 @@
 			
 			Wiimotesene kommuniserer gjennom Bluetooth-nettverk. For å snakke med disse bruker vi et Java-bibliotek kalt BlueCove. Dette tilbyr et grensesnitt for å sende og ta imot meldinger gjennom Bluetooth.
 		
-		\subsubsection{Kjørbar distribusjon (Vegar)}
+		\subsubsection{Kjørbar distribusjon}
 		
 			En kjørbar jar(java archive)-fil lages og pakkes med de nødvendige biblioteker, samt en konfigurasjonsfil headtracker.properties for å konfigurere parametre som påvirker trackingen. Dette skal gjøre det enkelt å få kjørt en demonstrasjon av produktet, uten å ha kjennskap til biblioteker og kompilering.
