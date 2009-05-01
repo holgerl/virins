@@ -14,7 +14,10 @@
 \titleformat{\section}{\bfseries\Large}{\thesection}{1em}{}
 \titlespacing{\section}{0pt}{6pt}{3pt}
 
-\title{Inexpensive VR - Team 4 EiT}
+\title{%\includegraphics[width=0.33\textwidth]{graphics/ntnu.png}\\
+	%\vspace{0.1in}
+	\bf Inexpensive VR - Team 4 EiT
+	}
 \author{Holger Ludvigsen, Vegar Neshaug, Rahele Zarabi, Jon Skarpeteig, Kristoffer Selboe}
 \date{}
 
@@ -23,11 +26,7 @@
 
 As a part of the course Experts in Team (EiT) at NTNU, five students were put in a group to collaborate on a project. This team (us) was a part of the virtual reality village of EiT, and came up with the following problem statement:
 
-\addtolength{\parskip}{-0.05in}
-
-\begin{center}
-	\em How can you make an affordable and usable prototype for head tracking to be used for virtual reality?
-\end{center}
+{\em How can you make an affordable and usable prototype for head tracking to be used for virtual reality?}
 
 We solved this problem by first doing a preliminary study followed by design and implementation of the solution. In the preliminary study, several technical and theoretical subjects were investigated. The mathematics behind estimation of object position from pictures were elaborated.
 
@@ -41,7 +40,7 @@ We looked at the available technology for connecting a high definition camera to
 
 	\begin{figure}[h]
 		\centering
-		\includegraphics[width=0.3\textwidth]{graphics/wiimote2.png}
+		\includegraphics[width=0.25\textwidth]{graphics/wiimote2.png}
 		\caption{A Nintento Wiimote controller}
 	\end{figure}
 
@@ -75,7 +74,7 @@ We looked at the available technology for connecting a high definition camera to
 	
 	\begin{figure}[h]
 		\centering
-		\includegraphics[width=0.45\textwidth]{graphics/hdcam.jpg}
+		\includegraphics[width=0.3\textwidth]{graphics/hdcam.jpg}
 		\caption{Panasonic HDC-SD9}
 	\end{figure}
 
@@ -83,9 +82,11 @@ We looked at the available technology for connecting a high definition camera to
 	
 	We ended up with an adaptive solution. In addition to using the high definition camera connected to a PC by HDMI, one can use a Nintendo Wiimote by wireless Bluetooth network. Even {\em two} Wiimotes can be used for improved tracking. The system follows the requirements and design specifications. It provides virtual reality by tracking the position of the user's head and displaying a 3D-scene on a screen in front of the user. The viewpoint in this scene is moved to match the position of the head. This creates the sensation of looking into a real room through the sceen.
 	
-	As for weaknesses of the system, we mention that the high definition camera turned out to show a latency of about half a second before its images being available to read. In short, the camera is not meant for real time video capture. Further, the LED-headset we constructed is flawed when it comes to handling rotation of the head and battery life time.
+	A head moves by rotation and translation, or yaw, pitch, roll, left/right, up/down or forward/back, which sums up to six degrees of freedom (6DOF). Head tracking refers to the estimation of rotation, translation or both, usually based on optical sensors like cameras and infrared lights. The system can be compared to the commercial TrackIR \cite{trackir} or the freely available FreeTrack \cite{freetrack}.
+
+	The solution proposed here calculates head translation and thus provides 3DOF head tracking. This is sufficient since virtual reality, by accurate 3D perspective projection, is only dependant on head translation. However, depending on which mode the system is in, which can be either one optical sensor mode or two optical sensors mode, the user will still have 5DOF and 6DOF movement respectively. 
 	
-	When it comes to strengths, we would like to point out that the high definition of the camera makes it possible to detect movement even far away from the camera. The possibility of using two Wiimotes for tracking gives the advantage of only one light being needed on the head on the user, which makes the tracking rotation invariant. The solution is adaptive, portable and reusable. It is adaptive because of its many configuration options. It is portable because of being written in the system indepented language Java. And it is reusable because of being split into components with low coupling between themselves.
+	Two demonstration applications showing the use of head tracking and accurate 3D perspective projection are included in the solution. The first demonstration application shows how an illusion of objects breaking the surface in the screen can be achieved using head tracking, giving a very immersive experience. The second demonstration is an equally or even more immersive game, where the player must avoid obstacles hurdled towards him, by ducking, jumping and dodging side-to-side.
 
 \section{Conclusion}
 	
@@ -94,5 +95,8 @@ We looked at the available technology for connecting a high definition camera to
 \section{Acknowledgements}
 
 	We would like to thank virtual reality village chief Egil Tjåland for an inspiring enthusiasm. Thorvald Natvig and Knut Bakke are to be thanked for their technical assistance. And the EiT learning assistants are appreciated for their guidance and facilitation.
+	
+\bibliographystyle{plain}
+\bibliography{literature}
 
 \end{document}

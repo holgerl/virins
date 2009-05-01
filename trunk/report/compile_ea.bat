@@ -13,8 +13,8 @@ goto make
 :make
 
 pdflatex %texfile% -aux-directory=%aux-dir%
-rem bibtex %aux-dir%/%texfile%
+bibtex %aux-dir%/%texfile%
 pdflatex %texfile%.tex -aux-directory=%aux-dir% > aux-files/latex_printout.log
-rem pdflatex %texfile%.tex -aux-directory=%aux-dir% > aux-files/latex_printout.log
+pdflatex %texfile%.tex -aux-directory=%aux-dir% > aux-files/latex_printout.log
 
 %texfile%.pdf
