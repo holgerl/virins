@@ -1,0 +1,26 @@
+The head moves by rotation and translation, or
+yaw, pitch, roll, left/right, up/down or forward/back, which sums up to six degrees of freedom(6DOF).
+Head tracking refers to the estimation of rotation, translation or both, usually based on 
+optical sensors like cameras and infrared lights.
+
+TrackIR\ref{trackir} is a commercial product by NaturalPoint for headtracking, costing 700-1050NOK, which provides 6DOF head tracking.
+The algorithm for head tracking is stated by TrackIR to be proprietary and not disclosed to the public. TrackIR only supports the Microsoft Windows operating system.
+
+FreeTrack is a free optical motion tracking application for Microsoft Windows\ref{freetrack}. The software uses
+a webcam for head tracking with the user wearing for example a cap inrared lights. FreeTrack provides 2DOF or 6DOF head tracking.
+The algorithms for head tracking used in FreeTrack are Dementhon's four point algorithm\ref{dementhon}, and Alter's three point algorithm\ref{alter}
+
+The typical use of the two software packages is playing flight- or racing simulator games
+to look around in the cockpit or out the side windows by rotating the head. 
+This use of head tracking does not use accurate 3D-perspective projection, partly because it is
+necessary for the virtual eye to move or rotate much more than the players head in order for the player to always see the screen, referred to as movement scaling.
+
+The solution proposed here calculates head translation and thus provides 3DOF head tracking. 
+This is sufficient since virtual reality, by accurate 3D perspective projection, is only dependant on head translation.
+However, depending on which mode the system is in, which can be either one optical sensor mode or two optical sensors mode,
+the user will still have 5DOF and 6DOF movement respectively. 
+
+Two demonstration applications showing the use of head tracking and accurate 3D perspective projection are included in the solution.
+The first demonstration application shows how an illusion of objects breaking the surface in the screen can be achieved using head tracking,
+giving a very immersive experience. The second demonstration is an equally or even more immersive game, where the player must avoid
+obstacles hurdled towards him, by ducking, jumping and dodging side-to-side.
