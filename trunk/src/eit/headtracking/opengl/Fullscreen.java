@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package eit.headtracking;
+package eit.headtracking.opengl;
 
 import java.awt.DisplayMode;
 import java.awt.Frame;

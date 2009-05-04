@@ -5,11 +5,21 @@
 
 package eit.headtracking;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author vegar
  */
-public interface HeadTracker {
+public abstract class HeadTracker {
+    public HeadTracker() {
+    }
     public abstract void start();
     public abstract void stop();
     public abstract void calibrate();
