@@ -1,4 +1,4 @@
-package eit.headtracking;
+package eit.headtracking.opengl;
 
 import com.sun.opengl.util.texture.Texture;
 import com.sun.opengl.util.texture.TextureIO;

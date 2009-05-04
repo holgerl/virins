@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -19,7 +20,10 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -35,6 +39,25 @@ import javax.swing.event.ChangeListener;
  * @author vegar
  */
 public class Test extends JPanel implements WindowListener, ActionListener, KeyListener, ChangeListener, Runnable {
+
+    public static void main(String args[]) throws ClassNotFoundException, InstantiationException, IllegalAccessException, FileNotFoundException, IOException {
+                File file = new File("headtracking.properties");
+        FileInputStream fis = new FileInputStream("headtracking.properties");
+        Properties prop = new Properties(System.getProperties());
+        prop.load(fis);
+        System.setProperties(prop);
+        fis.close();
+        HeadTracker head = (HeadTracker) Class.forName(System.getProperty("eit.headtracking.headtracker")).newInstance();
+        Test test = new Test(head);
+        while(true) {
+            test.repaint();
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 
     HeadTracker head;
     BufferedImage image;
@@ -117,9 +140,9 @@ public class Test extends JPanel implements WindowListener, ActionListener, KeyL
             if (arg0.getSource() == zSlider) {
                 h.headZ = zSlider.getValue() / 50.0;
             } else if (arg0.getSource() == xSlider) {
-                h.headX = xSlider.getValue() / 50.0;
+                h.headX = xSlider.getValue() / 100.0;
             } else if (arg0.getSource() == ySlider) {
-                h.headY = ySlider.getValue() / 50.0;
+                h.headY = ySlider.getValue() / 100.0;
             }
         }
 

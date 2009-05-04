@@ -8,7 +8,7 @@ package eit.headtracking;
  *
  * @author vegar
  */
-public abstract class DualSourceHeadTracker implements HeadTracker {
+public abstract class DualSourceHeadTracker extends HeadTracker {
     protected double XMAX = 1024;
     protected double YMAX = 768;
     protected double leftOffsetRadians = Math.PI / 2.0;
@@ -21,6 +21,10 @@ public abstract class DualSourceHeadTracker implements HeadTracker {
     protected double relativeVerticalAngle;
     protected Point leftPoint = new Point();
     protected Point rightPoint = new Point();
+    private boolean cameraIsAboveScreen = true;
+    private float cameraVerticalAngle;
+
+    protected boolean normalize = true;
 
     public DualSourceHeadTracker() {
         this.screenHeightInMM = Double.parseDouble(System.getProperty("eit.headtracking.screenheightmm"));
@@ -57,17 +61,35 @@ public abstract class DualSourceHeadTracker implements HeadTracker {
         double angle = Math.atan2(calibrationDistanceInMM, sourceDistanceInMM / 2.0);
         leftOffsetRadians = angle - radiansPerPixel * (double) (leftPoint.x);
         rightOffsetRadians = angle - radiansPerPixel * (double) (1024 - rightPoint.x);
+
+        angle = Math.acos(.5 / headZ) - Math.PI / 2;//angle of head to screen
+        if (!cameraIsAboveScreen) {
+            angle = -angle;
+        }
+        cameraVerticalAngle = (float) ((angle - relativeVerticalAngle));//absolute camera angle
+        System.out.println("Done calibrating");
     }
 
     protected void calculate() {
         if (leftPoint == null || rightPoint == null) {
             return;
         }
-        headZ = (sourceDistanceInMM / (1.0 / Math.tan(leftAngle()) + 1.0 / Math.tan(rightAngle()))) / screenHeightInMM;
+        headZ = sourceDistanceInMM / (1.0 / Math.tan(leftAngle()) + 1.0 / Math.tan(rightAngle()));
         double avgY = (leftPoint.y + rightPoint.y) / 2.0;
         relativeVerticalAngle = (avgY - YMAX/2) * radiansPerPixel;
-        headY = Math.sin(relativeVerticalAngle) * headZ;
-        headX = -(sourceDistanceInMM / (2.0 * screenHeightInMM) - headZ / Math.tan(leftAngle()));
+        headX = -(sourceDistanceInMM / (2.0) - headZ / Math.tan(leftAngle()));
+
+        if(cameraIsAboveScreen) {
+            headY = .5f + Math.sin(relativeVerticalAngle + cameraVerticalAngle) * headZ;
+        } else {
+            headY = Math.sin(relativeVerticalAngle + cameraVerticalAngle) * headZ;
+        }
+        if(normalize) {
+            headX /= screenHeightInMM;
+            headY /= screenHeightInMM;
+            headZ /= screenHeightInMM;
+        }
+        
     }
 
     public double leftAngle() {

@@ -8,7 +8,7 @@ package eit.headtracking;
  *
  * @author vegar
  */
-public abstract class SingleSourceHeadTracker implements HeadTracker {
+public abstract class SingleSourceHeadTracker extends HeadTracker {
     public double XMAX = 1024.0;
     public double YMAX = 768.0;
     protected static final int LEFT = 0;
@@ -17,10 +17,15 @@ public abstract class SingleSourceHeadTracker implements HeadTracker {
     protected double dotDistanceInMM = 8.5f * 25.4f;//width of the wii sensor bar
     protected double screenHeightinMM = 600.0f; // 7.5f * 25.4f; //Laptopskjermen min
     protected double radiansPerPixel = (float) (Math.PI / 4.0) / XMAX; //45 degree field of view with a 1024x768 camera
-    protected double movementScaling = 1.0f;
+    //protected double movementScaling = 1.0f;
+
     protected boolean cameraIsAboveScreen = true;
-    protected double relativeVerticalAngle;
-    protected double cameraVerticalAngle;
+    protected boolean normalize = true;
+
+    protected double cameraAngleOffset;
+    protected double beta;
+    //protected double cameraOffset = (cameraIsAboveScreen ? 1.0 : -1.0) * screenHeightinMM / 2.0;
+    protected double cameraOffset = 0;
     protected double headX,  headY,  headZ = 8.0;
     protected double rotX,  rotY,  rotZ;
     public Point[] point = new Point[3];
@@ -40,7 +45,7 @@ public abstract class SingleSourceHeadTracker implements HeadTracker {
         if (!cameraIsAboveScreen) {
             angle = -angle;
         }
-        cameraVerticalAngle = (float) ((angle - relativeVerticalAngle));//absolute camera angle
+        cameraAngleOffset = (float) ((angle - beta));//absolute camera angle
         System.out.println("Done calibrating");
     }
 
@@ -72,19 +77,53 @@ public abstract class SingleSourceHeadTracker implements HeadTracker {
         double dx = point[LEFT].x - point[LEFT + 1].x;
         double dy = point[LEFT].y - point[LEFT + 1].y;
         double pointDist = Math.sqrt(dx * dx + dy * dy);
-        double angle = radiansPerPixel * pointDist / 2.0;
+        double theta = radiansPerPixel * pointDist;
+        double alpha = radiansPerPixel * ((double)((point[LEFT].x + point[LEFT+1].x) - XMAX) / 2.0);
+        beta = radiansPerPixel * ((double)((point[LEFT].y + point[LEFT+1].y) - YMAX) / 2.0);
+        double r = (dotDistanceInMM/2.0) / Math.tan(theta/2.0);
+        headZ = r*Math.cos(alpha);
+        headX = r*Math.sin(alpha);
+        headY = cameraOffset + r*Math.sin(beta + cameraAngleOffset);   
+        if(normalize) {
+            headX /= screenHeightinMM;
+            headY /= screenHeightinMM;
+            headZ /= screenHeightinMM;
+        }
+    }
 
-        headZ = movementScaling * ((dotDistanceInMM / 2.0) / Math.tan(angle)) / screenHeightinMM;
-        double avgX = (point[LEFT].x + point[LEFT + 1].x) / 2.0f;
-        double avgY = (point[LEFT].y + point[LEFT + 1].y) / 2.0f;
+    public void calculateChung() {
+        double dx = point[LEFT].x - point[LEFT + 1].x;
+        double dy = point[LEFT].y - point[LEFT + 1].y;
+        double pointDist = Math.sqrt(dx * dx + dy * dy);
+        double theta = radiansPerPixel * pointDist;
+        double alpha = radiansPerPixel * ((double)((point[LEFT].x + point[LEFT+1].x) - XMAX) / 2.0);
+        beta = radiansPerPixel * ((double)((point[LEFT].y + point[LEFT+1].y) - YMAX) / 2.0);
+        double r = (dotDistanceInMM/2.0) / Math.tan(theta/2.0);
+        headZ = r*Math.cos(alpha);
+        headX = -r*Math.sin(alpha);
+        headY = cameraOffset + r*Math.sin(beta + cameraAngleOffset);
+        if(normalize) {
+            headX /= screenHeightinMM;
+            headY /= screenHeightinMM;
+            headZ /= screenHeightinMM;
+        }
+    }
 
-        headX = movementScaling * Math.sin(radiansPerPixel * (avgX - XMAX/2.0)) * headZ;
-        relativeVerticalAngle = (avgY - YMAX/2.0) * radiansPerPixel;//relative angle to camera axis
-
-        if (cameraIsAboveScreen) {
-            headY = .5f + (movementScaling * Math.sin(relativeVerticalAngle + cameraVerticalAngle) * headZ);
-        } else {
-            headY = -.5f + (movementScaling * Math.sin(relativeVerticalAngle + cameraVerticalAngle) * headZ);
+    public void calculateThreePoints() {
+        double dx = point[LEFT].x - point[RIGHT].x;
+        double dy = point[LEFT].y - point[RIGHT].y;
+        double theta = radiansPerPixel * Math.sqrt(dx * dx + dy * dy);
+        double alpha = radiansPerPixel * (double)(point[CENTER].x - XMAX/2.0);
+        double gamma = radiansPerPixel * (double)(point[RIGHT].x - XMAX/2.0);
+        beta = radiansPerPixel * (double)(point[CENTER].y - YMAX/2.0);
+        double r = (dotDistanceInMM/2.0) / Math.tan(theta/2.0);
+        headZ = r*Math.cos(alpha);
+        headX = r*Math.sin(alpha);
+        headY = cameraOffset + r*Math.sin(beta + cameraAngleOffset);
+        if(normalize) {
+            headX /= screenHeightinMM;
+            headY /= screenHeightinMM;
+            headZ /= screenHeightinMM;
         }
     }
 }
