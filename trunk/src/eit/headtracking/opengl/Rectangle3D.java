@@ -13,12 +13,13 @@ import javax.media.opengl.GL;
 public class Rectangle3D {
 
     public Vector3D pos;
-    public Vector3D vel = new Vector3D(0.0, 0.0, 0.02);
+    public Vector3D vel = new Vector3D(0.0, 0.0, 0.09);
     public Vector3D normal;
     public Vector3D orientation;
     public Vector3D cross;
     public double height;
     public double width;
+    float[] color = {(float)Math.random(), (float)Math.random(), (float)Math.random()};
 
     public Rectangle3D(Vector3D position, Vector3D normal, Vector3D orientation, double width, double height) {
         this.pos = position;
@@ -35,7 +36,7 @@ public class Rectangle3D {
         //Vector3D e_axis = sphere.pos.subtract(pos);
         Vector3D paral = normal.mult(ray.dot(normal));
         Vector3D perp = sphere.pos.add(paral).subtract(pos);
-        if(paral.magnitude() <= sphere.radius && (perp.dot(orientation) < width/2.0 + sphere.radius && perp.dot(cross) < height/2.0 + sphere.radius) ) {
+        if(paral.magnitude() <= sphere.radius && (Math.abs(perp.dot(orientation)) < width/2.0 + sphere.radius && Math.abs(perp.dot(cross)) < height/2.0 + sphere.radius) ) {
             System.out.println(perp.dot(orientation) + ", " + perp.dot(cross));
             return true;
         }
@@ -50,15 +51,15 @@ public class Rectangle3D {
     }
 
     public void draw(GL gl) {
-        Vector3D topright =  orientation.mult(width).add(cross.mult(height));
+        Vector3D topright =  orientation.mult(width/2.0).add(cross.mult(height/2.0));
         Vector3D bottomleft = topright.mult(-1);
-        Vector3D bottomright = orientation.mult(width).add(cross.mult(-height));
+        Vector3D bottomright = orientation.mult(width/2.0).add(cross.mult(-height/2.0));
         Vector3D topleft = bottomright.mult(-1);
         topright = topright.add(pos);
         bottomleft = bottomleft.add(pos);
         bottomright = bottomright.add(pos);
         topleft = topleft.add(pos);
-        gl.glColor3f(.5f, 0.5f, 1.0f);
+        gl.glColor3fv(color, 0);
         //System.out.println(topleft);
         //System.out.println(topright);
         //System.out.println(bottomright);

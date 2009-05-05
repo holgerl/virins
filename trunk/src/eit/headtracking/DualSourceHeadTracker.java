@@ -61,7 +61,7 @@ public abstract class DualSourceHeadTracker extends HeadTracker {
         double angle = Math.atan2(calibrationDistanceInMM, sourceDistanceInMM / 2.0);
         leftOffsetRadians = angle - radiansPerPixel * (double) (leftPoint.x);
         rightOffsetRadians = angle - radiansPerPixel * (double) (1024 - rightPoint.x);
-
+        calculate();
         angle = Math.acos(.5 / headZ) - Math.PI / 2;//angle of head to screen
         if (!cameraIsAboveScreen) {
             angle = -angle;
