@@ -4,6 +4,7 @@
  */
 package eit.headtracking.opengl;
 
+import java.awt.event.KeyEvent;
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLDrawable;
@@ -34,19 +35,21 @@ public class Illusion extends HeadTrackerDemo {
     public void display(GLAutoDrawable drawable) {
         super.display(drawable);
         GL gl = drawable.getGL();
-        gl.glScalef(screenAspect, 1, 1);
+       
         for (int i = 0; i < targets.length; i++) {
             gl.glColor3f(1.0f, 1.0f, 1.0f);
             gl.glBegin(GL.GL_LINES);
-            gl.glVertex3f(targets[i].x, targets[i].y, roomDepth);
-            gl.glVertex3f(targets[i].x, targets[i].y, targets[i].z);
+            gl.glVertex3d(targets[i].pos.x, targets[i].pos.y, roomDepth);
+            gl.glVertex3d(targets[i].pos.x, targets[i].pos.y, targets[i].pos.z);
             gl.glEnd();
             gl.glPushMatrix();
 
-            gl.glTranslatef(targets[i].x, targets[i].y, targets[i].z);
-            drawCube(gl, .02f);
+            gl.glTranslated(targets[i].pos.x, targets[i].pos.y, targets[i].pos.z);
+            targets[i].draw(gl);
+            //drawCube(gl, .02f);
             gl.glPopMatrix();
         }
+         gl.glScalef(screenAspect, 1, 1);
         drawGrid(gl);
         gl.glFlush();
     }
@@ -54,14 +57,20 @@ public class Illusion extends HeadTrackerDemo {
     public void randomizeTargets() {
 
         for (int i = 0; i < targets.length; i++) {
-            targets[i] = new Target();
-            targets[i].x = (.5f - random.nextFloat()) * screenAspect;
-            targets[i].y = .5f - random.nextFloat();
-            targets[i].z = 5.0f + random.nextFloat() * roomDepth;
-            if (targets[i].z > 0.0f) {
-                targets[i].x /= 3.0f;
-                targets[i].y /= 3.0f;
+            targets[i] = new Target(new Vector3D(
+                    (.5f - random.nextFloat()) * screenAspect,
+                    .5f - random.nextFloat(),
+                    (5.0f - roomDepth)*Math.random() + roomDepth));
+            if (targets[i].pos.z > 0.0f) {
+                targets[i].pos.x /= 3.0f;
+                targets[i].pos.y /= 3.0f;
             }
+        }
+    }
+    public void keyPressed(KeyEvent arg0) {
+        super.keyPressed(arg0);
+        if(arg0.getKeyCode() == KeyEvent.VK_SPACE) {
+            randomizeTargets();
         }
     }
 }

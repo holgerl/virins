@@ -35,7 +35,7 @@ import javax.swing.JFrame;
 
 public class HeadTrackerDemo extends JFrame implements GLEventListener, KeyListener {
 
-    private static Fullscreen fullscreen = new Fullscreen();
+    private static Fullscreen fullscreen;
     Random random = new Random();
     private Texture texture;
      HeadTracker head;
@@ -52,6 +52,7 @@ public class HeadTrackerDemo extends JFrame implements GLEventListener, KeyListe
 
     //GridRoom gridRoom = new GridRoom()
     public HeadTrackerDemo() {
+        System.out.println("HeadTrackerDemo");
         {
             FileInputStream fis = null;
             try {
@@ -103,7 +104,8 @@ public class HeadTrackerDemo extends JFrame implements GLEventListener, KeyListe
         });
         // Center frame
         setLocationRelativeTo(null);
-        //fullscreen.init(frame);
+        fullscreen = new Fullscreen();
+        fullscreen.init(this);
         setVisible(true);
 
         animator.start();
@@ -112,7 +114,10 @@ public class HeadTrackerDemo extends JFrame implements GLEventListener, KeyListe
     }
 
     public void init(GLAutoDrawable drawable) {
+        System.out.println("HeadTrackerdemo init gl");
         this.test = new Test(head);
+        //fullscreen = new Fullscreen();
+        //fullscreen.init(this);
         drawable.setGL(new DebugGL(drawable.getGL()));
         GL gl = drawable.getGL();
         System.err.println("INIT GL IS: " + gl.getClass().getName());
@@ -351,8 +356,8 @@ public class HeadTrackerDemo extends JFrame implements GLEventListener, KeyListe
         Texture text = null;
         try {
             text = TextureIO.newTexture(new File(fileName), false);
-            text.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_NEAREST);
-            text.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST);
+            text.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
+            text.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Error loading texture " + fileName);
@@ -387,7 +392,6 @@ public class HeadTrackerDemo extends JFrame implements GLEventListener, KeyListe
             head.calibrate();
         } else if (arg0.getKeyCode() == KeyEvent.VK_ESCAPE) {
             System.exit(0);
-        //System.exit(0);
         }
     }
 
