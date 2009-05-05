@@ -23,6 +23,7 @@ public abstract class DualSourceHeadTracker extends HeadTracker {
     protected Point rightPoint = new Point();
     private boolean cameraIsAboveScreen = true;
     private float cameraVerticalAngle;
+    private double xscale = 1.0;
 
     protected boolean normalize = true;
 
@@ -33,7 +34,7 @@ public abstract class DualSourceHeadTracker extends HeadTracker {
     }
 
     public float getHeadX() {
-        return (float) headX;
+        return (float) (xscale*headX);
     }
 
     public float getHeadY() {
@@ -61,7 +62,7 @@ public abstract class DualSourceHeadTracker extends HeadTracker {
         double angle = Math.atan2(calibrationDistanceInMM, sourceDistanceInMM / 2.0);
         leftOffsetRadians = angle - radiansPerPixel * (double) (leftPoint.x);
         rightOffsetRadians = angle - radiansPerPixel * (double) (1024 - rightPoint.x);
-        calculate();
+        //calculate();
         angle = Math.acos(.5 / headZ) - Math.PI / 2;//angle of head to screen
         if (!cameraIsAboveScreen) {
             angle = -angle;
@@ -98,5 +99,8 @@ public abstract class DualSourceHeadTracker extends HeadTracker {
 
     public double rightAngle() {
         return rightOffsetRadians + radiansPerPixel * (double) (XMAX - rightPoint.x);
+    }
+    public void setScaleX(double xscale) {
+        this.xscale = xscale;
     }
 }

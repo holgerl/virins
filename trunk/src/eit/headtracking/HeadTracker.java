@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author vegar
  */
-public abstract class HeadTracker {
+public abstract class HeadTracker {;
     public HeadTracker() {
     }
     public abstract void start();
@@ -34,4 +34,6 @@ public abstract class HeadTracker {
     public abstract float getRotY();
 
     public abstract float getRotZ();
+
+    public abstract void setScaleX(double xscale);
 }

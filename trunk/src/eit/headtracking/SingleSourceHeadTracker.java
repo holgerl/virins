@@ -29,6 +29,7 @@ public abstract class SingleSourceHeadTracker extends HeadTracker {
     protected double headX,  headY,  headZ = 8.0;
     protected double rotX,  rotY,  rotZ;
     public Point[] point = new Point[3];
+    protected double xscale;
 
     public SingleSourceHeadTracker() {
         this.screenHeightinMM = Double.parseDouble(System.getProperty("eit.headtracking.screenheightmm"));
@@ -50,7 +51,7 @@ public abstract class SingleSourceHeadTracker extends HeadTracker {
     }
 
     public float getHeadX() {
-        return (float) headX;
+        return (float)(xscale* headX);
     }
 
     public float getHeadY() {
@@ -89,5 +90,8 @@ public abstract class SingleSourceHeadTracker extends HeadTracker {
             headY /= screenHeightinMM;
             headZ /= screenHeightinMM;
         }
+    }
+    public void setScaleX(double xscale) {
+        this.xscale = xscale;
     }
 }

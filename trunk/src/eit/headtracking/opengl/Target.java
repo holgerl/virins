@@ -11,15 +11,19 @@ import javax.media.opengl.GL;
  * @author vegar
  */
 public class Target implements Drawable {
-    public float x,y,z;
+    public Vector3D pos;
+    public Target(Vector3D position) {
+        this.pos = position;
+    }
     public void draw(GL gl) {
-        drawTarget(gl, .01f);
+        drawTarget(gl, .05f);
     }
 
     void drawTarget(GL gl, double radius) {
         int n = 5;
         int c = 0;
-        float[][] colors = {{1.0f, 0.0f, 0.0f}, {1.0f, 1.0f, 1.0f}};
+        float[][] colors = {{.8f, 0.0f, 0.0f}, {0.3f, 0.3f, 0.3f}, {.1f, .1f, .1f}, {1.0f, 1.0f, 1.0f}};
+        //float[][] colors = {{1.0f, 1.0f, 1.0f}, {0.0f, 0.0f, 0.0f}};
         double step = radius / (double) n;
         for (int i = 0; i < n; i++) {
             gl.glColor3f(colors[c][0], colors[c][1], colors[c][2]);
