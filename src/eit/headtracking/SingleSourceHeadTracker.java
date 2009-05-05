@@ -82,44 +82,8 @@ public abstract class SingleSourceHeadTracker extends HeadTracker {
         beta = radiansPerPixel * ((double)((point[LEFT].y + point[LEFT+1].y) - YMAX) / 2.0);
         double r = (dotDistanceInMM/2.0) / Math.tan(theta/2.0);
         headZ = r*Math.cos(alpha);
-        headX = r*Math.sin(alpha);
-        headY = cameraOffset + r*Math.sin(beta + cameraAngleOffset);   
-        if(normalize) {
-            headX /= screenHeightinMM;
-            headY /= screenHeightinMM;
-            headZ /= screenHeightinMM;
-        }
-    }
-
-    public void calculateChung() {
-        double dx = point[LEFT].x - point[LEFT + 1].x;
-        double dy = point[LEFT].y - point[LEFT + 1].y;
-        double pointDist = Math.sqrt(dx * dx + dy * dy);
-        double theta = radiansPerPixel * pointDist;
-        double alpha = radiansPerPixel * ((double)((point[LEFT].x + point[LEFT+1].x) - XMAX) / 2.0);
-        beta = radiansPerPixel * ((double)((point[LEFT].y + point[LEFT+1].y) - YMAX) / 2.0);
-        double r = (dotDistanceInMM/2.0) / Math.tan(theta/2.0);
-        headZ = r*Math.cos(alpha);
         headX = -r*Math.sin(alpha);
-        headY = cameraOffset + r*Math.sin(beta + cameraAngleOffset);
-        if(normalize) {
-            headX /= screenHeightinMM;
-            headY /= screenHeightinMM;
-            headZ /= screenHeightinMM;
-        }
-    }
-
-    public void calculateThreePoints() {
-        double dx = point[LEFT].x - point[RIGHT].x;
-        double dy = point[LEFT].y - point[RIGHT].y;
-        double theta = radiansPerPixel * Math.sqrt(dx * dx + dy * dy);
-        double alpha = radiansPerPixel * (double)(point[CENTER].x - XMAX/2.0);
-        double gamma = radiansPerPixel * (double)(point[RIGHT].x - XMAX/2.0);
-        beta = radiansPerPixel * (double)(point[CENTER].y - YMAX/2.0);
-        double r = (dotDistanceInMM/2.0) / Math.tan(theta/2.0);
-        headZ = r*Math.cos(alpha);
-        headX = r*Math.sin(alpha);
-        headY = cameraOffset + r*Math.sin(beta + cameraAngleOffset);
+        headY = cameraOffset + r*Math.sin(beta + cameraAngleOffset);   
         if(normalize) {
             headX /= screenHeightinMM;
             headY /= screenHeightinMM;

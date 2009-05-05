@@ -41,7 +41,7 @@ public class HeadTrackerDemo extends JFrame implements GLEventListener, KeyListe
      HeadTracker head;
     private Test test;
     float screenAspect = 1.7f;
-    float roomDepth = -5.0f;
+    public float roomDepth = -5.0f;
     float roomWidth = -.5f;
     float roomHeight = -.5f;
     //FloatBuffer light = new
@@ -150,6 +150,7 @@ public class HeadTrackerDemo extends JFrame implements GLEventListener, KeyListe
         gl.glLoadIdentity();
         gl.glMatrixMode(GL.GL_MODELVIEW);
         gl.glLoadIdentity();
+        //gl.glScalef(screenAspect, 1, 1);
     }
 
     public void display(GLAutoDrawable drawable) {
