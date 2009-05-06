@@ -40,7 +40,7 @@ public class HeadTrackerDemo extends JFrame implements GLEventListener, KeyListe
     private Texture texture;
      HeadTracker head;
     private Test test;
-    float screenAspect = 1.7f;
+    public float screenAspect = 1.7f;
     public float roomDepth = -5.0f;
     float roomWidth = -.5f;
     float roomHeight = -.5f;

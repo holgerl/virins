@@ -37,6 +37,10 @@ public class Vector3D {
         return x*other.x + y*other.y + z*other.z;
    }
 
+   public double dot() {
+       return x*x + y*y + z*z;
+   }
+
    public Vector3D cross(Vector3D other) {
        return new Vector3D(y*other.z - z*other.y, z*other.x - x*other.z, x*other.y - y*other.x);
    }

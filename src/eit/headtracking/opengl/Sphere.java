@@ -24,7 +24,7 @@ public class Sphere {
         this.pos = position;
     }
     public boolean isIntersecting(Sphere other) {
-        return this.pos.subtract(other.pos).magnitude() <= radius + other.radius;
+        return this.pos.subtract(other.pos).dot() <= (radius + other.radius)*(radius + other.radius);
     }
 
     public void doCollision(Sphere other) {

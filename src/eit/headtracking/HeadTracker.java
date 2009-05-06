@@ -36,4 +36,5 @@ public abstract class HeadTracker {;
     public abstract float getRotZ();
 
     public abstract void setScaleX(double xscale);
+    public abstract void setScaleY(double yscale);
 }
