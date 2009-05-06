@@ -7,6 +7,7 @@ package eit.headtracking.opengl;
 import com.sun.opengl.util.GLUT;
 import com.sun.opengl.util.texture.Texture;
 import eit.headtracking.opengl.level.TestLevel;
+import java.awt.event.KeyEvent;
 import java.util.Iterator;
 import java.util.logging.Logger;
 import javax.media.opengl.GL;
@@ -26,6 +27,10 @@ public class DodgeGame extends HeadTrackerDemo {
     Level level;
     Rectangle3D[] obstacle;
     Texture texture;
+    int numPowFrames = 5;
+    int powFrame = 0;
+    boolean powDrawn = false;
+    boolean gameStarted = false;
 
     public static void main(String args[]) {
         System.out.println("DodgeGame starting");
@@ -47,32 +52,49 @@ public class DodgeGame extends HeadTrackerDemo {
     }
 
     public void drawPow(GL gl) {
+        if(powDrawn) return;
+        if(powFrame > 0) --powFrame; else powFrame = numPowFrames;
+        powDrawn = true;
+        gl.glPushMatrix();
+        gl.glColor3f(1.0f, 1.0f, 1.0f);
+        gl.glScalef(screenAspect, -1.0f, 1.0f);
         gl.glBegin(GL.GL_QUADS);
         		gl.glTexCoord2f(0.0f, 0.0f); gl.glVertex3f(-.5f, -.5f,  0.0f);	// Bottom Left Of The Texture and Quad
 		gl.glTexCoord2f(1.0f, 0.0f); gl.glVertex3f( .5f, -.5f,  0.0f);	// Bottom Right Of The Texture and Quad
 		gl.glTexCoord2f(1.0f, 1.0f); gl.glVertex3f( .5f,  .5f,  0.0f);	// Top Right Of The Texture and Quad
 		gl.glTexCoord2f(0.0f, 1.0f); gl.glVertex3f(-.5f,  .5f,  0.0f);	// Top Left Of The Texture and Quad
         gl.glEnd();
+        gl.glPopMatrix();
     }
 
     public void display(GLAutoDrawable drawable) {
+        GL gl = drawable.getGL();
+        super.display(drawable);
+        if(!gameStarted) {
+                           gl.glScalef(screenAspect, 1.0f, 1.0f);
+        drawGrid(gl);
+        return;
+        }
+        powDrawn = false;
         GLUT glut = new GLUT();
         //glut.glutSolidTorus()
         level.frame();
         player.pos.x = head.getHeadX();
         player.pos.y = head.getHeadY();
         player.pos.z = head.getHeadZ();
-        super.display(drawable);
-        GL gl = drawable.getGL();
-        gl.glScalef(screenAspect, 1.0f, 1.0f);
-        drawGrid(gl);
+        
+        
+
                 Iterator<Rectangle3D> itr = level.rectangles.iterator();
                 Rectangle3D r;
         while(itr.hasNext()) {
             r = itr.next();
             if(r.pos.z > 10.0) itr.remove();
             r.pos = r.pos.add(r.vel);
+            //gl.glPushMatrix();
+            //gl.glScalef(screenAspect, 1.0f, 1.0f);
             r.draw(gl);
+            //gl.glPopMatrix();
             if (r.isIntersecting(player)) {
                 drawPow(gl);
             }
@@ -99,6 +121,17 @@ public class DodgeGame extends HeadTrackerDemo {
             gl.glColor3fv(c.color,0);
             glut.glutSolidTorus(0.01, c.radius, 20, 20);
             gl.glPopMatrix();
+        }
+        if(powFrame > 0) {
+            drawPow(gl);
+        }
+                gl.glScalef(screenAspect, 1.0f, 1.0f);
+        drawGrid(gl);
+    }
+    public void keyPressed(KeyEvent arg0) {
+        super.keyPressed(arg0);
+        if(arg0.getKeyCode() == KeyEvent.VK_ENTER) {
+            gameStarted = true;
         }
     }
 }

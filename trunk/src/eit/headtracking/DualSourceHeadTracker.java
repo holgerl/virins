@@ -23,7 +23,8 @@ public abstract class DualSourceHeadTracker extends HeadTracker {
     protected Point rightPoint = new Point();
     private boolean cameraIsAboveScreen = true;
     private float cameraVerticalAngle;
-    private double xscale = 1.0;
+    protected double xscale = 1.0;
+    protected double yscale = 1.0;
 
     protected boolean normalize = true;
 
@@ -38,7 +39,7 @@ public abstract class DualSourceHeadTracker extends HeadTracker {
     }
 
     public float getHeadY() {
-        return (float) headY;
+        return (float)(yscale* headY);
     }
 
     public float getHeadZ() {
@@ -102,5 +103,8 @@ public abstract class DualSourceHeadTracker extends HeadTracker {
     }
     public void setScaleX(double xscale) {
         this.xscale = xscale;
+    }
+        public void setScaleY(double yscale) {
+        this.yscale = yscale;
     }
 }

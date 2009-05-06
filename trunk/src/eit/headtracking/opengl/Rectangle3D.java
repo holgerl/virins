@@ -36,7 +36,7 @@ public class Rectangle3D {
         //Vector3D e_axis = sphere.pos.subtract(pos);
         Vector3D paral = normal.mult(ray.dot(normal));
         Vector3D perp = sphere.pos.add(paral).subtract(pos);
-        if(paral.magnitude() <= sphere.radius && (Math.abs(perp.dot(orientation)) < width/2.0 + sphere.radius && Math.abs(perp.dot(cross)) < height/2.0 + sphere.radius) ) {
+        if(paral.dot() <= sphere.radius*sphere.radius && (Math.abs(perp.dot(orientation)) < width/2.0 + sphere.radius && Math.abs(perp.dot(cross)) < height/2.0 + sphere.radius) ) {
             System.out.println(perp.dot(orientation) + ", " + perp.dot(cross));
             return true;
         }
